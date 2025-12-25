@@ -41,8 +41,7 @@
 Mateenah Jahan$^{1}$, Diksha S Rathore$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.5em]
 \small{$^1$CSIR-Institute of Genomics and Integrative Biology (CSIR-IGIB), New Delhi, India}\\[0.3em]
 \small{$^*$Corresponding author: sherry.igib@csir.res.in}\\
-\small{$^\dagger$Research Supervisor}\\[0.3em]
-\small{First author contact: jahanmateenah55@gmail.com}\\[0.5em]
+\small{$^\dagger$Research Supervisor}\\[0.5em]
 \small{\textit{Research Trainee Final Submission -- CSIR-IGIB}}
 }
 
@@ -113,7 +112,7 @@ Secondary objectives included: (1) quantifying model robustness through extensiv
 
 This retrospective cohort study analyzed TCR repertoire data from 34 patients with locally advanced or metastatic basal cell carcinoma treated with checkpoint blockade immunotherapy. Patients were classified as responders (n=18) or non-responders (n=16) based on Response Evaluation Criteria in Solid Tumors (RECIST) version 1.1, with responders defined as achieving complete response (CR), partial response (PR), or stable disease (SD) lasting $\geq$6 months, and non-responders defined as progressive disease (PD) or SD $<$6 months.
 
-Blood samples were collected prior to initiation of immunotherapy for TCR sequencing. The near-balanced cohort design (18 responders, 16 non-responders) helps prevent severe class imbalance from confounding model training.
+Blood samples were collected prior to initiation of immunotherapy for TCR sequencing. The near-balanced cohort design (18 responders, 16 non-responders) helps prevent severe class imbalance from confounding model training. Patient and repertoire characteristics are summarized in Table~\ref{tab:patient_characteristics}.
 
 \begin{table}[H]
 \centering
@@ -234,7 +233,7 @@ The study cohort comprised 34 patients with locally advanced or metastatic basal
 \label{fig:cohort}
 \end{figure}
 
-Repertoire sizes varied substantially across patients (range: 1,786--12,272 sequences per patient), with responders showing slightly higher mean sequence counts (7,701 vs. 6,395). CDR3 length distributions were comparable between groups (mean: 14.45 $\pm$ 0.29 amino acids), consistent with productive, functional TCR sequences. V-gene and J-gene diversity was similar between responders and non-responders, with patients utilizing a mean of 47.2 unique V genes and 12.8 unique J genes.
+Repertoire sizes varied substantially across patients (range: 1,786--12,272 sequences per patient), with responders showing slightly higher mean sequence counts (7,701 vs. 6,395). CDR3 length distributions were comparable between groups (mean: 14.45 $\pm$ 0.29 amino acids), consistent with productive, functional TCR sequences. V-gene and J-gene diversity was similar between responders and non-responders, with patients utilizing a mean of 47.2 unique V genes and 12.8 unique J genes. Per-patient repertoire characteristics and prediction confidence are detailed in Figure~\ref{fig:s2}.
 
 \subsection{Model Performance}
 
@@ -254,7 +253,7 @@ The DeepTCR model achieved robust predictive performance across 100 Monte Carlo 
 \label{fig:performance}
 \end{figure}
 
-The narrow standard deviation (0.007) and tight confidence interval indicate highly consistent performance across random train-test splits, suggesting the model has learned generalizable patterns rather than overfitting to specific patient subsets.
+The narrow standard deviation (0.007) and tight confidence interval indicate highly consistent performance across random train-test splits, suggesting the model has learned generalizable patterns rather than overfitting to specific patient subsets. Complete performance metrics are provided in Table~\ref{tab:performance}, with detailed AUC distribution analysis in Figure~\ref{fig:s1}.
 
 \begin{table}[H]
 \centering
@@ -277,7 +276,7 @@ Number of Folds & 100 \\
 
 \subsection{Training Dynamics}
 
-Analysis of training dynamics across folds revealed consistent convergence behavior (Figure~\ref{fig:training}). Models typically achieved stable performance within 10 epochs, with early stopping preventing overfitting. The total training time for all 100 folds was 35 minutes on NVIDIA H100 GPU, demonstrating computational efficiency suitable for clinical deployment.
+Analysis of training dynamics across folds revealed consistent convergence behavior (Figure~\ref{fig:training}). Models typically achieved stable performance within 10 epochs, with early stopping preventing overfitting. The total training time for all 100 folds was 35 minutes on NVIDIA H100 GPU, demonstrating computational efficiency suitable for clinical deployment. Detailed computational performance metrics including GPU memory utilization are provided in Figure~\ref{fig:s4}.
 
 \begin{figure}[H]
 \centering
@@ -307,7 +306,7 @@ The interpretability provided by attention weights enables biological investigat
 
 \subsection{Gene Usage Patterns}
 
-Analysis of V-gene and J-gene usage revealed differential patterns between responders and non-responders (Figure~\ref{fig:gene_usage}). Several V-gene families showed significant enrichment in responder repertoires, potentially reflecting shared tumor antigen recognition.
+Analysis of V-gene and J-gene usage revealed differential patterns between responders and non-responders (Figure~\ref{fig:gene_usage}). Several V-gene families showed significant enrichment in responder repertoires, potentially reflecting shared tumor antigen recognition. Detailed J-gene usage analysis is provided in Figure~\ref{fig:s3}.
 
 \begin{figure}[H]
 \centering
