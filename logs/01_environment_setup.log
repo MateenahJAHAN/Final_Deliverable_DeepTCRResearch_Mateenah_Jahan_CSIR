@@ -1,0 +1,46 @@
+================================================================================
+DEEPTCR ENVIRONMENT SETUP LOG
+================================================================================
+Timestamp: 2025-12-25 00:05:45
+
+--------------------------------------------------------------------------------
+PYTHON VERSION
+--------------------------------------------------------------------------------
+Python 3.10.12
+Full version: 3.10.12 (main, Aug 15 2025, 14:32:43) [GCC 11.4.0]
+
+--------------------------------------------------------------------------------
+SYSTEM INFORMATION
+--------------------------------------------------------------------------------
+OS: Linux
+Version: #43~22.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep 19 23:28:27 UTC 2
+Machine: x86_64
+Processor: x86_64
+
+--------------------------------------------------------------------------------
+INSTALLED PACKAGES
+--------------------------------------------------------------------------------
+pandas: 1.5.3
+numpy: 1.23.5
+matplotlib: 3.7.2
+seaborn: 0.12.2
+scikit-learn: 1.2.2
+openpyxl: 3.1.5
+
+--------------------------------------------------------------------------------
+PROJECT DIRECTORIES
+--------------------------------------------------------------------------------
+Data (Raw): EXISTS
+  Path: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_raw
+Data (Processed): EXISTS
+  Path: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_processed
+Figures: EXISTS
+  Path: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/figures
+Results: EXISTS
+  Path: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results
+Logs: EXISTS
+  Path: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/logs
+Models: EXISTS
+  Path: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/models
+Scripts: EXISTS
+  Path: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/scripts

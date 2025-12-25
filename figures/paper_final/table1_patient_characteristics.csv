@@ -1,0 +1,10 @@
+Characteristic,Value
+Total patients,34
+Responders,17 (50%)
+Non-responders,17 (50%)
+Total TCR sequences,"239,637"
+Sequences per patient (mean),7048
+Sequences per patient (range),"1,786 - 12,272"
+CDR3 length (mean),14.46 ± 1.79
+Unique V genes,50
+Unique J genes,13

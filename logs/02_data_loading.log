@@ -1,0 +1,45 @@
+================================================================================
+DATA LOADING AND TRB EXTRACTION LOG
+================================================================================
+Timestamp: 2025-12-25 00:05:49
+
+--------------------------------------------------------------------------------
+INPUT DATA
+--------------------------------------------------------------------------------
+File: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_raw/deeptcr_complete_dataset (5).csv
+Rows: 239,637
+Columns: 10
+
+--------------------------------------------------------------------------------
+PROCESSING STEPS
+--------------------------------------------------------------------------------
+1. Loaded complete dataset (TRA + TRB)
+2. Extracted TRB chain data only
+3. Renamed columns for DeepTCR compatibility
+4. Added sequenceStatus = 'In'
+5. Added count (templates/reads) = 1
+6. Calculated frequencyCount (%) per patient
+
+--------------------------------------------------------------------------------
+OUTPUT DATA
+--------------------------------------------------------------------------------
+File: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_processed/deeptcr_trb_ready.csv
+Rows: 239,637
+Columns: 10
+Patients: 34
+Responders: 18 patients
+Non-responders: 16 patients
+
+--------------------------------------------------------------------------------
+COLUMN NAMES
+--------------------------------------------------------------------------------
+ 1. barcode
+ 2. aminoAcid
+ 3. vGeneName
+ 4. jGeneName
+ 5. patient_id
+ 6. response
+ 7. response_binary
+ 8. sequenceStatus
+ 9. count (templates/reads)
+10. frequencyCount (%)

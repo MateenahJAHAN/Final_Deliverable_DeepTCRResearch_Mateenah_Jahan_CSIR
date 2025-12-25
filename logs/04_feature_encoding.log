@@ -1,0 +1,29 @@
+================================================================================
+FEATURE ENCODING LOG
+================================================================================
+Timestamp: 2025-12-25 00:06:11
+
+--------------------------------------------------------------------------------
+ENCODING PARAMETERS
+--------------------------------------------------------------------------------
+Amino acid alphabet: ACDEFGHIKLMNPQRSTVWY
+Max sequence length: 40
+Unique V genes: 50
+Unique J genes: 13
+Total features: 863
+
+--------------------------------------------------------------------------------
+OUTPUT ARRAYS
+--------------------------------------------------------------------------------
+X_onehot: (239637, 863), float32
+y_labels: (239637,), int32
+patient_ids: (239637,)
+X_test_batch: (200, 863)
+
+--------------------------------------------------------------------------------
+FILES CREATED
+--------------------------------------------------------------------------------
+1. /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_processed/X_onehot.npy
+2. /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_processed/y_labels.npy
+3. /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_processed/patient_ids.npy
+4. /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/data_processed/X_test_batch.npy
