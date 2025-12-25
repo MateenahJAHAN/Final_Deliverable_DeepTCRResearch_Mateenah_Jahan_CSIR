@@ -38,8 +38,12 @@
 \title{\textbf{Deep Learning Analysis of T-Cell Receptor Repertoires Predicts Immunotherapy Response in Basal Cell Carcinoma}}
 
 \author{
-Research Team\\
-\small{Correspondence: [corresponding author email]}
+Mateenah Jahan$^{1}$, Diksha S Rathore$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.5em]
+\small{$^1$CSIR-Institute of Genomics and Integrative Biology (CSIR-IGIB), New Delhi, India}\\[0.3em]
+\small{$^*$Corresponding author: sherry.igib@csir.res.in}\\
+\small{$^\dagger$Research Supervisor}\\[0.3em]
+\small{First author contact: jahanmateenah55@gmail.com}\\[0.5em]
+\small{\textit{Research Trainee Final Submission -- CSIR-IGIB}}
 }
 
 \date{\today}
@@ -366,13 +370,35 @@ This approach combines three desirable properties for clinical translation: (1) 
 \section*{Acknowledgments}
 %==============================================================================
 
-The authors acknowledge computational resources provided by Lambda Labs H100 GPU infrastructure. We thank the patients who contributed samples to this study.
+We gratefully acknowledge the \textbf{Lambda Labs GPU Grant Program} for providing access to NVIDIA H100 80GB GPU infrastructure, which was essential for training the deep learning models in this study.
+
+This work was supported by the \textbf{CSIR-Institute of Genomics and Integrative Biology (CSIR-IGIB)}, New Delhi, India. M.J. acknowledges support as a Research Trainee in the Deep Learning/Machine Learning for Genomic Analysis program.
+
+We acknowledge the use of AI-assisted development tools during this research: \textbf{Claude Code} \citep{anthropic2025claudecode}, an agentic coding tool by Anthropic, and \textbf{OpenAI Codex} \citep{chen2021codex} were used to assist with code development, debugging, and optimization of the analysis pipeline.
+
+We thank the developers of the \textbf{DeepTCR} framework \citep{sidhom2021deeptcr} for making their software openly available. M.J. contributed to the DeepTCR project by assisting with the upgrade to Python 3.10 and TensorFlow 2.12 (version 2.1.28), as acknowledged in the official DeepTCR repository (\url{https://github.com/sidhomj/DeepTCR}).
+
+We thank the patients who contributed samples to this study.
 
 %==============================================================================
-\section*{Data Availability}
+\section*{Code and Data Availability}
 %==============================================================================
 
-The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. Processed data and analysis code are available upon reasonable request to the corresponding author.
+All code, trained models, and analysis scripts developed in this study are publicly available on GitHub:
+
+\begin{center}
+\url{https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR}
+\end{center}
+
+The repository includes:
+\begin{itemize}
+    \item Complete analysis pipeline (Python scripts)
+    \item Trained model checkpoints from 100-fold Monte Carlo cross-validation
+    \item Figure generation scripts
+    \item LaTeX source files for this manuscript
+\end{itemize}
+
+The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. The processed TCR dataset used in this study is included in the repository.
 
 %==============================================================================
 % References

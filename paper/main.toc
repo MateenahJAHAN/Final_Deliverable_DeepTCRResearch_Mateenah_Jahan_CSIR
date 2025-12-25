@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Cancer Immunotherapy and Predictive Biomarkers}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}T-Cell Receptor Biology and Repertoire Analysis}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Deep Learning for TCR Repertoire Classification}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Study Objectives}{4}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Methods}{5}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Study Design and Patient Cohort}{5}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}TCR Sequencing and Data Processing}{5}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Feature Engineering and Encoding}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}DeepTCR Architecture}{6}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Training Configuration}{7}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Monte Carlo Cross-Validation}{7}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Statistical Analysis}{8}{subsection.2.7}%
+\contentsline {section}{\numberline {3}Results}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Cohort Characteristics}{8}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Model Performance}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Training Dynamics}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Attention Analysis}{11}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Gene Usage Patterns}{12}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Discussion}{12}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Principal Findings}{12}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Comparison with Existing Biomarkers}{13}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Biological Implications}{13}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Limitations}{13}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Future Directions}{14}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Conclusion}{14}{section.5}%

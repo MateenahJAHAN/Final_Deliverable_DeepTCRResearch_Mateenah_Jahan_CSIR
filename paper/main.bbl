@@ -1,0 +1,240 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[{Anthropic}(2025)]{anthropic2025claudecode}
+{Anthropic}.
+\newblock Claude code: Agentic coding tool for software development.
+\newblock \url{https://docs.anthropic.com/en/docs/claude-code}, 2025.
+\newblock Accessed: December 2025.
+
+\bibitem[Bahdanau et~al.(2015)Bahdanau, Cho, and Bengio]{bahdanau2015neural}
+Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio.
+\newblock Neural machine translation by jointly learning to align and
+  translate.
+\newblock \emph{arXiv preprint arXiv:1409.0473}, 2015.
+\newblock URL \url{https://arxiv.org/abs/1409.0473}.
+\newblock Published at ICLR 2015.
+
+\bibitem[Bonilla et~al.(2016)Bonilla, Parmentier, King, Bezrukov, Kber, Stuber,
+  Letourneau, Sima, Radi, Pereira, et~al.]{bonilla2016genomic}
+Ximena Bonilla, Laurent Parmentier, Bryan King, Fedor Bezrukov, Gaetan Kber,
+  Florian Stuber, Alexandre Letourneau, Alicia Sima, Osman Radi, Sara Pereira,
+  et~al.
+\newblock Genomic analysis identifies new drivers and progression pathways in
+  skin basal cell carcinoma.
+\newblock \emph{Nature Genetics}, 48\penalty0 (4):\penalty0 398--406, 2016.
+\newblock \doi{10.1038/ng.3525}.
+
+\bibitem[Chen et~al.(2021)Chen, Tworek, Jun, Yuan, de~Oliveira~Pinto, Kaplan,
+  Edwards, Burda, Joseph, Brockman, et~al.]{chen2021codex}
+Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique~Pond{\'e}
+  de~Oliveira~Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph,
+  Greg Brockman, et~al.
+\newblock Evaluating large language models trained on code.
+\newblock \emph{arXiv preprint arXiv:2107.03374}, 2021.
+\newblock \doi{10.48550/arXiv.2107.03374}.
+\newblock URL \url{https://arxiv.org/abs/2107.03374}.
+
+\bibitem[Dash et~al.(2017)Dash, Fiore-Gartland, Hertz, Wang, Sharma, Souquette,
+  Crawford, Clemens, Nguyen, Kedzierska, et~al.]{dash2017quantifiable}
+Pradyot Dash, Andrew~J Fiore-Gartland, Tomer Hertz, George~C Wang, Shalini
+  Sharma, Aisha Souquette, Jeremy~Chase Crawford, E~Bridie Clemens, Thi~HO
+  Nguyen, Katherine Kedzierska, et~al.
+\newblock Quantifiable predictive features define epitope-specific t cell
+  receptor repertoires.
+\newblock \emph{Nature}, 547\penalty0 (7661):\penalty0 89--93, 2017.
+\newblock \doi{10.1038/nature22383}.
+
+\bibitem[Davis and Bjorkman(1988)]{davis1988t}
+Mark~M Davis and Pamela~J Bjorkman.
+\newblock T-cell antigen receptor genes and t-cell recognition.
+\newblock \emph{Nature}, 334\penalty0 (6181):\penalty0 395--402, 1988.
+\newblock \doi{10.1038/334395a0}.
+
+\bibitem[Dietterich et~al.(1997)Dietterich, Lathrop, and
+  Lozano-P{\'e}rez]{dietterich1997solving}
+Thomas~G Dietterich, Richard~H Lathrop, and Tom{\'a}s Lozano-P{\'e}rez.
+\newblock Solving the multiple instance problem with axis-parallel rectangles.
+\newblock \emph{Artificial Intelligence}, 89\penalty0 (1-2):\penalty0 31--71,
+  1997.
+\newblock \doi{10.1016/S0004-3702(96)00034-3}.
+
+\bibitem[Glanville et~al.(2017)Glanville, Huang, Nau, Hatton, Wagar, Rubelt,
+  Ji, Han, Krams, Pettus, et~al.]{glanville2017identifying}
+Jacob Glanville, Huang Huang, Allison Nau, Olivia Hatton, Lisa~E Wagar, Florian
+  Rubelt, Xuhuai Ji, Arnold Han, Sheri~M Krams, Christina Pettus, et~al.
+\newblock Identifying specificity groups in the t cell receptor repertoire.
+\newblock \emph{Nature}, 547\penalty0 (7661):\penalty0 94--98, 2017.
+\newblock \doi{10.1038/nature22976}.
+
+\bibitem[Greiff et~al.(2015)Greiff, Miho, Menzel, and
+  Reddy]{greiff2015bioinformatic}
+Victor Greiff, Enkelejda Miho, Ulrike Menzel, and Sai~T Reddy.
+\newblock Bioinformatic and statistical analysis of adaptive immune
+  repertoires.
+\newblock \emph{Trends in Immunology}, 36\penalty0 (11):\penalty0 738--749,
+  2015.
+\newblock \doi{10.1016/j.it.2015.09.006}.
+
+\bibitem[Ilse et~al.(2018)Ilse, Tomczak, and Welling]{ilse2018attention}
+Maximilian Ilse, Jakub Tomczak, and Max Welling.
+\newblock Attention-based deep multiple instance learning.
+\newblock In \emph{International Conference on Machine Learning}, volume~80 of
+  \emph{Proceedings of Machine Learning Research}, pages 2127--2136. PMLR,
+  2018.
+\newblock URL \url{https://proceedings.mlr.press/v80/ilse18a.html}.
+
+\bibitem[LeCun et~al.(2015)LeCun, Bengio, and Hinton]{lecun2015deep}
+Yann LeCun, Yoshua Bengio, and Geoffrey Hinton.
+\newblock Deep learning.
+\newblock \emph{Nature}, 521\penalty0 (7553):\penalty0 436--444, 2015.
+\newblock \doi{10.1038/nature14539}.
+
+\bibitem[Mamedov et~al.(2013)Mamedov, Britanova, Zvyagin, Turchaninova,
+  Bolotin, Putintseva, Lebedev, and Chudakov]{mamedov2013preparing}
+Ilgar~Z Mamedov, Olga~V Britanova, Ivan~V Zvyagin, Maria~A Turchaninova,
+  Dmitriy~A Bolotin, Ekaterina~V Putintseva, Yuri~B Lebedev, and Dmitriy~M
+  Chudakov.
+\newblock Preparing unbiased t-cell receptor and antibody cdna libraries for
+  the deep next generation sequencing profiling.
+\newblock \emph{Frontiers in Immunology}, 4:\penalty0 456, 2013.
+\newblock \doi{10.3389/fimmu.2013.00456}.
+
+\bibitem[Migden et~al.(2018)Migden, Rischin, Schmults, Guminski, Hauschild,
+  Lewis, Chung, Hernandez-Aya, Lim, Chang, et~al.]{migden2018pd}
+Michael~R Migden, Danny Rischin, Chrysalyne~D Schmults, Alexander Guminski,
+  Axel Hauschild, Karl~D Lewis, Christine~H Chung, Leonel Hernandez-Aya,
+  Andrea~M Lim, Anne Lynn~S Chang, et~al.
+\newblock {PD}-1 blockade with cemiplimab in advanced cutaneous squamous-cell
+  carcinoma.
+\newblock \emph{New England Journal of Medicine}, 379\penalty0 (4):\penalty0
+  341--351, 2018.
+\newblock \doi{10.1056/NEJMoa1805131}.
+
+\bibitem[Patel and Kurzrock(2015)]{patel2015pd}
+Sandip~Pravin Patel and Razelle Kurzrock.
+\newblock {PD-L1} expression as a predictive biomarker in cancer immunotherapy.
+\newblock \emph{Molecular Cancer Therapeutics}, 14\penalty0 (4):\penalty0
+  847--856, 2015.
+\newblock \doi{10.1158/1535-7163.MCT-14-0983}.
+
+\bibitem[Postow et~al.(2015)Postow, Manuel, Wong, Yuan, Dong, Liu, Perez,
+  Tanneau, Noel, Courtier, et~al.]{postow2015peripheral}
+Michael~A Postow, Mariana Manuel, Phillip Wong, Jianda Yuan, Zhiqiang Dong,
+  Cailian Liu, Stephanie Perez, Isabelle Tanneau, Magalie Noel, Anne Courtier,
+  et~al.
+\newblock Peripheral t cell receptor diversity is associated with clinical
+  outcomes following ipilimumab treatment in metastatic melanoma.
+\newblock \emph{Journal for ImmunoTherapy of Cancer}, 3\penalty0 (1):\penalty0
+  23, 2015.
+\newblock \doi{10.1186/s40425-015-0070-4}.
+
+\bibitem[Ribas and Wolchok(2018)]{ribas2018cancer}
+Antoni Ribas and Jedd~D Wolchok.
+\newblock Cancer immunotherapy using checkpoint blockade.
+\newblock \emph{Science}, 359\penalty0 (6382):\penalty0 1350--1355, 2018.
+\newblock \doi{10.1126/science.aar4060}.
+
+\bibitem[Robins et~al.(2009)Robins, Campregher, Srivastava, Wacher, Turtle,
+  Kahsai, Riddell, Warren, and Carlson]{robins2009comprehensive}
+Harlan~S Robins, Paulo~V Campregher, Santosh~K Srivastava, Abigail Wacher,
+  Cameron~J Turtle, Orsalem Kahsai, Stanley~R Riddell, Edus~H Warren, and
+  Christopher~S Carlson.
+\newblock Comprehensive assessment of t-cell receptor $\beta$-chain diversity
+  in $\alpha\beta$ t cells.
+\newblock \emph{Blood}, 114\penalty0 (19):\penalty0 4099--4107, 2009.
+\newblock \doi{10.1182/blood-2009-04-217604}.
+
+\bibitem[Rossjohn et~al.(2015)Rossjohn, Gras, Miles, Turner, Godfrey, and
+  McCluskey]{rossjohn2015t}
+Jamie Rossjohn, Stephanie Gras, John~J Miles, Stephen~J Turner, Dale~I Godfrey,
+  and James McCluskey.
+\newblock T cell antigen receptor recognition of antigen-presenting molecules.
+\newblock \emph{Annual Review of Immunology}, 33:\penalty0 169--200, 2015.
+\newblock \doi{10.1146/annurev-immunol-032414-112334}.
+
+\bibitem[Samstein et~al.(2019)Samstein, Lee, Shoushtari, Hellmann, Shen,
+  Janjigian, Barron, Zehir, Jordan, Omuro, et~al.]{samstein2019tumor}
+Robert~M Samstein, Chung-Han Lee, Alexander~N Shoushtari, Matthew~D Hellmann,
+  Ronglai Shen, Yelena~Y Janjigian, David~A Barron, Ahmet Zehir, Emmet~J
+  Jordan, Antonio Omuro, et~al.
+\newblock Tumor mutational load predicts survival after immunotherapy across
+  multiple cancer types.
+\newblock \emph{Nature Genetics}, 51\penalty0 (2):\penalty0 202--206, 2019.
+\newblock \doi{10.1038/s41588-018-0312-8}.
+
+\bibitem[Sharma et~al.(2017)Sharma, Hu-Lieskovan, Wargo, and
+  Ribas]{sharma2017primary}
+Padmanee Sharma, Siwen Hu-Lieskovan, Jennifer~A Wargo, and Antoni Ribas.
+\newblock Primary, adaptive, and acquired resistance to cancer immunotherapy.
+\newblock \emph{Cell}, 168\penalty0 (4):\penalty0 707--723, 2017.
+\newblock \doi{10.1016/j.cell.2017.01.017}.
+
+\bibitem[Sidhom et~al.(2021)Sidhom, Larman, Pardoll, and
+  Baras]{sidhom2021deeptcr}
+John-William Sidhom, H~Benjamin Larman, Drew~M Pardoll, and Alexander~S Baras.
+\newblock {DeepTCR} is a deep learning framework for revealing sequence
+  concepts within t-cell repertoires.
+\newblock \emph{Nature Communications}, 12\penalty0 (1):\penalty0 1605, 2021.
+\newblock \doi{10.1038/s41467-021-21879-w}.
+
+\bibitem[Stratigos et~al.(2020)Stratigos, Garbe, Dessinioti, Lebbe, Bataille,
+  Bastholt, Dreno, Fargnoli, Forsea, Frenard, et~al.]{stratigos2021european}
+Alexander~J Stratigos, Claus Garbe, Clio Dessinioti, Celeste Lebbe, Veronique
+  Bataille, Lars Bastholt, Brigitte Dreno, Maria~Concetta Fargnoli, Ana-Maria
+  Forsea, Camille Frenard, et~al.
+\newblock European interdisciplinary guideline on invasive squamous cell
+  carcinoma of the skin: Part 2. treatment.
+\newblock \emph{European Journal of Cancer}, 128:\penalty0 83--102, 2020.
+\newblock \doi{10.1016/j.ejca.2020.01.008}.
+
+\bibitem[Topalian et~al.(2015)Topalian, Drake, and Pardoll]{topalian2015immune}
+Suzanne~L Topalian, Charles~G Drake, and Drew~M Pardoll.
+\newblock Immune checkpoint blockade: a common denominator approach to cancer
+  therapy.
+\newblock \emph{Cancer Cell}, 27\penalty0 (4):\penalty0 450--461, 2015.
+\newblock \doi{10.1016/j.ccell.2015.03.001}.
+
+\bibitem[Tumeh et~al.(2014)Tumeh, Harview, Yearley, Shintaku, Taylor, Robert,
+  Chmielowski, Spasic, Henry, Ciobanu, et~al.]{tumeh2014pd}
+Paul~C Tumeh, Christina~L Harview, Jennifer~H Yearley, I~Peter Shintaku,
+  Emma~JM Taylor, Lidia Robert, Bartosz Chmielowski, Marko Spasic, Gina Henry,
+  Voicu Ciobanu, et~al.
+\newblock {PD}-1 blockade induces responses by inhibiting adaptive immune
+  resistance.
+\newblock \emph{Nature}, 515\penalty0 (7528):\penalty0 568--571, 2014.
+\newblock \doi{10.1038/nature13954}.
+
+\bibitem[Vaswani et~al.(2017)Vaswani, Shazeer, Parmar, Uszkoreit, Jones, Gomez,
+  Kaiser, and Polosukhin]{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N Gomez, {\L}ukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~30, pages 5998--6008, 2017.
+\newblock URL
+  \url{https://papers.nips.cc/paper/7181-attention-is-all-you-need}.
+
+\bibitem[Yarchoan et~al.(2017)Yarchoan, Hopkins, and Jaffee]{yarchoan2017tumor}
+Mark Yarchoan, Alexander Hopkins, and Elizabeth~M Jaffee.
+\newblock Tumor mutational burden and response rate to {PD}-1 inhibition.
+\newblock \emph{New England Journal of Medicine}, 377\penalty0 (25):\penalty0
+  2500--2501, 2017.
+\newblock \doi{10.1056/NEJMc1713444}.
+
+\bibitem[Zhang et~al.(2020)Zhang, Ma, Schonnesen, Zhang, He, Sun, Williams,
+  Jain, Bhattacharya, Fang-Landau, et~al.]{zhang2018investigation}
+Shu-Qi Zhang, Ke-Yue Ma, Alexandra~A Schonnesen, Mingliang Zhang, Chenglong He,
+  Eric Sun, Chad~M Williams, Anish Jain, Biplab Bhattacharya, Victoria
+  Fang-Landau, et~al.
+\newblock Investigation of antigen-specific t-cell receptor clusters in human
+  cancers.
+\newblock \emph{Clinical Cancer Research}, 26\penalty0 (6):\penalty0
+  1359--1371, 2020.
+\newblock \doi{10.1158/1078-0432.CCR-19-3249}.
+
+\end{thebibliography}
