@@ -231,7 +231,7 @@ PID_FILE = os.path.join(DATA_PROCESSED, "patient_ids.npy")
 
 X_onehot = np.load(X_FILE)
 y_labels = np.load(Y_FILE)
-patient_ids = np.load(PID_FILE)
+patient_ids = np.load(PID_FILE, allow_pickle=True)
 
 print(f"✅ Loaded numpy arrays:")
 print(f"   X_onehot: {X_onehot.shape}")
