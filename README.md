@@ -227,7 +227,7 @@ BATCH_SIZE = 512  # or 256
 - `logs/training_optimized.log` - Training log
 
 ### Metrics
-- **AUC:** ~0.72-0.73 (72-73% discrimination ability)
+- **AUC:** 0.776 ± 0.007 (SD), range: 0.758-0.788
 - **Cross-validation:** 100 independent train/test splits
 
 ---

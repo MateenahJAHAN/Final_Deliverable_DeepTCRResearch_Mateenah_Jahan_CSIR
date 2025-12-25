@@ -1,0 +1,74 @@
+2025-12-25 06:00:28.857290: I tensorflow/core/util/port.cc:110] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-12-25 06:00:28.900452: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI AVX512_BF16 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-12-25 06:00:29.442789: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+================================================================================
+DEEPTCR MONTE CARLO CROSS-VALIDATION TRAINING - SCRIPT 06
+================================================================================
+Execution started at: 2025-12-25 06:00:28
+
+--------------------------------------------------------------------------------
+TRAINING CONFIGURATION
+--------------------------------------------------------------------------------
+
+⚙️  TRAINING PARAMETERS:
+   Monte Carlo folds: 100
+   Test set size: 25%
+   Minimum epochs: 10
+   Batch size: 1024
+   Network size: large
+   Use genes: True
+
+⏱️  ESTIMATED RUNTIME:
+   Per fold: ~15 minutes
+   Total (100 folds): ~25.0 hours
+
+⚠️  WARNING: 100 folds will take a long time!
+   Consider starting with 10 folds for initial testing
+   Edit NUM_FOLDS in this script to change
+
+--------------------------------------------------------------------------------
+SECTION 1: IMPORTING DEEPTCR
+--------------------------------------------------------------------------------
+✅ DeepTCR_SS imported successfully
+
+--------------------------------------------------------------------------------
+SECTION 2: LOADING DATA
+--------------------------------------------------------------------------------
+
+Loading processed data files...
+✅ CSV loaded: 239,637 sequences
+✅ Labels loaded: (239637,)
+✅ Patient IDs loaded: (239637,)
+
+--------------------------------------------------------------------------------
+SECTION 3: PREPARING DATA FOR DEEPTCR
+--------------------------------------------------------------------------------
+
+Extracting sequences and genes...
+⚠️  Filtering 3 sequences longer than 40 AA (0.001%)
+✅ Data prepared:
+   Beta sequences: 239,634
+   V genes: 239,634
+   J genes: 239,634
+   Labels: (239634, 1)
+   Unique patients: 34
+
+   Label distribution:
+   - Non-Responder (0): 108,711 (45.4%)
+   - Responder (1): 130,923 (54.6%)
+
+--------------------------------------------------------------------------------
+SECTION 4: INITIALIZING DEEPTCR MODEL
+--------------------------------------------------------------------------------
+
+Initializing DeepTCR model...
+   Project name: DeepTCR_MonteCarlo_100folds_20251225_060036
+   Save location: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/models/DeepTCR_MonteCarlo_100folds_20251225_060036
+✅ Model initialized successfully
+
+--------------------------------------------------------------------------------
+SECTION 5: LOADING DATA INTO DEEPTCR
+--------------------------------------------------------------------------------
+
+Loading data into DeepTCR model...

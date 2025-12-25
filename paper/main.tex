@@ -56,7 +56,7 @@ Mateenah Jahan$^{1}$, Diksha S Rathore$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.
 
 \noindent\textbf{Methods:} We analyzed 239,637 TCR-beta sequences from 34 patients with basal cell carcinoma treated with checkpoint blockade immunotherapy (18 responders, 16 non-responders). Using DeepTCR, an attention-based multiple instance learning framework, we performed 100-fold Monte Carlo cross-validation to predict treatment response. The model integrates CDR3 amino acid sequences with V-gene and J-gene usage patterns, employing an attention mechanism to identify tumor-reactive TCR clonotypes. Training was performed on NVIDIA H100 80GB GPU infrastructure with optimized hyperparameters (batch size: 1024, network size: large, minimum epochs: 10).
 
-\noindent\textbf{Results:} Our deep learning model achieved robust predictive performance with a mean area under the receiver operating characteristic curve (AUC) of $0.776 \pm 0.007$ (95\% CI: 0.775--0.777, range: 0.758--0.788, median: 0.778) across 100 independent train-test splits. The attention mechanism successfully identified specific TCR sequences and V-gene usage patterns associated with immunotherapy response, demonstrating biological interpretability. Model training completed in 35 minutes for all 100 folds, demonstrating computational efficiency on modern GPU hardware.
+\noindent\textbf{Results:} Our deep learning model achieved robust predictive performance with a mean area under the receiver operating characteristic curve (AUC) of $0.776 \pm 0.007$ (SD) across 100 Monte Carlo cross-validation folds (range: 0.758--0.788, median: 0.778). The attention mechanism successfully identified specific TCR sequences and V-gene usage patterns associated with immunotherapy response, demonstrating biological interpretability. Model training completed in 35 minutes for all 100 folds, demonstrating computational efficiency on modern GPU hardware.
 
 \noindent\textbf{Conclusions:} TCR repertoire analysis using attention-based deep learning provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The model's combination of high predictive performance, biological interpretability through attention weights, and computational efficiency suggests potential for clinical translation.
 
@@ -240,8 +240,7 @@ Repertoire sizes varied substantially across patients (range: 1,786--12,272 sequ
 The DeepTCR model achieved robust predictive performance across 100 Monte Carlo cross-validation folds (Figure~\ref{fig:performance}):
 
 \begin{itemize}
-    \item \textbf{Mean AUC:} 0.776 $\pm$ 0.007
-    \item \textbf{95\% Confidence Interval:} 0.775--0.777
+    \item \textbf{Mean AUC:} 0.776 $\pm$ 0.007 (SD)
     \item \textbf{Median AUC:} 0.778
     \item \textbf{Range:} 0.758--0.788
 \end{itemize}
@@ -253,7 +252,7 @@ The DeepTCR model achieved robust predictive performance across 100 Monte Carlo 
 \label{fig:performance}
 \end{figure}
 
-The narrow standard deviation (0.007) and tight confidence interval indicate highly consistent performance across random train-test splits, suggesting the model has learned generalizable patterns rather than overfitting to specific patient subsets. Complete performance metrics are provided in Table~\ref{tab:performance}, with detailed AUC distribution analysis in Figure~\ref{fig:s1}.
+The narrow standard deviation (0.007) and tight range (0.758--0.788) indicate highly consistent performance across random train-test splits, suggesting the model has learned generalizable patterns rather than overfitting to specific patient subsets. Complete performance metrics are provided in Table~\ref{tab:performance}, with detailed AUC distribution analysis in Figure~\ref{fig:s1}.
 
 \begin{table}[H]
 \centering
@@ -265,10 +264,10 @@ The narrow standard deviation (0.007) and tight confidence interval indicate hig
 \midrule
 Mean AUC & 0.776 \\
 Standard Deviation & 0.007 \\
-95\% Confidence Interval & 0.775--0.777 \\
 Median AUC & 0.778 \\
 Minimum AUC & 0.758 \\
 Maximum AUC & 0.788 \\
+Range & 0.029 \\
 Number of Folds & 100 \\
 \bottomrule
 \end{tabular}
@@ -321,7 +320,7 @@ Analysis of V-gene and J-gene usage revealed differential patterns between respo
 
 \subsection{Principal Findings}
 
-This study demonstrates that attention-based deep learning analysis of pre-treatment TCR repertoires can predict immunotherapy response in basal cell carcinoma with clinically meaningful accuracy. The achieved AUC of $0.776 \pm 0.007$ (95\% CI: 0.775--0.777) represents robust predictive performance that compares favorably with existing biomarkers such as PD-L1 expression and tumor mutational burden.
+This study demonstrates that attention-based deep learning analysis of pre-treatment TCR repertoires can predict immunotherapy response in basal cell carcinoma with clinically meaningful accuracy. The achieved AUC of $0.776 \pm 0.007$ (SD) across 100 Monte Carlo folds represents robust predictive performance that compares favorably with existing biomarkers such as PD-L1 expression and tumor mutational burden.
 
 Several aspects of our findings merit emphasis. First, the model achieved consistent performance across 100 independent cross-validation folds, with a narrow standard deviation of 0.007. This consistency suggests that DeepTCR has learned generalizable patterns from TCR repertoires rather than overfitting to idiosyncratic features of specific patients or train-test splits.
 
@@ -361,7 +360,7 @@ Functional validation of high-attention TCR sequences through peptide-MHC bindin
 \section{Conclusion}
 %==============================================================================
 
-We have demonstrated that attention-based deep learning analysis of TCR repertoires provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The DeepTCR model achieved an AUC of $0.776 \pm 0.007$ (95\% CI: 0.775--0.777) across 100 Monte Carlo cross-validation folds, with attention weights identifying specific TCR sequences associated with treatment response.
+We have demonstrated that attention-based deep learning analysis of TCR repertoires provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The DeepTCR model achieved an AUC of $0.776 \pm 0.007$ (SD) across 100 Monte Carlo cross-validation folds (range: 0.758--0.788), with attention weights identifying specific TCR sequences associated with treatment response.
 
 This approach combines three desirable properties for clinical translation: (1) predictive accuracy comparable to or exceeding existing biomarkers, (2) biological interpretability through attention-based sequence identification, and (3) computational efficiency enabling real-time prediction. These findings support further development of TCR-based biomarkers for precision immunotherapy, with validation in larger cohorts as the critical next step toward clinical implementation.
 

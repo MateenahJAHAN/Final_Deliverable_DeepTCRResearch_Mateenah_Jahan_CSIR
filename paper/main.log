@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.12.25)  25 DEC 2025 05:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.12.25)  25 DEC 2025 06:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -730,7 +730,7 @@ File: ../figures/paper_final//figure4_model_performance.png Graphic file (type
 png)
 <use ../figures/paper_final//figure4_model_performance.png>
 Package pdftex.def Info: ../figures/paper_final//figure4_model_performance.png 
- used on input line 251.
+ used on input line 250.
 (pdftex.def)             Requested size: 452.9679pt x 193.34029pt.
 <../figures/paper_final//figure5_training_dynamics.png, id=301, 831.3459pt x 37
 0.2633pt>
@@ -738,7 +738,7 @@ File: ../figures/paper_final//figure5_training_dynamics.png Graphic file (type
 png)
 <use ../figures/paper_final//figure5_training_dynamics.png>
 Package pdftex.def Info: ../figures/paper_final//figure5_training_dynamics.png 
- used on input line 283.
+ used on input line 282.
 (pdftex.def)             Requested size: 452.9679pt x 201.74147pt.
 
 
@@ -756,7 +756,7 @@ File: ../figures/paper_final//figure6_attention_analysis.png Graphic file (type
  png)
 <use ../figures/paper_final//figure6_attention_analysis.png>
 Package pdftex.def Info: ../figures/paper_final//figure6_attention_analysis.png
-  used on input line 300.
+  used on input line 299.
 (pdftex.def)             Requested size: 452.9679pt x 205.53041pt.
 
 
@@ -774,7 +774,7 @@ inal//figure6_attention_analysis.png>]
 File: ../figures/paper_final//figure7_gene_usage.png Graphic file (type png)
 <use ../figures/paper_final//figure7_gene_usage.png>
 Package pdftex.def Info: ../figures/paper_final//figure7_gene_usage.png  used o
-n input line 313.
+n input line 312.
 (pdftex.def)             Requested size: 452.9679pt x 235.38925pt.
 
 
@@ -805,7 +805,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [14]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-80.
+79.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) (./main.bbl
@@ -850,7 +850,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 File: ../figures/paper_final//figureS1_auc_details.png Graphic file (type png)
 <use ../figures/paper_final//figureS1_auc_details.png>
 Package pdftex.def Info: ../figures/paper_final//figureS1_auc_details.png  used
- on input line 423.
+ on input line 422.
 (pdftex.def)             Requested size: 452.9679pt x 431.84302pt.
 <../figures/paper_final//figureS2_patient_analysis.png, id=392, 824.6007pt x 37
 0.2633pt>
@@ -858,7 +858,7 @@ File: ../figures/paper_final//figureS2_patient_analysis.png Graphic file (type
 png)
 <use ../figures/paper_final//figureS2_patient_analysis.png>
 Package pdftex.def Info: ../figures/paper_final//figureS2_patient_analysis.png 
- used on input line 431.
+ used on input line 430.
 (pdftex.def)             Requested size: 452.9679pt x 203.3912pt.
 
 
@@ -876,7 +876,7 @@ File: ../figures/paper_final//figureS3_jgene_analysis.png Graphic file (type pn
 g)
 <use ../figures/paper_final//figureS3_jgene_analysis.png>
 Package pdftex.def Info: ../figures/paper_final//figureS3_jgene_analysis.png  u
-sed on input line 439.
+sed on input line 438.
 (pdftex.def)             Requested size: 452.9679pt x 233.92976pt.
 <../figures/paper_final//figureS4_computational.png, id=402, 760.5213pt x 363.7
 59pt>
@@ -884,7 +884,7 @@ File: ../figures/paper_final//figureS4_computational.png Graphic file (type png
 )
 <use ../figures/paper_final//figureS4_computational.png>
 Package pdftex.def Info: ../figures/paper_final//figureS4_computational.png  us
-ed on input line 447.
+ed on input line 446.
 (pdftex.def)             Requested size: 452.9679pt x 216.65854pt.
 
 
@@ -930,7 +930,7 @@ ublic/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share
 mri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/
 fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.p
 fb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main.pdf (21 pages, 3502184 bytes).
+Output written on main.pdf (21 pages, 3502131 bytes).
 PDF statistics:
  511 PDF objects out of 1000 (max. 8388607)
  431 compressed objects within 5 object streams
