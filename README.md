@@ -187,6 +187,50 @@ lambda_deepTCR_deployement/
 
 ---
 
+## Key Figures
+
+### Figure 1: Data Processing Pipeline
+![Data Pipeline](figures/paper_final/figure1_pipeline.png)
+
+### Figure 2: DeepTCR Model Architecture
+![Model Architecture](figures/paper_final/figure2_architecture.png)
+
+### Figure 3: Patient Cohort Overview
+![Cohort Overview](figures/paper_final/figure3_cohort_overview.png)
+
+### Figure 4: Model Performance (ROC Curves)
+![Model Performance](figures/paper_final/figure4_model_performance.png)
+
+### Figure 5: Training Dynamics
+![Training Dynamics](figures/paper_final/figure5_training_dynamics.png)
+
+### Figure 6: Attention Weight Analysis
+![Attention Analysis](figures/paper_final/figure6_attention_analysis.png)
+
+### Figure 7: V/J Gene Usage Patterns
+![Gene Usage](figures/paper_final/figure7_gene_usage.png)
+
+---
+
+## Supplementary Figures
+
+### Figure S5: Attention Distribution
+![Attention Distribution](figures/paper_final/figureS5_attention_distribution.png)
+
+### Figure S6: Patient-Level Attention Heatmap
+![Attention Heatmap](figures/paper_final/figureS6_attention_heatmap.png)
+
+### Figure S7: Top 100 Predictive Sequences
+![Top Sequences](figures/paper_final/figureS7_top_sequences.png)
+
+### Figure S8: Responder vs Non-Responder Comparison
+![Responder Comparison](figures/paper_final/figureS8_responder_comparison.png)
+
+### Figure S9: Sequence Characteristics Analysis
+![Sequence Characteristics](figures/paper_final/figureS9_sequence_characteristics.png)
+
+---
+
 ## Training Performance (H100 GPU)
 
 | Configuration | Time/Fold | GPU Memory | Speedup |
