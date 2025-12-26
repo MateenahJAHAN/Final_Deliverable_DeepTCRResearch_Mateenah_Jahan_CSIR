@@ -1,0 +1,23 @@
+================================================================================
+ATTENTION WEIGHT EXTRACTION LOG
+================================================================================
+Execution time: 2025-12-26 13:28:13
+
+--------------------------------------------------------------------------------
+ATTENTION STATISTICS
+--------------------------------------------------------------------------------
+Total sequences: 239,634
+Unique patients: 34
+Mean attention: 0.00014188
+Median attention: 0.00008891
+Max attention: 0.004123
+High attention sequences: 2,379
+
+--------------------------------------------------------------------------------
+OUTPUT FILES
+--------------------------------------------------------------------------------
+All attention weights: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/attention_weights_all.csv
+Summary: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/attention_weights_summary.csv
+High attention: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/high_attention_sequences.csv
+Top 100: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/top_100_sequences.csv
+Patient stats: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/patient_attention_stats.csv

@@ -17,10 +17,12 @@
 \contentsline {subsection}{\numberline {3.3}Training Dynamics}{10}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}Attention Analysis}{11}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Gene Usage Patterns}{12}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Discussion}{12}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Principal Findings}{12}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Comparison with Existing Biomarkers}{13}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Biological Implications}{13}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Limitations}{13}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5}Future Directions}{14}{subsection.4.5}%
-\contentsline {section}{\numberline {5}Conclusion}{14}{section.5}%
+\contentsline {subsection}{\numberline {3.6}Top Predictive Sequences}{13}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Sequence Characteristics}{14}{subsection.3.7}%
+\contentsline {section}{\numberline {4}Discussion}{14}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Principal Findings}{14}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Comparison with Existing Biomarkers}{15}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Biological Implications}{15}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Limitations}{15}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Future Directions}{16}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Conclusion}{16}{section.5}%

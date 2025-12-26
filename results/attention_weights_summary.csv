@@ -1,0 +1,10 @@
+Metric,Value
+Total Sequences,239634.0
+Unique Patients,34.0
+Mean Attention,0.00014188303830007433
+Median Attention,8.890958505866181e-05
+Max Attention,0.004123065004940492
+Min Attention,2.7095965207065347e-10
+Std Attention,0.00017137212502280457
+High Attention Sequences,2379.0
+High Attention Threshold (%),1.0

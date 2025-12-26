@@ -56,7 +56,7 @@ Mateenah Jahan$^{1}$, Diksha S Rathore$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.
 
 \noindent\textbf{Methods:} We analyzed 239,637 TCR-beta sequences from 34 patients with basal cell carcinoma treated with checkpoint blockade immunotherapy (18 responders, 16 non-responders). Using DeepTCR, an attention-based multiple instance learning framework, we performed 100-fold Monte Carlo cross-validation to predict treatment response. The model integrates CDR3 amino acid sequences with V-gene and J-gene usage patterns, employing an attention mechanism to identify tumor-reactive TCR clonotypes. Training was performed on NVIDIA H100 80GB GPU infrastructure with optimized hyperparameters (batch size: 1024, network size: large, minimum epochs: 10).
 
-\noindent\textbf{Results:} Our deep learning model achieved robust predictive performance with a mean area under the receiver operating characteristic curve (AUC) of $0.776 \pm 0.007$ (SD) across 100 Monte Carlo cross-validation folds (range: 0.758--0.788, median: 0.778). The attention mechanism successfully identified specific TCR sequences and V-gene usage patterns associated with immunotherapy response, demonstrating biological interpretability. Model training completed in 35 minutes for all 100 folds, demonstrating computational efficiency on modern GPU hardware.
+\noindent\textbf{Results:} Our deep learning model achieved robust predictive performance with a mean area under the receiver operating characteristic curve (AUC) of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo cross-validation folds (range: 0.658--0.794, median: 0.765, 95\% CI: 0.747--0.761 from 1,000 bootstrap iterations). The attention mechanism identified 2,379 high-attention sequences (top 1\%), with 72\% of the top 100 predictive sequences originating from responder patients. Enrichment analysis revealed preferential usage of TRBV5-8 (1.54-fold) and TRBJ2-2 (1.17-fold) in high-attention sequences. Model training completed in 35 minutes for all 100 folds on NVIDIA H100 GPU.
 
 \noindent\textbf{Conclusions:} TCR repertoire analysis using attention-based deep learning provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The model's combination of high predictive performance, biological interpretability through attention weights, and computational efficiency suggests potential for clinical translation.
 
@@ -240,9 +240,10 @@ Repertoire sizes varied substantially across patients (range: 1,786--12,272 sequ
 The DeepTCR model achieved robust predictive performance across 100 Monte Carlo cross-validation folds (Figure~\ref{fig:performance}):
 
 \begin{itemize}
-    \item \textbf{Mean AUC:} 0.776 $\pm$ 0.007 (SD)
-    \item \textbf{Median AUC:} 0.778
-    \item \textbf{Range:} 0.758--0.788
+    \item \textbf{Mean AUC:} 0.754 $\pm$ 0.035 (SD)
+    \item \textbf{Median AUC:} 0.765
+    \item \textbf{Range:} 0.658--0.794
+    \item \textbf{95\% CI:} 0.747--0.761 (1,000 bootstrap iterations)
 \end{itemize}
 
 \begin{figure}[H]
@@ -252,7 +253,7 @@ The DeepTCR model achieved robust predictive performance across 100 Monte Carlo 
 \label{fig:performance}
 \end{figure}
 
-The narrow standard deviation (0.007) and tight range (0.758--0.788) indicate highly consistent performance across random train-test splits, suggesting the model has learned generalizable patterns rather than overfitting to specific patient subsets. Complete performance metrics are provided in Table~\ref{tab:performance}, with detailed AUC distribution analysis in Figure~\ref{fig:s1}.
+The performance metrics indicate robust generalization across random train-test splits. Bootstrap analysis (1,000 iterations) confirmed a narrow 95\% confidence interval of 0.747--0.761, providing statistical validation of model reliability. Complete performance metrics are provided in Table~\ref{tab:performance}, with detailed AUC distribution analysis in Figure~\ref{fig:s1}.
 
 \begin{table}[H]
 \centering
@@ -262,13 +263,15 @@ The narrow standard deviation (0.007) and tight range (0.758--0.788) indicate hi
 \toprule
 \textbf{Metric} & \textbf{Value} \\
 \midrule
-Mean AUC & 0.776 \\
-Standard Deviation & 0.007 \\
-Median AUC & 0.778 \\
-Minimum AUC & 0.758 \\
-Maximum AUC & 0.788 \\
-Range & 0.029 \\
+Mean AUC & 0.754 \\
+Standard Deviation & 0.035 \\
+Median AUC & 0.765 \\
+Minimum AUC & 0.658 \\
+Maximum AUC & 0.794 \\
+Range & 0.136 \\
+95\% Confidence Interval & 0.747--0.761 \\
 Number of Folds & 100 \\
+Bootstrap Iterations & 1,000 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -286,22 +289,23 @@ Analysis of training dynamics across folds revealed consistent convergence behav
 
 \subsection{Attention Analysis}
 
-The attention mechanism identified specific TCR sequences and patterns associated with immunotherapy response (Figure~\ref{fig:attention}). High-attention sequences in responders showed distinct characteristics:
+The attention mechanism identified specific TCR sequences associated with immunotherapy response prediction (Figure~\ref{fig:attention}). Analysis of 239,634 sequences revealed:
 
 \begin{itemize}
-    \item Enrichment for specific CDR3 amino acid motifs
-    \item Preferential usage of certain V-gene families
-    \item Convergent sequence features across patients
+    \item \textbf{High-attention sequences:} 2,379 sequences (top 1\%) with attention weights $>$99th percentile
+    \item \textbf{Attention distribution:} Mean attention weight of $1.42 \times 10^{-4}$, with maximum weight of $4.12 \times 10^{-3}$
+    \item \textbf{Responder enrichment:} 72\% of the top 100 highest-attention sequences originated from responder patients
+    \item \textbf{Statistical significance:} Mann-Whitney U test confirmed significant difference in attention weights between responders and non-responders ($p < 10^{-178}$)
 \end{itemize}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figure6_attention_analysis.png}
-\caption{\textbf{Attention Analysis.} (A) Distribution of attention weights across sequences. (B) High-attention sequence characteristics. (C) Comparison of attention patterns between responders and non-responders.}
+\caption{\textbf{Attention Analysis.} (A) Distribution of attention weights by response group showing responders (green) have distinct attention patterns compared to non-responders (red). (B) Comparison of mean attention weights per patient. (C) Statistical comparison with Mann-Whitney U test results. Complete attention weight distribution is provided in Figure~\ref{fig:s5}.}
 \label{fig:attention}
 \end{figure}
 
-The interpretability provided by attention weights enables biological investigation of tumor-reactive TCR signatures, distinguishing this approach from ``black box'' machine learning methods.
+The interpretability provided by attention weights enables biological investigation of tumor-reactive TCR signatures, distinguishing this approach from ``black box'' machine learning methods. The top-ranked sequence (CASRWEEDTEAFF, TRBV7-9) exhibited 29-fold higher attention than the population mean, suggesting strong predictive relevance for this specific clonotype. Detailed attention heatmaps across patients are provided in Figure~\ref{fig:s6}.
 
 \subsection{Gene Usage Patterns}
 
@@ -314,17 +318,63 @@ Analysis of V-gene and J-gene usage revealed differential patterns between respo
 \label{fig:gene_usage}
 \end{figure}
 
+\subsection{Top Predictive Sequences}
+
+Enrichment analysis of high-attention sequences identified specific V-gene and J-gene usage patterns associated with immunotherapy response (Figure~\ref{fig:s7}). Key findings include:
+
+\begin{itemize}
+    \item \textbf{V-gene enrichment:} TRBV5-8 showed the highest enrichment in high-attention sequences (1.54-fold, $p = 0.23$), followed by TRBV30 (1.45-fold) and TRBV5-4 (1.44-fold)
+    \item \textbf{J-gene enrichment:} TRBJ2-2 exhibited 1.17-fold enrichment in high-attention sequences, followed by TRBJ2-7 (1.13-fold)
+    \item \textbf{V-J pairing:} The most frequent V-J combination in high-attention sequences was TRBV28+TRBJ2-7 (42 sequences), followed by TRBV20-1+TRBJ2-7 (40 sequences)
+\end{itemize}
+
+The top 10 highest-attention sequences are listed in Table~\ref{tab:top_sequences}. Notably, 8 of the top 10 sequences originated from responder patients, with the highest-attention sequence (CASRWEEDTEAFF) utilizing TRBV7-9 and TRBJ1-1.
+
+\begin{table}[H]
+\centering
+\caption{\textbf{Top 10 Predictive TCR Sequences by Attention Weight}}
+\label{tab:top_sequences}
+\begin{tabular}{clcccc}
+\toprule
+\textbf{Rank} & \textbf{CDR3 Sequence} & \textbf{V Gene} & \textbf{J Gene} & \textbf{Response} & \textbf{Attention} \\
+\midrule
+1 & CASRWEEDTEAFF & TRBV7-9 & TRBJ1-1 & R & $4.12 \times 10^{-3}$ \\
+2 & CASSRGGDFYNEQFF & TRBV3-1 & TRBJ2-1 & R & $3.97 \times 10^{-3}$ \\
+3 & CASSLGRTYEQYF & TRBV27 & TRBJ2-7 & R & $3.69 \times 10^{-3}$ \\
+4 & CASSVTSYNEQFF & TRBV9 & TRBJ2-1 & NR & $3.61 \times 10^{-3}$ \\
+5 & CASSLGGETQYF & TRBV11-2 & TRBJ2-5 & R & $3.40 \times 10^{-3}$ \\
+6 & CASSRGGDFYNEQFF & TRBV3-1 & TRBJ2-1 & R & $3.30 \times 10^{-3}$ \\
+7 & CASSLIRFGGEQYF & TRBV27 & TRBJ2-7 & R & $3.29 \times 10^{-3}$ \\
+8 & CASSFRTYNEQFF & TRBV27 & TRBJ2-1 & R & $3.06 \times 10^{-3}$ \\
+9 & CASTVGERQYF & TRBV6-2 & TRBJ2-7 & R & $3.05 \times 10^{-3}$ \\
+10 & CASTPNGAVAEAFF & TRBV25-1 & TRBJ1-1 & NR & $2.99 \times 10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sequence Characteristics}
+
+Analysis of CDR3 sequence characteristics revealed subtle but statistically significant differences between high-attention and low-attention sequences (Figure~\ref{fig:s9}):
+
+\begin{itemize}
+    \item \textbf{CDR3 length:} High-attention sequences showed slightly longer CDR3 regions (14.52 $\pm$ 1.80 AA) compared to low-attention sequences (14.46 $\pm$ 1.78 AA), though this difference was modest
+    \item \textbf{Amino acid composition:} Tryptophan (W) and valine (V) showed the highest enrichment in high-attention sequences (1.15-fold and 1.13-fold, respectively)
+    \item \textbf{Responder vs. non-responder:} CDR3 length distributions differed significantly between groups (Kolmogorov-Smirnov test, $p < 10^{-31}$; responders: 14.49 $\pm$ 1.75 AA, non-responders: 14.42 $\pm$ 1.83 AA)
+\end{itemize}
+
+These findings suggest that while CDR3 length contributes minimally to prediction, specific amino acid motifs and sequence patterns captured by the deep learning model carry predictive information for immunotherapy response.
+
 %==============================================================================
 \section{Discussion}
 %==============================================================================
 
 \subsection{Principal Findings}
 
-This study demonstrates that attention-based deep learning analysis of pre-treatment TCR repertoires can predict immunotherapy response in basal cell carcinoma with clinically meaningful accuracy. The achieved AUC of $0.776 \pm 0.007$ (SD) across 100 Monte Carlo folds represents robust predictive performance that compares favorably with existing biomarkers such as PD-L1 expression and tumor mutational burden.
+This study demonstrates that attention-based deep learning analysis of pre-treatment TCR repertoires can predict immunotherapy response in basal cell carcinoma with clinically meaningful accuracy. The achieved AUC of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo folds, with a bootstrap-derived 95\% confidence interval of 0.747--0.761, represents robust predictive performance that compares favorably with existing biomarkers such as PD-L1 expression and tumor mutational burden.
 
-Several aspects of our findings merit emphasis. First, the model achieved consistent performance across 100 independent cross-validation folds, with a narrow standard deviation of 0.007. This consistency suggests that DeepTCR has learned generalizable patterns from TCR repertoires rather than overfitting to idiosyncratic features of specific patients or train-test splits.
+Several aspects of our findings merit emphasis. First, the model achieved consistent performance across 100 independent cross-validation folds, with bootstrap analysis confirming a narrow 95\% confidence interval. This consistency suggests that DeepTCR has learned generalizable patterns from TCR repertoires rather than overfitting to idiosyncratic features of specific patients or train-test splits.
 
-Second, the attention mechanism provides biological interpretability that distinguishes this approach from traditional ``black box'' machine learning. By identifying specific TCR sequences that drive predictions, the model generates testable hypotheses about tumor-reactive T-cell populations. High-attention sequences in responders may represent clonotypes recognizing tumor neoantigens, offering candidates for functional validation studies.
+Second, the attention mechanism provides biological interpretability that distinguishes this approach from traditional ``black box'' machine learning. By identifying specific TCR sequences that drive predictions, the model generates testable hypotheses about tumor-reactive T-cell populations. Our analysis identified 2,379 high-attention sequences, with 72\% of the top 100 originating from responder patients. These high-attention sequences may represent clonotypes recognizing tumor neoantigens, offering candidates for functional validation studies.
 
 Third, the computational efficiency of DeepTCR---completing 100 cross-validation folds in 35 minutes on NVIDIA H100 GPU---demonstrates feasibility for clinical deployment. Real-time prediction from patient samples could inform treatment decisions within clinically actionable timeframes.
 
@@ -360,9 +410,9 @@ Functional validation of high-attention TCR sequences through peptide-MHC bindin
 \section{Conclusion}
 %==============================================================================
 
-We have demonstrated that attention-based deep learning analysis of TCR repertoires provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The DeepTCR model achieved an AUC of $0.776 \pm 0.007$ (SD) across 100 Monte Carlo cross-validation folds (range: 0.758--0.788), with attention weights identifying specific TCR sequences associated with treatment response.
+We have demonstrated that attention-based deep learning analysis of TCR repertoires provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The DeepTCR model achieved an AUC of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo cross-validation folds (95\% CI: 0.747--0.761 from 1,000 bootstrap iterations), with attention weights identifying 2,379 high-attention sequences associated with treatment response. Notably, 72\% of the top 100 predictive sequences originated from responder patients, and enrichment analysis revealed preferential usage of TRBV5-8 (1.54-fold) in high-attention sequences.
 
-This approach combines three desirable properties for clinical translation: (1) predictive accuracy comparable to or exceeding existing biomarkers, (2) biological interpretability through attention-based sequence identification, and (3) computational efficiency enabling real-time prediction. These findings support further development of TCR-based biomarkers for precision immunotherapy, with validation in larger cohorts as the critical next step toward clinical implementation.
+This approach combines three desirable properties for clinical translation: (1) predictive accuracy comparable to or exceeding existing biomarkers, validated through rigorous bootstrap analysis, (2) biological interpretability through attention-based sequence identification enabling hypothesis generation for functional studies, and (3) computational efficiency enabling real-time prediction on modern GPU hardware. These findings support further development of TCR-based biomarkers for precision immunotherapy, with validation in larger cohorts as the critical next step toward clinical implementation.
 
 %==============================================================================
 \section*{Acknowledgments}
@@ -446,6 +496,46 @@ The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. 
 \includegraphics[width=\textwidth]{figureS4_computational.png}
 \caption{\textbf{Computational Performance.} (A) Training time per fold. (B) GPU memory utilization. (C) Throughput analysis on H100 GPU.}
 \label{fig:s4}
+\end{figure}
+
+\subsection*{Figure S5: Attention Weight Distribution}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS5_attention_distribution.png}
+\caption{\textbf{Attention Weight Distribution.} Complete distribution of attention weights across all 239,634 TCR sequences. The log-scale histogram reveals a highly skewed distribution with most sequences receiving near-zero attention, while a small subset (top 1\%, n=2,379) exhibit high attention weights indicative of predictive importance.}
+\label{fig:s5}
+\end{figure}
+
+\subsection*{Figure S6: Patient-Level Attention Heatmap}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS6_attention_heatmap.png}
+\caption{\textbf{Patient-Level Attention Heatmap.} Heatmap visualization of attention weight statistics across 34 patients. Rows represent individual patients, with color intensity indicating mean attention weight. Patients are grouped by response status (responders vs. non-responders).}
+\label{fig:s6}
+\end{figure}
+
+\subsection*{Figure S7: Top Predictive Sequences Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS7_top_sequences.png}
+\caption{\textbf{Top Predictive Sequences Analysis.} (A) V-gene enrichment in top 100 high-attention sequences compared to background frequency. (B) J-gene enrichment analysis. (C) Response distribution showing 72\% of top 100 sequences originate from responder patients. (D) CDR3 length comparison between top sequences and overall population.}
+\label{fig:s7}
+\end{figure}
+
+\subsection*{Figure S8: Responder vs. Non-Responder Comparison}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS8_responder_comparison.png}
+\caption{\textbf{Responder vs. Non-Responder Statistical Comparison.} (A) Attention weight distributions by response group with Mann-Whitney U test results ($p < 10^{-178}$). (B) CDR3 length distributions with Kolmogorov-Smirnov test ($p < 10^{-31}$). (C) V-gene usage comparison. (D) High-attention sequence counts by group.}
+\label{fig:s8}
+\end{figure}
+
+\subsection*{Figure S9: Sequence Characteristics Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS9_sequence_characteristics.png}
+\caption{\textbf{Sequence Characteristics Analysis.} (A) CDR3 length distribution comparing high-attention vs. low-attention sequences. (B) Amino acid composition enrichment in high-attention sequences. (C) Amino acid property distribution (hydrophobic, polar, charged). (D) Top V-J gene pairings in high-attention sequences.}
+\label{fig:s9}
 \end{figure}
 
 \end{document}

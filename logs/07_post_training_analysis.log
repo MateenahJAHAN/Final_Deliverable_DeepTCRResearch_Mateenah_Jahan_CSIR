@@ -1,0 +1,28 @@
+================================================================================
+POST-TRAINING ANALYSIS LOG
+================================================================================
+Execution time: 2025-12-26 13:26:52
+
+--------------------------------------------------------------------------------
+AUC STATISTICS
+--------------------------------------------------------------------------------
+Mean AUC: 0.7536
+Standard Deviation: 0.0352
+Standard Error: 0.00352
+Median: 0.7648
+Range: 0.6578 - 0.7942
+
+--------------------------------------------------------------------------------
+BOOTSTRAP CONFIDENCE INTERVALS
+--------------------------------------------------------------------------------
+N Bootstrap: 1000
+95% CI: [0.7472, 0.7608]
+99% CI: [0.7449, 0.7626]
+
+--------------------------------------------------------------------------------
+OUTPUT FILES
+--------------------------------------------------------------------------------
+AUC values: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/auc_values.npy
+Bootstrap results: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/bootstrap_results.csv
+Per-fold AUC: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/per_fold_auc.csv
+Predictions summary: /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement/results/predictions_summary.csv

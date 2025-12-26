@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.12.25)  25 DEC 2025 06:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2025.12.26)  26 DEC 2025 13:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -651,7 +651,7 @@ Overfull \hbox (51.80347pt too wide) in paragraph at lines 121--134
  [][] 
  []
 
-<../figures/paper_final//figure1_pipeline.png, id=248, 1004.553pt x 354.123pt>
+<../figures/paper_final//figure1_pipeline.png, id=258, 1004.553pt x 354.123pt>
 File: ../figures/paper_final//figure1_pipeline.png Graphic file (type png)
 <use ../figures/paper_final//figure1_pipeline.png>
 Package pdftex.def Info: ../figures/paper_final//figure1_pipeline.png  used on 
@@ -675,7 +675,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [6 <../figures/paper_final//figure1_pipeline.png>]
-<../figures/paper_final//figure2_architecture.png, id=267, 1004.553pt x 498.663
+<../figures/paper_final//figure2_architecture.png, id=277, 1004.553pt x 498.663
 pt>
 File: ../figures/paper_final//figure2_architecture.png Graphic file (type png)
 <use ../figures/paper_final//figure2_architecture.png>
@@ -697,7 +697,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [7 <../figures/paper_final//figure2_architecture.png>]
-<../figures/paper_final//figure3_cohort_overview.png, id=278, 768.471pt x 699.0
+<../figures/paper_final//figure3_cohort_overview.png, id=288, 768.471pt x 699.0
 918pt>
 File: ../figures/paper_final//figure3_cohort_overview.png Graphic file (type pn
 g)
@@ -724,22 +724,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [9 <../figures/paper_final//figure3_cohort_overview.png>]
-<../figures/paper_final//figure4_model_performance.png, id=296, 867.4809pt x 37
+<../figures/paper_final//figure4_model_performance.png, id=307, 867.4809pt x 37
 0.2633pt>
 File: ../figures/paper_final//figure4_model_performance.png Graphic file (type 
 png)
 <use ../figures/paper_final//figure4_model_performance.png>
 Package pdftex.def Info: ../figures/paper_final//figure4_model_performance.png 
- used on input line 250.
+ used on input line 251.
 (pdftex.def)             Requested size: 452.9679pt x 193.34029pt.
-<../figures/paper_final//figure5_training_dynamics.png, id=301, 831.3459pt x 37
-0.2633pt>
-File: ../figures/paper_final//figure5_training_dynamics.png Graphic file (type 
-png)
-<use ../figures/paper_final//figure5_training_dynamics.png>
-Package pdftex.def Info: ../figures/paper_final//figure5_training_dynamics.png 
- used on input line 282.
-(pdftex.def)             Requested size: 452.9679pt x 201.74147pt.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -750,14 +742,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [10 <../figures/paper_final//figure4_model_performance.png>]
-<../figures/paper_final//figure6_attention_analysis.png, id=313, 838.332pt x 38
-0.3811pt>
+<../figures/paper_final//figure5_training_dynamics.png, id=320, 831.3459pt x 37
+0.2633pt>
+File: ../figures/paper_final//figure5_training_dynamics.png Graphic file (type 
+png)
+<use ../figures/paper_final//figure5_training_dynamics.png>
+Package pdftex.def Info: ../figures/paper_final//figure5_training_dynamics.png 
+ used on input line 285.
+(pdftex.def)             Requested size: 452.9679pt x 201.74147pt.
+<../figures/paper_final//figure6_attention_analysis.png, id=322, 1004.553pt x 3
+54.8457pt>
 File: ../figures/paper_final//figure6_attention_analysis.png Graphic file (type
  png)
 <use ../figures/paper_final//figure6_attention_analysis.png>
 Package pdftex.def Info: ../figures/paper_final//figure6_attention_analysis.png
-  used on input line 299.
-(pdftex.def)             Requested size: 452.9679pt x 205.53041pt.
+  used on input line 303.
+(pdftex.def)             Requested size: 452.9679pt x 160.00395pt.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -767,14 +767,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[11 <../figures/paper_final//figure5_training_dynamics.png> <../figures/paper_f
-inal//figure6_attention_analysis.png>]
-<../figures/paper_final//figure7_gene_usage.png, id=323, 876.1533pt x 455.301pt
+[11 <../figures/paper_final//figure5_training_dynamics.png>]
+<../figures/paper_final//figure7_gene_usage.png, id=335, 876.1533pt x 455.301pt
 >
 File: ../figures/paper_final//figure7_gene_usage.png Graphic file (type png)
 <use ../figures/paper_final//figure7_gene_usage.png>
 Package pdftex.def Info: ../figures/paper_final//figure7_gene_usage.png  used o
-n input line 312.
+n input line 316.
 (pdftex.def)             Requested size: 452.9679pt x 235.38925pt.
 
 
@@ -785,7 +784,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[12 <../figures/paper_final//figure7_gene_usage.png>]
+[12 <../figures/paper_final//figure6_attention_analysis.png>]
+Overfull \hbox (4.72652pt too wide) in paragraph at lines 327--328
+[]\T1/lmr/bx/n/10.95 J-gene en-rich-ment: \T1/lmr/m/n/10.95 TRBJ2-2 ex-hib-ited
+ 1.17-fold en-rich-ment in high-attention se-quences,
+ []
+
+
+Overfull \hbox (53.45709pt too wide) in paragraph at lines 328--329
+[]\T1/lmr/bx/n/10.95 V-J pair-ing: \T1/lmr/m/n/10.95 The most fre-quent V-J com
+-bi-na-tion in high-attention se-quences was TRBV28+TRBJ2-
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -794,7 +804,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[13]
+[13 <../figures/paper_final//figure7_gene_usage.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -804,11 +814,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [14]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-79.
- (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) (./main.bbl
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -827,6 +832,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [16]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
+29.
+ (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) (./main.bbl
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -835,7 +845,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[17])
+[17]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -845,20 +855,38 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
 [18]
-<../figures/paper_final//figureS1_auc_details.png, id=391, 733.2996pt x 699.091
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[19])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[20]
+<../figures/paper_final//figureS1_auc_details.png, id=421, 733.2996pt x 699.091
 8pt>
 File: ../figures/paper_final//figureS1_auc_details.png Graphic file (type png)
 <use ../figures/paper_final//figureS1_auc_details.png>
 Package pdftex.def Info: ../figures/paper_final//figureS1_auc_details.png  used
- on input line 422.
+ on input line 472.
 (pdftex.def)             Requested size: 452.9679pt x 431.84302pt.
-<../figures/paper_final//figureS2_patient_analysis.png, id=392, 824.6007pt x 37
+<../figures/paper_final//figureS2_patient_analysis.png, id=422, 824.6007pt x 37
 0.2633pt>
 File: ../figures/paper_final//figureS2_patient_analysis.png Graphic file (type 
 png)
 <use ../figures/paper_final//figureS2_patient_analysis.png>
 Package pdftex.def Info: ../figures/paper_final//figureS2_patient_analysis.png 
- used on input line 430.
+ used on input line 480.
 (pdftex.def)             Requested size: 452.9679pt x 203.3912pt.
 
 
@@ -869,22 +897,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[19 <../figures/paper_final//figureS1_auc_details.png>]
-<../figures/paper_final//figureS3_jgene_analysis.png, id=401, 725.3499pt x 374.
+[21 <../figures/paper_final//figureS1_auc_details.png>]
+<../figures/paper_final//figureS3_jgene_analysis.png, id=430, 725.3499pt x 374.
 5995pt>
 File: ../figures/paper_final//figureS3_jgene_analysis.png Graphic file (type pn
 g)
 <use ../figures/paper_final//figureS3_jgene_analysis.png>
 Package pdftex.def Info: ../figures/paper_final//figureS3_jgene_analysis.png  u
-sed on input line 438.
+sed on input line 488.
 (pdftex.def)             Requested size: 452.9679pt x 233.92976pt.
-<../figures/paper_final//figureS4_computational.png, id=402, 760.5213pt x 363.7
+<../figures/paper_final//figureS4_computational.png, id=431, 760.5213pt x 363.7
 59pt>
 File: ../figures/paper_final//figureS4_computational.png Graphic file (type png
 )
 <use ../figures/paper_final//figureS4_computational.png>
 Package pdftex.def Info: ../figures/paper_final//figureS4_computational.png  us
-ed on input line 446.
+ed on input line 496.
 (pdftex.def)             Requested size: 452.9679pt x 216.65854pt.
 
 
@@ -895,8 +923,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[20 <../figures/paper_final//figureS2_patient_analysis.png> <../figures/paper_f
+[22 <../figures/paper_final//figureS2_patient_analysis.png> <../figures/paper_f
 inal//figureS3_jgene_analysis.png>]
+<../figures/paper_final//figureS5_attention_distribution.png, id=440, 851.8224p
+t x 354.8457pt>
+File: ../figures/paper_final//figureS5_attention_distribution.png Graphic file 
+(type png)
+<use ../figures/paper_final//figureS5_attention_distribution.png>
+Package pdftex.def Info: ../figures/paper_final//figureS5_attention_distributio
+n.png  used on input line 504.
+(pdftex.def)             Requested size: 452.9679pt x 188.69539pt.
+<../figures/paper_final//figureS6_attention_heatmap.png, id=441, 1003.3485pt x 
+570.6921pt>
+File: ../figures/paper_final//figureS6_attention_heatmap.png Graphic file (type
+ png)
+<use ../figures/paper_final//figureS6_attention_heatmap.png>
+Package pdftex.def Info: ../figures/paper_final//figureS6_attention_heatmap.png
+  used on input line 512.
+(pdftex.def)             Requested size: 452.9679pt x 257.63632pt.
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 13.59999pt, for example:
@@ -905,18 +950,83 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
 
-[21 <../figures/paper_final//figureS4_computational.png>] (./main.aux)
+[23 <../figures/paper_final//figureS4_computational.png> <../figures/paper_fina
+l//figureS5_attention_distribution.png>]
+<../figures/paper_final//figureS7_top_sequences.png, id=450, 1006.4802pt x 831.
+3459pt>
+File: ../figures/paper_final//figureS7_top_sequences.png Graphic file (type png
+)
+<use ../figures/paper_final//figureS7_top_sequences.png>
+Package pdftex.def Info: ../figures/paper_final//figureS7_top_sequences.png  us
+ed on input line 520.
+(pdftex.def)             Requested size: 452.9679pt x 374.14026pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[24 <../figures/paper_final//figureS6_attention_heatmap.png>]
+<../figures/paper_final//figureS8_responder_comparison.png, id=457, 976.6086pt 
+x 831.3459pt>
+File: ../figures/paper_final//figureS8_responder_comparison.png Graphic file (t
+ype png)
+<use ../figures/paper_final//figureS8_responder_comparison.png>
+Package pdftex.def Info: ../figures/paper_final//figureS8_responder_comparison.
+png  used on input line 528.
+(pdftex.def)             Requested size: 452.9679pt x 385.59508pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[25 <../figures/paper_final//figureS7_top_sequences.png>]
+<../figures/paper_final//figureS9_sequence_characteristics.png, id=465, 975.404
+1pt x 849.1725pt>
+File: ../figures/paper_final//figureS9_sequence_characteristics.png Graphic fil
+e (type png)
+<use ../figures/paper_final//figureS9_sequence_characteristics.png>
+Package pdftex.def Info: ../figures/paper_final//figureS9_sequence_characterist
+ics.png  used on input line 536.
+(pdftex.def)             Requested size: 452.9679pt x 394.35579pt.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[26 <../figures/paper_final//figureS8_responder_comparison.png>]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 13.59999pt, for example:
+(fancyhdr)                \setlength{\headheight}{13.59999pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-1.59999pt}.
+
+[27 <../figures/paper_final//figureS9_sequence_characteristics.png>]
+(./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 9B1863BF20F398275859FCD3854CBAE8;4488.
+(rerunfilecheck)             Checksum: 9DE073BE7B60EF058CD20737DF16814E;4853.
  ) 
 Here is how much of TeX's memory you used:
- 13471 strings out of 480171
- 214917 string characters out of 5894488
- 503583 words of memory out of 5000000
- 31092 multiletter control sequences out of 15000+600000
+ 13538 strings out of 480247
+ 217457 string characters out of 5896150
+ 505303 words of memory out of 5000000
+ 31126 multiletter control sequences out of 15000+600000
  538132 words of font info for 81 fonts, out of 8000000 for 9000
- 59 hyphenation exceptions out of 8191
- 60i,12n,63p,776b,490s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 14 hyphenation exceptions out of 8191
+ 60i,12n,63p,776b,484s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
 ips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/shar
 e/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
@@ -930,10 +1040,10 @@ ublic/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share
 mri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/
 fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.p
 fb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on main.pdf (21 pages, 3502131 bytes).
+Output written on main.pdf (27 pages, 5357013 bytes).
 PDF statistics:
- 511 PDF objects out of 1000 (max. 8388607)
- 431 compressed objects within 5 object streams
- 106 named destinations out of 1000 (max. 500000)
- 264 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 577 PDF objects out of 1000 (max. 8388607)
+ 480 compressed objects within 5 object streams
+ 125 named destinations out of 1000 (max. 500000)
+ 305 words of extra memory for PDF output out of 10000 (max. 10000000)
 
