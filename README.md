@@ -350,7 +350,7 @@ If you use this code, please cite:
 @article{jahan2025deeptcr,
   title={Deep Learning Analysis of T-Cell Receptor Repertoires Predicts
          Immunotherapy Response in Basal Cell Carcinoma},
-  author={Jahan, Mateenah and Rathore, Diksha S and Bhalla, Sherry},
+  author={Jahan, Mateenah and Bhalla, Sherry},
   journal={CSIR-IGIB Research Report},
   year={2025}
 }
