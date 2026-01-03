@@ -1,6 +1,6 @@
 # DeepTCR CAR-T Cell Therapy Response Prediction
 
-> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting CAR-T Cell Therapy Response in Large B-Cell Lymphoma**
+> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting CAR-T Cell Therapy Response in Relapsed/Refractory Large B-Cell Lymphoma**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow 2.12](https://img.shields.io/badge/tensorflow-2.12.0-orange.svg)](https://tensorflow.org/)
@@ -349,7 +349,7 @@ If you use this code, please cite:
 ```bibtex
 @article{jahan2025deeptcr,
   title={Deep Learning Analysis of T-Cell Receptor Repertoires Predicts
-         CAR-T Cell Therapy Response in Large B-Cell Lymphoma},
+         CAR-T Cell Therapy Response in Relapsed/Refractory Large B-Cell Lymphoma},
   author={Jahan, Mateenah and Bhalla, Sherry},
   journal={CSIR-IGIB Research Report},
   year={2025}
