@@ -1,6 +1,6 @@
-# DeepTCR Immunotherapy Response Prediction
+# DeepTCR CAR-T Cell Therapy Response Prediction
 
-> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting Immunotherapy Response in Basal Cell Carcinoma**
+> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting CAR-T Cell Therapy Response in Large B-Cell Lymphoma**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow 2.12](https://img.shields.io/badge/tensorflow-2.12.0-orange.svg)](https://tensorflow.org/)
@@ -10,9 +10,9 @@
 
 ## Project Overview
 
-**Goal:** Predict immunotherapy response from T-cell receptor (TCR) sequences using DeepTCR deep learning framework with 100-fold Monte Carlo cross-validation and comprehensive post-training analysis.
+**Goal:** Predict CAR-T cell therapy response from T-cell receptor (TCR) sequences in infusion products using DeepTCR deep learning framework with 100-fold Monte Carlo cross-validation and comprehensive post-training analysis.
 
-**Dataset:** 239,634 TCR-beta sequences from 34 patients (18 responders, 16 non-responders)
+**Dataset:** 239,634 TCR-beta sequences from CAR-T cell infusion products of 34 patients with relapsed/refractory large B-cell lymphoma (18 responders, 16 non-responders). Data source: [GSE241783](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE241783) (Li et al., Cancer Cell 2023)
 
 **Results:**
 - **AUC:** 0.754 ± 0.035 (SD), 95% CI: 0.747-0.761
@@ -349,10 +349,24 @@ If you use this code, please cite:
 ```bibtex
 @article{jahan2025deeptcr,
   title={Deep Learning Analysis of T-Cell Receptor Repertoires Predicts
-         Immunotherapy Response in Basal Cell Carcinoma},
+         CAR-T Cell Therapy Response in Large B-Cell Lymphoma},
   author={Jahan, Mateenah and Bhalla, Sherry},
   journal={CSIR-IGIB Research Report},
   year={2025}
+}
+```
+
+**Original Data Source:**
+```bibtex
+@article{li2023singlecell,
+  title={A single-cell atlas of CD19 chimeric antigen receptor T cells},
+  author={Li, Xubin and Henderson, Jared and Gordon, Max J and others},
+  journal={Cancer Cell},
+  volume={41},
+  number={9},
+  pages={1535--1537},
+  year={2023},
+  doi={10.1016/j.ccell.2023.08.015}
 }
 ```
 
