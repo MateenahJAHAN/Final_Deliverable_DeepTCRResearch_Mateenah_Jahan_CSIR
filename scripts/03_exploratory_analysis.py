@@ -271,7 +271,7 @@ axes[0].hist(responder_lengths, bins=range(5, 30),
              color='#2ecc71', edgecolor='black', alpha=0.7)
 axes[0].set_xlabel('CDR3 Length (amino acids)', fontsize=11, fontweight='bold')
 axes[0].set_ylabel('Number of Sequences', fontsize=11, fontweight='bold')
-axes[0].set_title('Responders\n(Response to Immunotherapy)',
+axes[0].set_title('Responders\n(Response to CAR-T Therapy)',
                   fontsize=12, fontweight='bold', color='#27ae60')
 axes[0].axvline(responder_lengths.mean(), color='red', linestyle='--',
                 linewidth=2, label=f'Mean: {responder_lengths.mean():.1f}')
@@ -285,7 +285,7 @@ nonresponder_lengths = df[df['response_binary'] == 0]['cdr3_length']
 axes[1].hist(nonresponder_lengths, bins=range(5, 30),
              color='#e74c3c', edgecolor='black', alpha=0.7)
 axes[1].set_xlabel('CDR3 Length (amino acids)', fontsize=11, fontweight='bold')
-axes[1].set_title('Non-Responders\n(No Response to Immunotherapy)',
+axes[1].set_title('Non-Responders\n(No Response to CAR-T Therapy)',
                   fontsize=12, fontweight='bold', color='#c0392b')
 axes[1].axvline(nonresponder_lengths.mean(), color='blue', linestyle='--',
                 linewidth=2, label=f'Mean: {nonresponder_lengths.mean():.1f}')
@@ -294,7 +294,7 @@ axes[1].spines['top'].set_visible(False)
 axes[1].spines['right'].set_visible(False)
 axes[1].grid(axis='y', alpha=0.3)
 
-fig.suptitle('CDR3 Length Distribution by Treatment Response\nComparing Immunotherapy Responders vs Non-Responders',
+fig.suptitle('CDR3 Length Distribution by Treatment Response\nComparing CAR-T Therapy Responders vs Non-Responders',
              fontsize=14, fontweight='bold', y=1.02)
 
 plt.tight_layout()
@@ -355,7 +355,7 @@ for autotext in autotexts:
     autotext.set_fontweight('bold')
     autotext.set_fontsize(14)
 
-ax.set_title('Patient Response to Immunotherapy\nBasal Cell Carcinoma Checkpoint Blockade Treatment',
+ax.set_title('Patient Response to CAR-T Cell Therapy\nLarge B-Cell Lymphoma Axicabtagene Ciloleucel Treatment',
              fontsize=14, fontweight='bold', pad=20)
 
 # Add legend with statistics

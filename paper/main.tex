@@ -25,7 +25,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{\thepage}
-\lhead{DeepTCR Predicts Immunotherapy Response}
+\lhead{DeepTCR Predicts CAR-T Cell Therapy Response}
 \renewcommand{\headrulewidth}{0.4pt}
 
 % Line spacing
@@ -35,7 +35,7 @@
 \graphicspath{{../figures/paper_final/}}
 
 % Title
-\title{\textbf{Deep Learning Analysis of T-Cell Receptor Repertoires Predicts Immunotherapy Response in Basal Cell Carcinoma}}
+\title{\textbf{Deep Learning Analysis of T-Cell Receptor Repertoires Predicts CAR-T Cell Therapy Response in Relapsed/Refractory Large B-Cell Lymphoma}}
 
 \author{
 Mateenah Jahan$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.5em]
@@ -52,16 +52,16 @@ Mateenah Jahan$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.5em]
 \maketitle
 
 \begin{abstract}
-\noindent\textbf{Background:} Checkpoint blockade immunotherapy has revolutionized cancer treatment, yet response rates remain variable and unpredictable. T-cell receptor (TCR) repertoires encode information about tumor-specific immune recognition, but traditional repertoire metrics have shown limited predictive value. Deep learning approaches offer potential to extract complex patterns from high-dimensional TCR data for clinical prediction.
+\noindent\textbf{Background:} Chimeric antigen receptor T-cell (CAR-T) therapy has revolutionized treatment of relapsed/refractory large B-cell lymphoma (rrLBCL), yet durable response rates remain variable. The T-cell receptor (TCR) repertoires of CAR-T infusion products encode information about T-cell functional states, but traditional repertoire metrics have shown limited predictive value. Deep learning approaches offer potential to extract complex patterns from high-dimensional TCR data for clinical prediction.
 
-\noindent\textbf{Methods:} We analyzed 239,637 TCR-beta sequences from 34 patients with basal cell carcinoma treated with checkpoint blockade immunotherapy (18 responders, 16 non-responders). Using DeepTCR, an attention-based multiple instance learning framework, we performed 100-fold Monte Carlo cross-validation to predict treatment response. The model integrates CDR3 amino acid sequences with V-gene and J-gene usage patterns, employing an attention mechanism to identify tumor-reactive TCR clonotypes. Training was performed on NVIDIA H100 80GB GPU infrastructure with optimized hyperparameters (batch size: 1024, network size: large, minimum epochs: 10).
+\noindent\textbf{Methods:} We analyzed 239,637 TCR-beta sequences from CAR-T cell infusion products of 34 patients with relapsed/refractory large B-cell lymphoma treated with axicabtagene ciloleucel (Axi-cel) (18 responders, 16 non-responders) \citep{li2023singlecell}. Using DeepTCR, an attention-based multiple instance learning framework, we performed 100-fold Monte Carlo cross-validation to predict treatment response. The model integrates CDR3 amino acid sequences with V-gene and J-gene usage patterns, employing an attention mechanism to identify predictive TCR clonotypes. Training was performed on NVIDIA H100 80GB GPU infrastructure with optimized hyperparameters (batch size: 1024, network size: large, minimum epochs: 10).
 
 \noindent\textbf{Results:} Our deep learning model achieved robust predictive performance with a mean area under the receiver operating characteristic curve (AUC) of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo cross-validation folds (range: 0.658--0.794, median: 0.765, 95\% CI: 0.747--0.761 from 1,000 bootstrap iterations). The attention mechanism identified 2,379 high-attention sequences (top 1\%), with 72\% of the top 100 predictive sequences originating from responder patients. Enrichment analysis revealed preferential usage of TRBV5-8 (1.54-fold) and TRBJ2-2 (1.17-fold) in high-attention sequences. Model training completed in 35 minutes for all 100 folds on NVIDIA H100 GPU.
 
-\noindent\textbf{Conclusions:} TCR repertoire analysis using attention-based deep learning provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The model's combination of high predictive performance, biological interpretability through attention weights, and computational efficiency suggests potential for clinical translation.
+\noindent\textbf{Conclusions:} TCR repertoire analysis using attention-based deep learning provides clinically meaningful prediction of CAR-T cell therapy response in large B-cell lymphoma. The model's combination of high predictive performance, biological interpretability through attention weights, and computational efficiency suggests potential for clinical translation in optimizing CAR-T manufacturing and patient selection.
 
 \vspace{0.5em}
-\noindent\textbf{Keywords:} T-cell receptor, deep learning, immunotherapy, checkpoint blockade, basal cell carcinoma, multiple instance learning, attention mechanism
+\noindent\textbf{Keywords:} T-cell receptor, deep learning, CAR-T cell therapy, CD19, large B-cell lymphoma, multiple instance learning, attention mechanism
 \end{abstract}
 
 \newpage
@@ -72,13 +72,13 @@ Mateenah Jahan$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.5em]
 \section{Introduction}
 %==============================================================================
 
-\subsection{Cancer Immunotherapy and Predictive Biomarkers}
+\subsection{CAR-T Cell Therapy and Predictive Biomarkers}
 
-The advent of immune checkpoint blockade therapy has fundamentally transformed the treatment landscape for multiple cancer types \citep{ribas2018cancer}. Antibodies targeting programmed death-1 (PD-1), programmed death-ligand 1 (PD-L1), and cytotoxic T-lymphocyte-associated protein 4 (CTLA-4) have demonstrated durable clinical responses across malignancies ranging from melanoma to non-small cell lung cancer \citep{topalian2015immune}. However, response rates remain highly variable, with only 20--40\% of patients achieving meaningful clinical benefit in many cancer types \citep{sharma2017primary}. This heterogeneity underscores the critical need for predictive biomarkers to guide treatment selection and patient stratification.
+Chimeric antigen receptor T-cell (CAR-T) therapy has fundamentally transformed the treatment landscape for relapsed/refractory large B-cell lymphoma (rrLBCL) \citep{li2023singlecell}. CD19-directed CAR-T cell products such as axicabtagene ciloleucel (Axi-cel) have demonstrated remarkable clinical responses, with complete response rates of approximately 40--50\% in patients who have failed multiple prior therapies. However, response rates remain highly variable, with the majority of patients not achieving durable remissions \citep{sharma2017primary}. This heterogeneity underscores the critical need for predictive biomarkers to guide treatment selection and patient stratification.
 
-Current predictive biomarkers for checkpoint blockade therapy include tumor PD-L1 expression, tumor mutational burden (TMB), and microsatellite instability (MSI) status \citep{yarchoan2017tumor}. While these markers show association with response in specific contexts, their predictive accuracy remains suboptimal. PD-L1 expression exhibits significant intratumoral heterogeneity and lacks standardized assessment criteria \citep{patel2015pd}. TMB, though mechanistically compelling, shows variable predictive performance across tumor types and requires invasive tissue sampling \citep{samstein2019tumor}. Moreover, these biomarkers primarily reflect tumor-intrinsic properties rather than the functional state of the anti-tumor immune response.
+Current predictive biomarkers for CAR-T cell therapy response include tumor burden, inflammatory markers (such as CRP, ferritin, and LDH), and T-cell phenotypes in the infusion product. While these markers show association with response in specific contexts, their predictive accuracy remains suboptimal. Tumor burden metrics require imaging and can change rapidly during bridging therapy. T-cell phenotypes in the infusion product, including memory, exhausted, and regulatory T-cell states, have been associated with outcomes but require detailed immunophenotyping or single-cell analysis \citep{li2023singlecell}.
 
-Basal cell carcinoma (BCC), the most common human malignancy, serves as an important model system for immunotherapy biomarker discovery \citep{stratigos2021european}. Locally advanced or metastatic BCC demonstrates response to anti-PD-1 therapy (cemiplimab) in approximately 50\% of cases \citep{migden2018pd}. The high mutational burden of BCC, coupled with its chronic UV exposure signature, generates abundant neoantigens that drive T-cell recognition \citep{bonilla2016genomic}.
+Large B-cell lymphoma represents an important model system for CAR-T biomarker discovery. rrLBCL patients treated with Axi-cel show heterogeneous outcomes that are influenced by both tumor-intrinsic factors and the functional characteristics of the CAR-T infusion product. Understanding the T-cell receptor repertoire of these products may reveal features predictive of clinical response.
 
 \subsection{T-Cell Receptor Biology and Repertoire Analysis}
 
@@ -100,9 +100,9 @@ DeepTCR, developed by Sidhom et al. \citep{sidhom2021deeptcr}, implements attent
 
 \subsection{Study Objectives}
 
-The primary objective of this study was to develop and rigorously validate a deep learning model for predicting immunotherapy response from pre-treatment TCR repertoires in basal cell carcinoma. We hypothesized that attention-based multiple instance learning could identify predictive TCR signatures while maintaining biological interpretability through learned attention weights.
+The primary objective of this study was to develop and rigorously validate a deep learning model for predicting CAR-T cell therapy response from TCR repertoires in CAR-T infusion products for large B-cell lymphoma patients. We hypothesized that attention-based multiple instance learning could identify predictive TCR signatures while maintaining biological interpretability through learned attention weights.
 
-Secondary objectives included: (1) quantifying model robustness through extensive Monte Carlo cross-validation, (2) characterizing TCR repertoire features associated with immunotherapy response, and (3) evaluating the computational efficiency of deep learning approaches for clinical translation.
+Secondary objectives included: (1) quantifying model robustness through extensive Monte Carlo cross-validation, (2) characterizing TCR repertoire features associated with CAR-T therapy response, and (3) evaluating the computational efficiency of deep learning approaches for clinical translation.
 
 %==============================================================================
 \section{Methods}
@@ -110,9 +110,11 @@ Secondary objectives included: (1) quantifying model robustness through extensiv
 
 \subsection{Study Design and Patient Cohort}
 
-This retrospective cohort study analyzed TCR repertoire data from 34 patients with locally advanced or metastatic basal cell carcinoma treated with checkpoint blockade immunotherapy. Patients were classified as responders (n=18) or non-responders (n=16) based on Response Evaluation Criteria in Solid Tumors (RECIST) version 1.1, with responders defined as achieving complete response (CR), partial response (PR), or stable disease (SD) lasting $\geq$6 months, and non-responders defined as progressive disease (PD) or SD $<$6 months.
+This retrospective cohort study analyzed TCR repertoire data from CAR-T cell infusion products of 34 patients with relapsed/refractory large B-cell lymphoma (rrLBCL) treated with axicabtagene ciloleucel (Axi-cel) at MD Anderson Cancer Center \citep{li2023singlecell}. The data were derived from a larger single-cell RNA sequencing atlas of 59 patients, with 34 patients included based on evaluability criteria and absence of additional trial therapies that might confound outcomes.
 
-Blood samples were collected prior to initiation of immunotherapy for TCR sequencing. The near-balanced cohort design (18 responders, 16 non-responders) helps prevent severe class imbalance from confounding model training. Patient and repertoire characteristics are summarized in Table~\ref{tab:patient_characteristics}.
+Patients were classified as responders (n=18) or non-responders (n=16) based on PET/CT assessment at 3-month follow-up, an important landmark for long-term outcomes. Responders achieved complete response (CR), while non-responders included patients with stable disease (SD), partial response (PR), or progressive disease (PD).
+
+TCR sequences were extracted from single-cell RNA sequencing of CAR-T infusion products collected prior to infusion. The near-balanced cohort design (18 responders, 16 non-responders) helps prevent severe class imbalance from confounding model training. Patient and repertoire characteristics are summarized in Table~\ref{tab:patient_characteristics}.
 
 \begin{table}[H]
 \centering
@@ -135,11 +137,11 @@ Unique J genes/patient & 12.8 & 12.9 & 12.7 \\
 
 \subsection{TCR Sequencing and Data Processing}
 
-TCR repertoire sequencing was performed using established protocols for high-throughput amplicon sequencing of the TRB locus. Total RNA was extracted from peripheral blood mononuclear cells (PBMCs), followed by reverse transcription and multiplex PCR amplification using primers targeting all functional TRBV and TRBJ gene segments. Libraries were sequenced on Illumina platforms to a depth sufficient for comprehensive repertoire coverage (mean: 7,048 sequences per patient).
+TCR repertoire data were derived from single-cell RNA sequencing (scRNA-seq) of CAR-T cell infusion products using 10x Genomics Chromium platform with 5' immune profiling \citep{li2023singlecell}. This approach enables simultaneous capture of gene expression and paired TCR alpha/beta chain sequences from individual cells. The original dataset contained 417,167 high-quality single cells from 59 patients; we utilized the TCR-beta sequences from 34 evaluable patients (mean: 7,048 sequences per patient).
 
 The data processing pipeline is illustrated in Figure~\ref{fig:pipeline}. Raw sequencing data underwent quality control including:
 \begin{enumerate}
-    \item \textbf{Sequence alignment and annotation:} Reads were aligned to the human TRB reference genome (IMGT nomenclature) to identify V genes, J genes, and CDR3 boundaries.
+    \item \textbf{Sequence alignment and annotation:} TCR sequences were aligned to the human TRB reference genome (IMGT nomenclature) to identify V genes, J genes, and CDR3 boundaries.
     \item \textbf{Quality filtering:} Sequences were retained if they contained in-frame CDR3 regions, no stop codons, complete V and J gene annotations, and CDR3 length $\leq$40 amino acids.
     \item \textbf{Data standardization:} Column names were standardized to DeepTCR format requirements.
     \item \textbf{Metadata integration:} Each sequence was annotated with response status at the patient level.
@@ -224,7 +226,7 @@ All analyses were performed using Python 3.10 with DeepTCR 2.0, TensorFlow 2.x, 
 
 \subsection{Cohort Characteristics}
 
-The study cohort comprised 34 patients with locally advanced or metastatic basal cell carcinoma, with 18 responders and 16 non-responders to checkpoint blockade immunotherapy. TCR repertoire sequencing yielded 239,637 productive TRB sequences across all patients (Figure~\ref{fig:cohort}).
+The study cohort comprised 34 patients with relapsed/refractory large B-cell lymphoma, with 18 responders and 16 non-responders to CAR-T cell therapy (axicabtagene ciloleucel). TCR repertoire analysis of CAR-T infusion products yielded 239,637 productive TRB sequences across all patients (Figure~\ref{fig:cohort}).
 
 \begin{figure}[H]
 \centering
@@ -370,49 +372,49 @@ These findings suggest that while CDR3 length contributes minimally to predictio
 
 \subsection{Principal Findings}
 
-This study demonstrates that attention-based deep learning analysis of pre-treatment TCR repertoires can predict immunotherapy response in basal cell carcinoma with clinically meaningful accuracy. The achieved AUC of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo folds, with a bootstrap-derived 95\% confidence interval of 0.747--0.761, represents robust predictive performance that compares favorably with existing biomarkers such as PD-L1 expression and tumor mutational burden.
+This study demonstrates that attention-based deep learning analysis of CAR-T cell infusion product TCR repertoires can predict therapy response in large B-cell lymphoma with clinically meaningful accuracy. The achieved AUC of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo folds, with a bootstrap-derived 95\% confidence interval of 0.747--0.761, represents robust predictive performance that compares favorably with existing biomarkers for CAR-T therapy outcomes.
 
 Several aspects of our findings merit emphasis. First, the model achieved consistent performance across 100 independent cross-validation folds, with bootstrap analysis confirming a narrow 95\% confidence interval. This consistency suggests that DeepTCR has learned generalizable patterns from TCR repertoires rather than overfitting to idiosyncratic features of specific patients or train-test splits.
 
-Second, the attention mechanism provides biological interpretability that distinguishes this approach from traditional ``black box'' machine learning. By identifying specific TCR sequences that drive predictions, the model generates testable hypotheses about tumor-reactive T-cell populations. Our analysis identified 2,379 high-attention sequences, with 72\% of the top 100 originating from responder patients. These high-attention sequences may represent clonotypes recognizing tumor neoantigens, offering candidates for functional validation studies.
+Second, the attention mechanism provides biological interpretability that distinguishes this approach from traditional ``black box'' machine learning. By identifying specific TCR sequences that drive predictions, the model generates testable hypotheses about functionally relevant T-cell populations within the CAR-T product. Our analysis identified 2,379 high-attention sequences, with 72\% of the top 100 originating from responder patients. These high-attention sequences may represent clonotypes with favorable functional characteristics (e.g., memory phenotypes, reduced exhaustion), offering candidates for functional validation studies.
 
 Third, the computational efficiency of DeepTCR---completing 100 cross-validation folds in 35 minutes on NVIDIA H100 GPU---demonstrates feasibility for clinical deployment. Real-time prediction from patient samples could inform treatment decisions within clinically actionable timeframes.
 
 \subsection{Comparison with Existing Biomarkers}
 
-Current predictive biomarkers for checkpoint blockade therapy show variable performance across tumor types. PD-L1 expression, while FDA-approved as a companion diagnostic for several indications, demonstrates AUCs typically ranging from 0.60 to 0.70 in most validation studies \citep{patel2015pd}. Tumor mutational burden shows somewhat higher predictive accuracy (AUCs 0.65--0.75) but requires invasive tissue sampling and lacks standardized cutoffs \citep{samstein2019tumor}.
+Current predictive biomarkers for CAR-T cell therapy response show variable performance. Tumor burden metrics, inflammatory markers (CRP, ferritin, LDH), and T-cell phenotypes in infusion products have been associated with outcomes but demonstrate limited predictive accuracy individually. Prior studies using flow cytometry-based T-cell phenotyping have shown AUCs typically ranging from 0.60 to 0.70 \citep{li2023singlecell}.
 
-Our TCR-based approach offers several potential advantages. Blood-based sampling is minimally invasive and can be repeated longitudinally. The model directly interrogates the functional immune response rather than tumor-intrinsic properties. Furthermore, attention weights provide mechanistic insight not available from aggregate biomarkers.
+Our TCR-based approach offers several potential advantages. Analysis of the infusion product is non-invasive and can be performed prior to manufacturing completion for quality control purposes. The model directly interrogates the T-cell repertoire diversity and composition that may reflect functional fitness. Furthermore, attention weights provide mechanistic insight not available from aggregate biomarkers, potentially identifying specific T-cell clones associated with durable responses.
 
 \subsection{Biological Implications}
 
-The success of attention-based MIL for repertoire classification supports the hypothesis that predictive information is concentrated in a subset of TCR sequences within each patient's repertoire. This aligns with the biological model wherein tumor-reactive T cells represent a small fraction of the total T-cell pool, but drive clinical responses to checkpoint blockade \citep{tumeh2014pd}.
+The success of attention-based MIL for repertoire classification supports the hypothesis that predictive information is concentrated in a subset of TCR sequences within each patient's CAR-T infusion product. This aligns with the biological model wherein CAR-T cell products contain heterogeneous T-cell populations, with specific subsets (e.g., memory T cells, less exhausted phenotypes) driving clinical responses \citep{li2023singlecell}.
 
-V-gene usage patterns identified by attention analysis may reflect germline-encoded biases in tumor antigen recognition. Certain V genes confer structural features that favor binding to common tumor-associated epitopes, and their enrichment in responder repertoires suggests shared recognition of BCC-associated antigens.
+V-gene usage patterns identified by attention analysis may reflect germline-encoded biases in T-cell development and function. Certain V genes may be associated with T-cell phenotypes that are more favorable for CAR-T expansion and persistence in vivo. The enrichment of specific V-gene families in responder repertoires suggests shared T-cell developmental or functional characteristics associated with durable responses.
 
 \subsection{Limitations}
 
-Several limitations of this study warrant consideration. First, the sample size of 34 patients, while sufficient for proof-of-principle, limits statistical power and generalizability. Validation in larger, independent cohorts is essential before clinical implementation.
+Several limitations of this study warrant consideration. First, the sample size of 34 patients, while sufficient for proof-of-principle, limits statistical power and generalizability. Validation in larger, independent cohorts across different CAR-T products and institutions is essential before clinical implementation.
 
-Second, the cohort design (18 responders, 16 non-responders) may not reflect real-world response rates. Model calibration should be evaluated in populations with varying class distributions.
+Second, the cohort design (18 responders, 16 non-responders) may not reflect real-world response rates, which vary across CAR-T products and patient populations. Model calibration should be evaluated in populations with varying class distributions.
 
-Third, our analysis used peripheral blood rather than tumor-infiltrating T cells. While blood-based sampling offers practical advantages, tumor-resident TCR repertoires may provide additional predictive information.
+Third, our analysis used TCR sequences from the infusion product, which may undergo significant expansion and contraction dynamics in vivo. Post-infusion TCR repertoire analysis at various timepoints may provide additional predictive information about durable response.
 
 Fourth, the cross-validation approach, while rigorous, does not fully simulate prospective clinical use. Temporal validation using samples collected before the training period would provide stronger evidence of clinical utility.
 
 \subsection{Future Directions}
 
-Several extensions of this work are warranted. Multi-center validation studies with larger sample sizes would establish generalizability across patient populations and sequencing platforms. Integration of TCR features with existing biomarkers (PD-L1, TMB) may improve predictive accuracy through complementary information. Longitudinal sampling could enable dynamic response prediction and early detection of resistance.
+Several extensions of this work are warranted. Multi-center validation studies with larger sample sizes across different CAR-T products (Axi-cel, tisagenlecleucel, lisocabtagene maraleucel) would establish generalizability across manufacturing processes and patient populations. Integration of TCR features with existing biomarkers (inflammatory markers, T-cell phenotypes, tumor burden) may improve predictive accuracy through complementary information. Longitudinal sampling post-infusion could enable dynamic response prediction and early detection of resistance or relapse.
 
-Functional validation of high-attention TCR sequences through peptide-MHC binding assays or T-cell activation studies would confirm their tumor-reactivity. Identification of shared TCR motifs across responders could guide neoantigen vaccine development or adoptive T-cell therapy.
+Functional validation of high-attention TCR sequences through single-cell multi-omics or T-cell functional assays would clarify whether these sequences represent specific T-cell phenotypes (memory, stem-like, exhausted). Identification of shared TCR motifs across responders could inform CAR-T manufacturing optimization or patient selection strategies.
 
 %==============================================================================
 \section{Conclusion}
 %==============================================================================
 
-We have demonstrated that attention-based deep learning analysis of TCR repertoires provides clinically meaningful prediction of immunotherapy response in basal cell carcinoma. The DeepTCR model achieved an AUC of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo cross-validation folds (95\% CI: 0.747--0.761 from 1,000 bootstrap iterations), with attention weights identifying 2,379 high-attention sequences associated with treatment response. Notably, 72\% of the top 100 predictive sequences originated from responder patients, and enrichment analysis revealed preferential usage of TRBV5-8 (1.54-fold) in high-attention sequences.
+We have demonstrated that attention-based deep learning analysis of TCR repertoires from CAR-T cell infusion products provides clinically meaningful prediction of therapy response in large B-cell lymphoma. The DeepTCR model achieved an AUC of $0.754 \pm 0.035$ (SD) across 100 Monte Carlo cross-validation folds (95\% CI: 0.747--0.761 from 1,000 bootstrap iterations), with attention weights identifying 2,379 high-attention sequences associated with treatment response. Notably, 72\% of the top 100 predictive sequences originated from responder patients, and enrichment analysis revealed preferential usage of TRBV5-8 (1.54-fold) in high-attention sequences.
 
-This approach combines three desirable properties for clinical translation: (1) predictive accuracy comparable to or exceeding existing biomarkers, validated through rigorous bootstrap analysis, (2) biological interpretability through attention-based sequence identification enabling hypothesis generation for functional studies, and (3) computational efficiency enabling real-time prediction on modern GPU hardware. These findings support further development of TCR-based biomarkers for precision immunotherapy, with validation in larger cohorts as the critical next step toward clinical implementation.
+This approach combines three desirable properties for clinical translation: (1) predictive accuracy comparable to or exceeding existing biomarkers for CAR-T therapy, validated through rigorous bootstrap analysis, (2) biological interpretability through attention-based sequence identification enabling hypothesis generation for functional studies of CAR-T product composition, and (3) computational efficiency enabling real-time prediction on modern GPU hardware. These findings support further development of TCR-based biomarkers for optimizing CAR-T cell therapy, with validation in larger cohorts as the critical next step toward clinical implementation.
 
 %==============================================================================
 \section*{Acknowledgments}
@@ -451,7 +453,7 @@ The repository includes:
     \item LaTeX source files for this manuscript
 \end{itemize}
 
-The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. The processed TCR dataset used in this study is included in the repository.
+The original single-cell RNA sequencing data from CAR-T cell infusion products is available from the Gene Expression Omnibus (GEO) under accession number \textbf{GSE241783} \citep{li2023singlecell}. The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. The processed TCR dataset used in this study is included in the repository.
 
 %==============================================================================
 % References

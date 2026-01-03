@@ -312,7 +312,7 @@ add_content_slide(
         "Challenge: Only 20-40% of patients respond",
         "Hypothesis: TCR repertoire predicts response",
         "Objective: Develop predictive model using DeepTCR",
-        "Application: Basal Cell Carcinoma (BCC) patients"
+        "Application: Large B-Cell Lymphoma CAR-T patients"
     ]
 )
 print("  Slide 2: Background")
@@ -328,8 +328,8 @@ add_two_column_slide(
         "   76 non-responders (49.7%)",
         "",
         "Treatment:",
-        "   Anti-PD-1 or Anti-CTLA-4",
-        "   Checkpoint blockade therapy"
+        "   Axicabtagene ciloleucel (Axi-cel)",
+        "   CD19-directed CAR-T cell therapy"
     ],
     [
         "TCR Sequences:",
