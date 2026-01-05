@@ -372,7 +372,7 @@ prs.slide_height = SLIDE_HEIGHT
 add_title_slide(
     prs,
     "DeepTCR for Immunotherapy Response Prediction",
-    f"Basal Cell Carcinoma (BCC) • 100-fold Monte Carlo CV\nGenerated {today}",
+    f"Relapsed/Refractory B-cell lymphoma • 100-fold Monte Carlo CV\nGenerated {today}",
 )
 
 add_bullets_slide(
