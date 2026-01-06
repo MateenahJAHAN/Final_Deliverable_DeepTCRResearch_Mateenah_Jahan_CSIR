@@ -321,6 +321,13 @@ See [SETUP.md](SETUP.md) for detailed installation instructions.
 # Run complete training pipeline
 ./run_training.sh
 
+# Unsupervised patient stratification (no labels required)
+# Produces patient clusters from CDR3 + V/J and saves to results/unsupervised/
+python scripts/14_unsupervised_patient_stratification.py
+
+# Optional: evaluate clusters vs known response labels (post-hoc only)
+python scripts/14_unsupervised_patient_stratification.py --eval-with-labels
+
 # Run post-training analysis (after training)
 python scripts/07_post_training_analysis.py
 python scripts/08_attention_weight_extraction.py
@@ -339,6 +346,23 @@ nvidia-smi
 # Compile paper (requires LaTeX)
 cd paper && pdflatex main.tex && bibtex main && pdflatex main.tex
 ```
+
+---
+
+## Unsupervised Method (Added)
+
+This repository originally implemented **supervised** DeepTCR (attention/MIL) to predict response.
+Sidhom et al. also describe **unsupervised** representation learning for TCRs; to cover that gap,
+we added `scripts/14_unsupervised_patient_stratification.py`, which:
+
+- Learns **unsupervised embeddings** from CDR3 + V/J (no response labels used for training)
+- Pools sequence embeddings to a **patient-level embedding**
+- Clusters patients into groups (default: 2 clusters)
+
+**Important:** Unsupervised clustering can separate patients into groups, but it cannot *know*
+which cluster is “Responder” vs “Non-responder” without at least some labeled outcomes (or an
+external biological rule). The `--eval-with-labels` flag is only for post-hoc evaluation if
+`response_binary` exists in the CSV.
 
 ---
 
