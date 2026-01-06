@@ -332,6 +332,9 @@ python scripts/14_unsupervised_patient_stratification.py --eval-with-labels
 # Uses attention weights (if present) to overlay top/bottom predictive sequences.
 python scripts/15_unsupervised_sequence_space_umap.py
 
+# Generate paper-ready supplementary figures for unsupervised analysis
+python scripts/16_generate_unsupervised_paper_figures.py
+
 # Run post-training analysis (after training)
 python scripts/07_post_training_analysis.py
 python scripts/08_attention_weight_extraction.py

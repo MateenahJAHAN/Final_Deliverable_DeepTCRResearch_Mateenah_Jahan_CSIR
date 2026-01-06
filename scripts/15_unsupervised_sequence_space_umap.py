@@ -32,8 +32,8 @@ paper to inspect whether high-importance sequences cluster into shared modes.
 Outputs
 -------
 results/unsupervised/sequence_space_2d.csv
-figures/unsupervised/sequence_space_all.png
-figures/unsupervised/sequence_space_top_bottom.png
+figures/unsupervised/sequence_space_all.png (+.pdf)
+figures/unsupervised/sequence_space_top_bottom.png (+.pdf)
 """
 
 from __future__ import annotations
@@ -68,6 +68,13 @@ def _load_attention(path: str) -> Optional[pd.DataFrame]:
     required = {"aminoAcid", "vGeneName", "jGeneName", "patient_id", "attention_weight"}
     if not required.issubset(set(att.columns)):
         return None
+    # IMPORTANT: attention file can contain duplicate keys (same CDR3+V/J within patient).
+    # If we merge it raw we can create a many-to-many join and explode memory.
+    # Collapse to a unique key by taking max attention weight within each key.
+    key = ["patient_id", "aminoAcid", "vGeneName", "jGeneName"]
+    att = att.copy()
+    att["patient_id"] = att["patient_id"].astype(str)
+    att = att[key + ["attention_weight"]].groupby(key, as_index=False)["attention_weight"].max()
     return att
 
 
@@ -139,6 +146,8 @@ def _plot_scatter(
     cbar.set_label(color_by)
     fig.tight_layout()
     fig.savefig(out_png, dpi=200)
+    if out_png.lower().endswith(".png"):
+        fig.savefig(out_png[:-4] + ".pdf", bbox_inches="tight")
     plt.close(fig)
 
 
@@ -163,6 +172,12 @@ def main() -> None:
     parser.add_argument("--kmer-k", type=int, default=3)
     parser.add_argument("--svd-dim", type=int, default=128)
     parser.add_argument("--top-frac", type=float, default=0.10, help="Top/bottom fraction for overlay plots.")
+    parser.add_argument(
+        "--max-sequences",
+        type=int,
+        default=50000,
+        help="Downsample sequences for visualization (keeps memory bounded).",
+    )
     parser.add_argument("--random-state", type=int, default=13)
     args = parser.parse_args()
 
@@ -176,16 +191,32 @@ def main() -> None:
     mask = df["aminoAcid"].astype(str).str.len().le(max_len)
     df = df.loc[mask].reset_index(drop=True)
 
-    # Merge attention weights if present (gives us a "predictive importance" proxy)
+    # Merge attention weights if present (gives us a "predictive importance" proxy).
     att = _load_attention(args.attention_csv)
     if att is not None:
-        att = att.copy()
-        att["patient_id"] = att["patient_id"].astype(str)
         key = ["patient_id", "aminoAcid", "vGeneName", "jGeneName"]
-        att = att[key + ["attention_weight"]]
-        df = df.merge(att, on=key, how="left")
+        df = df.merge(att, on=key, how="left", validate="m:1")
     else:
         df["attention_weight"] = np.nan
+
+    # Downsample for visualization (paper-style UMAP doesn't require plotting all 200k+ points).
+    # Keep all very high-attention sequences if available, then fill remaining with random sample.
+    rng = np.random.default_rng(args.random_state)
+    if args.max_sequences is not None and len(df) > args.max_sequences:
+        if df["attention_weight"].notna().any():
+            keep_top = df["attention_weight"] >= df["attention_weight"].quantile(0.99)
+            df_top = df.loc[keep_top]
+            remaining = max(args.max_sequences - len(df_top), 0)
+            df_rest = df.loc[~keep_top]
+            if remaining > 0 and len(df_rest) > remaining:
+                take_idx = rng.choice(df_rest.index.to_numpy(), size=remaining, replace=False)
+                df = pd.concat([df_top, df_rest.loc[take_idx]], axis=0).sample(frac=1.0, random_state=args.random_state)
+            else:
+                df = df_top
+        else:
+            take_idx = rng.choice(df.index.to_numpy(), size=args.max_sequences, replace=False)
+            df = df.loc[take_idx]
+        df = df.reset_index(drop=True)
 
     latent = _build_sequence_latent(
         df,

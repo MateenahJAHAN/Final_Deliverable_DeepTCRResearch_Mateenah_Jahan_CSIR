@@ -218,6 +218,10 @@ Model performance was summarized using:
 
 All analyses were performed using Python 3.10 with DeepTCR 2.0, TensorFlow 2.x, scikit-learn, and standard data science libraries.
 
+\subsection{Unsupervised Representation Learning and Visualization}
+
+To complement supervised multiple instance learning, we implemented unsupervised analyses inspired by Sidhom et al. \citep{sidhom2022predictive_concepts} to visualize structure in TCR sequence space without using response labels during representation learning. Because HLA genotype was not available in our cohort, unsupervised featurization was restricted to TRB CDR3 amino acid sequence and V/J gene usage. We constructed a sparse k-mer representation of CDR3 sequences (k=3) concatenated with one-hot encoded V/J features, projected sequences to a 128-dimensional latent space using truncated singular value decomposition, and visualized the latent space in two dimensions using UMAP. In addition, we constructed patient-level embeddings by mean-pooling sequence embeddings within each patient and performed unsupervised patient clustering (k-means, k=2). All unsupervised outputs and figures are provided in the repository (Scripts 14--16).
+
 %==============================================================================
 \section{Results}
 %==============================================================================
@@ -536,6 +540,22 @@ The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. 
 \includegraphics[width=\textwidth]{figureS9_sequence_characteristics.png}
 \caption{\textbf{Sequence Characteristics Analysis.} (A) CDR3 length distribution comparing high-attention vs. low-attention sequences. (B) Amino acid composition enrichment in high-attention sequences. (C) Amino acid property distribution (hydrophobic, polar, charged). (D) Top V-J gene pairings in high-attention sequences.}
 \label{fig:s9}
+\end{figure}
+
+\subsection*{Figure S10: Unsupervised Patient Clustering}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS10_unsupervised_patient_clusters.png}
+\caption{\textbf{Unsupervised Patient Clustering.} Patient-level embeddings were constructed by unsupervised featurization of TRB CDR3 sequences and V/J gene usage followed by mean pooling within each patient. Clustering (k=2) was performed without using response labels and visualized in two dimensions using PCA. This analysis provides an unsupervised view of patient-level repertoire similarity.}
+\label{fig:s10}
+\end{figure}
+
+\subsection*{Figure S11: Unsupervised Sequence-Space Visualization}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS11_unsupervised_sequence_space.png}
+\caption{\textbf{Unsupervised Sequence-Space Visualization.} A two-dimensional visualization of an unsupervised latent embedding of TRB sequences derived from CDR3 k-mer features and V/J gene usage. Points are colored by attention-based importance (proxy for ``predictive'' sequences) and top vs. bottom deciles highlight enrichment of high-importance sequences within specific regions of sequence space, analogous to unsupervised visualization strategies used in DeepTCR studies.}
+\label{fig:s11}
 \end{figure}
 
 \end{document}
