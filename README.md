@@ -1,6 +1,6 @@
 # DeepTCR Immunotherapy Response Prediction
 
-> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting Immunotherapy Response in Basal Cell Carcinoma**
+> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting Response in Relapsed/Refractory B-Cell Lymphoma**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow 2.12](https://img.shields.io/badge/tensorflow-2.12.0-orange.svg)](https://tensorflow.org/)
@@ -10,7 +10,7 @@
 
 ## Project Overview
 
-**Goal:** Predict immunotherapy response from T-cell receptor (TCR) sequences using DeepTCR deep learning framework with 100-fold Monte Carlo cross-validation and comprehensive post-training analysis.
+**Goal:** Predict therapy response from T-cell receptor (TCR) sequences using DeepTCR deep learning framework with 100-fold Monte Carlo cross-validation and comprehensive post-training + unsupervised analysis.
 
 **Dataset:** 239,634 TCR-beta sequences from 34 patients (18 responders, 16 non-responders)
 
@@ -380,7 +380,7 @@ If you use this code, please cite:
 ```bibtex
 @article{jahan2025deeptcr,
   title={Deep Learning Analysis of T-Cell Receptor Repertoires Predicts
-         Immunotherapy Response in Basal Cell Carcinoma},
+         Response in Relapsed/Refractory B-Cell Lymphoma},
   author={Jahan, Mateenah and Bhalla, Sherry},
   journal={CSIR-IGIB Research Report},
   year={2025}
