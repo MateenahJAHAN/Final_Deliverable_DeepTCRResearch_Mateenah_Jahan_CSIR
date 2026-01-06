@@ -566,8 +566,16 @@ The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figureS11_unsupervised_sequence_space.png}
-\caption{\textbf{Unsupervised Sequence-Space Visualization.} A two-dimensional visualization of an unsupervised latent embedding of TRB sequences derived from CDR3 k-mer features and V/J gene usage. Points are colored by attention-based importance (proxy for ``predictive'' sequences) and top vs. bottom deciles highlight enrichment of high-importance sequences within specific regions of sequence space, analogous to unsupervised visualization strategies used in DeepTCR studies.}
+\caption{\textbf{Unsupervised Sequence-Space Visualization.} A two-dimensional visualization of an unsupervised latent embedding of TRB sequences derived from CDR3 k-mer features and V/J gene usage. Points are colored by response label (Responder = green, Non-responder = orange) to aid visual interpretation, and an overlay highlights the top decile of sequences by attention-based importance (proxy for supervised MIL importance).}
 \label{fig:s11}
+\end{figure}
+
+\subsection*{Figure S12: Featurization Schematics}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS12_featurization_schematics.png}
+\caption{\textbf{Featurization Schematics for Unsupervised and Supervised Models.} Conceptual overview of (A) unsupervised featurization and UMAP visualization used in this study (no labels used for representation learning) and (B) supervised DeepTCR multiple instance learning with CNN featurization and attention-based pooling for patient-level prediction.}
+\label{fig:s12}
 \end{figure}
 
 \end{document}

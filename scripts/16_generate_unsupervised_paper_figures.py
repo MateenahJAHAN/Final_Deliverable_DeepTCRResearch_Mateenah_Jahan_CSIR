@@ -76,19 +76,25 @@ def generate_sequence_space_figure(project_root: str) -> None:
     path = os.path.join(results_dir, "sequence_space_2d.csv")
     df = pd.read_csv(path)
 
-    # Use attention_weight if available; else fallback color.
     has_att = df["attention_weight"].notna().any() if "attention_weight" in df.columns else False
     att = df["attention_weight"].fillna(0.0).to_numpy() if has_att else None
+    has_resp = "response_binary" in df.columns and df["response_binary"].notna().any()
+
+    # Colors requested by user
+    COLOR_R = "#27AE60"   # green
+    COLOR_NR = "#F39C12"  # orange
 
     fig, axes = plt.subplots(1, 2, figsize=(13, 5))
 
-    # Panel A: all points colored by attention (proxy for "predictive sequences")
+    # Panel A: all points colored by response (green/orange) when available
     ax = axes[0]
-    if has_att:
-        sc = ax.scatter(df["x"], df["y"], c=np.log10(att + 1e-12), cmap="viridis", s=4, alpha=0.25)
-        cb = fig.colorbar(sc, ax=ax, fraction=0.046, pad=0.04)
-        cb.set_label("log10(attention_weight)")
-        ax.set_title("A. Unsupervised sequence space\ncolored by attention (proxy importance)", fontweight="bold")
+    if has_resp:
+        r_mask = df["response_binary"].astype(int) == 1
+        nr_mask = ~r_mask
+        ax.scatter(df.loc[nr_mask, "x"], df.loc[nr_mask, "y"], s=4, alpha=0.18, color=COLOR_NR, label="Non-responder")
+        ax.scatter(df.loc[r_mask, "x"], df.loc[r_mask, "y"], s=4, alpha=0.18, color=COLOR_R, label="Responder")
+        ax.set_title("A. Unsupervised sequence space\ncolored by response label", fontweight="bold")
+        ax.legend(loc="best", frameon=True)
     else:
         ax.scatter(df["x"], df["y"], s=4, alpha=0.25, color="#2C3E50")
         ax.set_title("A. Unsupervised sequence space", fontweight="bold")
@@ -96,19 +102,35 @@ def generate_sequence_space_figure(project_root: str) -> None:
     ax.set_ylabel("dim2")
     ax.grid(True, alpha=0.2)
 
-    # Panel B: top vs bottom attention fraction
+    # Panel B: highlight top-attention sequences as an overlay (keeps response colors if present)
     ax = axes[1]
     if has_att:
         top_frac = 0.10
         q_hi = np.quantile(att, 1.0 - top_frac)
-        q_lo = np.quantile(att, top_frac)
         is_top = att >= q_hi
-        is_bottom = att <= q_lo
 
-        ax.scatter(df.loc[~(is_top | is_bottom), "x"], df.loc[~(is_top | is_bottom), "y"], s=3, alpha=0.12, color="#95A5A6", label="middle 80%")
-        ax.scatter(df.loc[is_bottom, "x"], df.loc[is_bottom, "y"], s=8, alpha=0.55, color="#E74C3C", label="bottom 10%")
-        ax.scatter(df.loc[is_top, "x"], df.loc[is_top, "y"], s=8, alpha=0.70, color="#27AE60", label="top 10%")
-        ax.set_title("B. Top vs bottom 10% sequences\n(by attention proxy)", fontweight="bold")
+        # Base layer
+        if has_resp:
+            r_mask = df["response_binary"].astype(int) == 1
+            nr_mask = ~r_mask
+            ax.scatter(df.loc[nr_mask, "x"], df.loc[nr_mask, "y"], s=3, alpha=0.10, color=COLOR_NR, label="Non-responder")
+            ax.scatter(df.loc[r_mask, "x"], df.loc[r_mask, "y"], s=3, alpha=0.10, color=COLOR_R, label="Responder")
+        else:
+            ax.scatter(df.loc[~is_top, "x"], df.loc[~is_top, "y"], s=3, alpha=0.12, color="#95A5A6", label="other")
+
+        # Top attention overlay as black outlined points
+        ax.scatter(
+            df.loc[is_top, "x"],
+            df.loc[is_top, "y"],
+            s=14,
+            alpha=0.85,
+            facecolors="none",
+            edgecolors="black",
+            linewidths=0.7,
+            label="Top 10% attention (overlay)",
+        )
+
+        ax.set_title("B. Response colors + top-attention overlay\n(attention proxy from supervised MIL)", fontweight="bold")
         ax.legend(loc="best", frameon=True)
     else:
         ax.scatter(df["x"], df["y"], s=4, alpha=0.25, color="#2C3E50")
