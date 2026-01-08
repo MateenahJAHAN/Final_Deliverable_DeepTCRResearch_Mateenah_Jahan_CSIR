@@ -248,20 +248,51 @@ def _plot_pca(
     fig, ax = plt.subplots(figsize=(7, 5))
     clusters = patient_clusters["cluster"].astype(int).to_numpy()
 
-    sc = ax.scatter(X2[:, 0], X2[:, 1], c=clusters, cmap="tab10", s=60, alpha=0.9)
-    ax.set_title("Patient clusters (PCA of unsupervised embeddings)")
+    # User-requested colors: Responder=green, Non-responder=orange (when labels exist)
+    if labels_by_patient is not None:
+        lab = labels_by_patient.reindex(patient_clusters.index).astype(float)
+        is_r = lab.fillna(0).astype(int).to_numpy() == 1
+        is_nr = ~is_r
+
+        # Color by response, outline by cluster id for extra context
+        ax.scatter(
+            X2[is_nr, 0],
+            X2[is_nr, 1],
+            c="#F39C12",
+            s=70,
+            alpha=0.85,
+            edgecolors="black",
+            linewidths=0.4,
+            label="Non-responder",
+        )
+        ax.scatter(
+            X2[is_r, 0],
+            X2[is_r, 1],
+            c="#27AE60",
+            s=70,
+            alpha=0.85,
+            edgecolors="black",
+            linewidths=0.4,
+            label="Responder",
+        )
+        ax.set_title("Patient embeddings (PCA) colored by response")
+        ax.legend(loc="best", title="Response")
+    else:
+        sc = ax.scatter(X2[:, 0], X2[:, 1], c=clusters, cmap="tab10", s=60, alpha=0.9)
+        ax.set_title("Patient clusters (PCA of unsupervised embeddings)")
+        ax.legend(*sc.legend_elements(), title="cluster", loc="best")
+
     ax.set_xlabel("PC1")
     ax.set_ylabel("PC2")
     ax.grid(True, alpha=0.25)
-    ax.legend(*sc.legend_elements(), title="cluster", loc="best")
 
+    # annotate with R/NR + cluster id for readability
     if labels_by_patient is not None:
-        # annotate with R/NR when available (purely for visualization)
         lab = labels_by_patient.reindex(patient_clusters.index)
         for i, pid in enumerate(patient_clusters.index.tolist()):
             if pd.isna(lab.loc[pid]):
                 continue
-            txt = "R" if int(lab.loc[pid]) == 1 else "NR"
+            txt = ("R" if int(lab.loc[pid]) == 1 else "NR") + f" (c{clusters[i]})"
             ax.annotate(txt, (X2[i, 0], X2[i, 1]), fontsize=8, alpha=0.8, xytext=(3, 3), textcoords="offset points")
 
     fig.tight_layout()

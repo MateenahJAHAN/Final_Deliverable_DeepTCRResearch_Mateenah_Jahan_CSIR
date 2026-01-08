@@ -50,13 +50,22 @@ def generate_patient_cluster_figure(project_root: str) -> None:
     xy = PCA(n_components=2, random_state=0).fit_transform(X)
 
     fig, ax = plt.subplots(figsize=(7.5, 5.5))
-    clusters = df["cluster"].astype(int).to_numpy()
-    sc = ax.scatter(xy[:, 0], xy[:, 1], c=clusters, cmap="tab10", s=90, alpha=0.9, edgecolor="white", linewidth=0.4)
-    ax.set_title("Figure S10: Unsupervised patient clustering\n(CDR3 + V/J, no labels used for clustering)", fontweight="bold")
+    # Color by response (Responder=green, Non-responder=orange) for clarity.
+    # Response labels are available in data_processed/deeptcr_trb_ready.csv.
+    resp_path = os.path.join(project_root, "data_processed", "deeptcr_trb_ready.csv")
+    resp_df = pd.read_csv(resp_path)
+    resp = resp_df.groupby("patient_id")["response_binary"].first().astype(int)
+    resp = resp.reindex(df.index.astype(str))
+    is_r = resp.fillna(0).astype(int).to_numpy() == 1
+    is_nr = ~is_r
+
+    ax.scatter(xy[is_nr, 0], xy[is_nr, 1], s=95, alpha=0.85, color="#F39C12", edgecolor="black", linewidth=0.4, label="Non-responder")
+    ax.scatter(xy[is_r, 0], xy[is_r, 1], s=95, alpha=0.85, color="#27AE60", edgecolor="black", linewidth=0.4, label="Responder")
+    ax.set_title("Figure S10: Unsupervised patient embedding (PCA)\ncolored by response label", fontweight="bold")
     ax.set_xlabel("PC1")
     ax.set_ylabel("PC2")
     ax.grid(True, alpha=0.25)
-    ax.legend(*sc.legend_elements(), title="Cluster", loc="best")
+    ax.legend(loc="best", title="Response")
 
     # Annotate patient IDs lightly (optional; helps interpret 34 points)
     for i, pid in enumerate(df.index.tolist()):
