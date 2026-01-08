@@ -336,6 +336,9 @@ See [SETUP.md](SETUP.md) for detailed installation instructions.
 | figureS7_top_sequences.png | Top 100 sequence analysis |
 | figureS8_responder_comparison.png | R vs NR statistical comparison |
 | figureS9_sequence_characteristics.png | Amino acid characteristics |
+| figureS10_unsupervised_patient_clusters.png | Unsupervised patient clustering (PCA) |
+| figureS11_unsupervised_sequence_space.png | Unsupervised sequence space (UMAP; R=green, NR=orange) |
+| figureS12_featurization_schematics.png | Featurization schematics (unsupervised + supervised MIL) |
 
 ---
 
