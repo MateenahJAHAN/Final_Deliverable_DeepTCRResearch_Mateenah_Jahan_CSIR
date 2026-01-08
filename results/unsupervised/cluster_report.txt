@@ -1,0 +1,11 @@
+Unsupervised clustering report
+================================================================================
+Patients: 34
+Clusters: 2
+
+Cluster sizes:
+cluster
+0    33
+1     1
+
+Silhouette score (higher is better): 0.5974

@@ -1,6 +1,6 @@
 # DeepTCR Immunotherapy Response Prediction
 
-> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting Immunotherapy Response in Basal Cell Carcinoma**
+> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting Response in Relapsed/Refractory B-Cell Lymphoma**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow 2.12](https://img.shields.io/badge/tensorflow-2.12.0-orange.svg)](https://tensorflow.org/)
@@ -10,7 +10,7 @@
 
 ## Project Overview
 
-**Goal:** Predict immunotherapy response from T-cell receptor (TCR) sequences using DeepTCR deep learning framework with 100-fold Monte Carlo cross-validation and comprehensive post-training analysis.
+**Goal:** Predict therapy response from T-cell receptor (TCR) sequences using DeepTCR deep learning framework with 100-fold Monte Carlo cross-validation and comprehensive post-training + unsupervised analysis.
 
 **Dataset:** 239,634 TCR-beta sequences from 34 patients (18 responders, 16 non-responders)
 
@@ -59,7 +59,7 @@ lambda_deepTCR_deployement/
 ├── requirements.txt                    # Python dependencies
 ├── run_training.sh                     # Training launcher (sets CUDA paths)
 │
-├── scripts/                            # Analysis pipeline (13 scripts)
+├── scripts/                            # Analysis pipeline (17 scripts)
 │   ├── 01_environment_setup.py         # Verify environment
 │   ├── 02_data_loading.py              # Load & preprocess data
 │   ├── 03_exploratory_analysis.py      # Generate EDA figures
@@ -72,10 +72,15 @@ lambda_deepTCR_deployement/
 │   ├── 10_responder_comparison.py      # R vs NR statistics
 │   ├── 11_top_predictive_sequences.py  # Top 100 sequences
 │   ├── 12_sequence_characteristics.py  # Amino acid analysis
-│   └── 13_generate_presentation.py     # PowerPoint generation
+│   ├── 13_generate_presentation.py     # PowerPoint generation
+│   ├── 14_unsupervised_patient_stratification.py  # Patient clustering (no labels needed)
+│   ├── 15_unsupervised_sequence_space_umap.py     # Sequence-space UMAP (Sidhom-style adapted)
+│   ├── 16_generate_unsupervised_paper_figures.py  # Paper-ready unsupervised figures (S10-S11)
+│   └── 17_generate_featurization_schematics.py    # Sidhom-style featurization schematic (S12)
+│   └── 18_unsupervised_validation.py              # Unsupervised validation + Figure S15
 │
 ├── data_raw/                           # Original dataset
-│   └── deeptcr_complete_dataset.csv
+│   └── deeptcr_complete_dataset (5).csv
 │
 ├── data_processed/                     # Preprocessed data
 │   ├── X_onehot.npy                   # Feature matrix (789 MB)
@@ -97,7 +102,17 @@ lambda_deepTCR_deployement/
 │   ├── vgene_enrichment.csv           # V-gene analysis
 │   ├── jgene_enrichment.csv           # J-gene analysis
 │   ├── responder_comparison_stats.csv # Statistical tests
-│   └── DeepTCR_Results_Presentation.pptx
+│   ├── DeepTCR_Results_Presentation.pptx
+│   └── unsupervised/                   # Unsupervised outputs (scripts 14-15)
+│       ├── patient_embeddings.csv
+│       ├── patient_clusters.csv
+│       ├── cluster_report.txt
+│       └── sequence_space_2d.csv
+│
+├── figures/unsupervised/               # Unsupervised plots (scripts 14-15)
+│   ├── patient_clusters_pca.png
+│   ├── sequence_space_all.png/.pdf
+│   └── sequence_space_top_bottom.png/.pdf
 │
 ├── figures/paper_final/               # Publication figures
 │   ├── figure1_pipeline.png           # Data pipeline
@@ -108,7 +123,8 @@ lambda_deepTCR_deployement/
 │   ├── figure6_attention_analysis.png # Attention weights
 │   ├── figure7_gene_usage.png         # V/J gene usage
 │   ├── figureS1-S4_*.png              # Supplementary (original)
-│   └── figureS5-S9_*.png              # Supplementary (new)
+│   ├── figureS5-S9_*.png              # Supplementary (supervised analysis)
+│   └── figureS10-S12_*.png            # Supplementary (unsupervised + schematics)
 │
 ├── paper/                             # Manuscript
 │   ├── main.tex                       # LaTeX source
@@ -148,6 +164,16 @@ lambda_deepTCR_deployement/
 | 11_top_predictive_sequences.py | Top 100 sequences | `top_100_sequences_detailed.csv` |
 | 12_sequence_characteristics.py | Amino acid analysis | `amino_acid_composition.csv` |
 | 13_generate_presentation.py | PowerPoint slides | `DeepTCR_Results_Presentation.pptx` |
+
+### Phase 3: Unsupervised Analysis (Scripts 14-17)
+
+| Script | Purpose | Output |
+|--------|---------|--------|
+| 14_unsupervised_patient_stratification.py | Patient embeddings + clustering | `results/unsupervised/patient_clusters.csv` |
+| 15_unsupervised_sequence_space_umap.py | Sequence embeddings + UMAP visualization | `results/unsupervised/sequence_space_2d.csv` |
+| 16_generate_unsupervised_paper_figures.py | Paper-ready unsupervised figures | `figures/paper_final/figureS10-S11_*.png/.pdf` |
+| 17_generate_featurization_schematics.py | Featurization schematic figure | `figures/paper_final/figureS12_*.png/.pdf` |
+| 18_unsupervised_validation.py | Cluster quality + stability validation | `figures/paper_final/figureS15_*.png/.pdf` |
 
 ---
 
@@ -312,6 +338,9 @@ See [SETUP.md](SETUP.md) for detailed installation instructions.
 | figureS7_top_sequences.png | Top 100 sequence analysis |
 | figureS8_responder_comparison.png | R vs NR statistical comparison |
 | figureS9_sequence_characteristics.png | Amino acid characteristics |
+| figureS10_unsupervised_patient_clusters.png | Unsupervised patient clustering (PCA) |
+| figureS11_unsupervised_sequence_space.png | Unsupervised sequence space (UMAP; R=green, NR=orange) |
+| figureS12_featurization_schematics.png | Featurization schematics (unsupervised + supervised MIL) |
 
 ---
 
@@ -320,6 +349,23 @@ See [SETUP.md](SETUP.md) for detailed installation instructions.
 ```bash
 # Run complete training pipeline
 ./run_training.sh
+
+# Unsupervised patient stratification (no labels required)
+# Produces patient clusters from CDR3 + V/J and saves to results/unsupervised/
+python scripts/14_unsupervised_patient_stratification.py
+
+# Optional: evaluate clusters vs known response labels (post-hoc only)
+python scripts/14_unsupervised_patient_stratification.py --eval-with-labels
+
+# Unsupervised sequence-space visualization (Sidhom-style adapted: latent -> UMAP/PCA)
+# Uses attention weights (if present) to overlay top/bottom predictive sequences.
+python scripts/15_unsupervised_sequence_space_umap.py
+
+# Generate paper-ready supplementary figures for unsupervised analysis
+python scripts/16_generate_unsupervised_paper_figures.py
+
+# Validate unsupervised clustering (quality + stability) and generate Figure S15
+python scripts/18_unsupervised_validation.py
 
 # Run post-training analysis (after training)
 python scripts/07_post_training_analysis.py
@@ -342,6 +388,23 @@ cd paper && pdflatex main.tex && bibtex main && pdflatex main.tex
 
 ---
 
+## Unsupervised Method (Added)
+
+This repository originally implemented **supervised** DeepTCR (attention/MIL) to predict response.
+Sidhom et al. also describe **unsupervised** representation learning for TCRs; to cover that gap,
+we added `scripts/14_unsupervised_patient_stratification.py`, which:
+
+- Learns **unsupervised embeddings** from CDR3 + V/J (no response labels used for training)
+- Pools sequence embeddings to a **patient-level embedding**
+- Clusters patients into groups (default: 2 clusters)
+
+**Important:** Unsupervised clustering can separate patients into groups, but it cannot *know*
+which cluster is “Responder” vs “Non-responder” without at least some labeled outcomes (or an
+external biological rule). The `--eval-with-labels` flag is only for post-hoc evaluation if
+`response_binary` exists in the CSV.
+
+---
+
 ## Citation
 
 If you use this code, please cite:
@@ -349,7 +412,7 @@ If you use this code, please cite:
 ```bibtex
 @article{jahan2025deeptcr,
   title={Deep Learning Analysis of T-Cell Receptor Repertoires Predicts
-         Immunotherapy Response in Basal Cell Carcinoma},
+         Response in Relapsed/Refractory B-Cell Lymphoma},
   author={Jahan, Mateenah and Bhalla, Sherry},
   journal={CSIR-IGIB Research Report},
   year={2025}
