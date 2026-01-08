@@ -9,8 +9,3 @@ cluster
 1     1
 
 Silhouette score (higher is better): 0.5974
-
-Optional evaluation vs known response labels (post-hoc only):
-Adjusted Rand Index (ARI): -0.0066
-Normalized Mutual Information (NMI): 0.0464
-Best 2-cluster mapping accuracy: 0.5000

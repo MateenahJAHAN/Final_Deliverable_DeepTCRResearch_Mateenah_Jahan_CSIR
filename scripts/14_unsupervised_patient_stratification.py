@@ -413,7 +413,9 @@ def main() -> None:
             print(f"Filtering {filtered} sequences > {max_len} AA (DeepTCR convention).")
         df = df.loc[mask].reset_index(drop=True)
 
-    labels_by_patient = _maybe_get_labels(df) if args.eval_with_labels else None
+    # Use labels ONLY for plotting (colors) if present; clustering never uses labels.
+    labels_for_plot = _maybe_get_labels(df)
+    labels_for_eval = labels_for_plot if args.eval_with_labels else None
 
     if args.method == "deeptcr_u":
         patient_meta, Z_patient = _run_deeptcr_u(df, n_clusters=args.n_clusters, random_state=args.random_state)
@@ -449,8 +451,8 @@ def main() -> None:
 
     patient_clusters[emb_cols].to_csv(out_embeddings, index=True)
     patient_clusters[["patient_seq_count", "cluster"]].to_csv(out_clusters, index=True)
-    _write_report(out_report, patient_clusters=patient_clusters, labels_by_patient=labels_by_patient)
-    _plot_pca(out_fig, patient_clusters=patient_clusters, labels_by_patient=labels_by_patient)
+    _write_report(out_report, patient_clusters=patient_clusters, labels_by_patient=labels_for_eval)
+    _plot_pca(out_fig, patient_clusters=patient_clusters, labels_by_patient=labels_for_plot)
 
     print("Saved:")
     print(f"  - {out_embeddings}")

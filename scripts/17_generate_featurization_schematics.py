@@ -13,6 +13,7 @@ execute the DeepTCR model itself.
 Outputs (PNG + PDF)
 -------------------
 - figures/paper_final/figureS12_featurization_schematics.png/.pdf
+- figures/paper_final/figureS13_unsupervised_pipeline.png/.pdf
 """
 
 from __future__ import annotations
@@ -146,9 +147,42 @@ def main() -> None:
     _save(fig, out_png)
     plt.close(fig)
 
+    # -------------------------------------------------------------------------
+    # Figure S13: dedicated unsupervised pipeline (input -> featurization -> embedding)
+    # -------------------------------------------------------------------------
+    fig, ax = plt.subplots(1, 1, figsize=(11.5, 3.2))
+    ax.set_axis_off()
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    ax.text(0.01, 0.92, "Figure S13: Unsupervised pipeline (input → featurization → embedding → UMAP)", fontsize=12, fontweight="bold", color="#2C3E50")
+
+    _box(ax, 0.03, 0.50, 0.18, 0.28, "Input\nCDR3β + V/J", fc="#ECF0F1", weight="bold")
+    _box(ax, 0.27, 0.52, 0.20, 0.24, "Featurization\nCDR3 k-mers\n+ V/J one-hot", fc="#E8F6F3")
+    _box(ax, 0.53, 0.52, 0.16, 0.24, "Embedding\n(128-D latent)", fc="#FEF5E7")
+    _box(ax, 0.74, 0.52, 0.22, 0.24, "UMAP (2-D)\nsequence space\nplot", fc="#FDEDEC")
+
+    _arrow(ax, 0.21, 0.64, 0.27, 0.64)
+    _arrow(ax, 0.47, 0.64, 0.53, 0.64)
+    _arrow(ax, 0.69, 0.64, 0.74, 0.64)
+
+    # Patient-level branch
+    _box(ax, 0.53, 0.12, 0.16, 0.22, "Pool to patient\n(mean)", fc="#E8F6F3")
+    _box(ax, 0.74, 0.12, 0.22, 0.22, "Patient embedding\n+ clustering", fc="#FDEDEC")
+    _arrow(ax, 0.61, 0.52, 0.61, 0.34)
+    _arrow(ax, 0.69, 0.23, 0.74, 0.23)
+
+    ax.text(0.03, 0.03, "Note: clustering is unsupervised; response labels are used only for coloring plots.", fontsize=9, color="#2C3E50")
+
+    fig.tight_layout()
+    out_png2 = os.path.join(out_dir, "figureS13_unsupervised_pipeline.png")
+    _save(fig, out_png2)
+    plt.close(fig)
+
     print("=" * 80)
     print("GENERATED FEATURIZATION SCHEMATIC FIGURE")
     print(f"Saved: {out_png} (+.pdf)")
+    print(f"Saved: {out_png2} (+.pdf)")
     print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
