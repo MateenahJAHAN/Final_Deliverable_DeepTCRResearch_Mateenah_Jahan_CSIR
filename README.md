@@ -59,7 +59,7 @@ lambda_deepTCR_deployement/
 ├── requirements.txt                    # Python dependencies
 ├── run_training.sh                     # Training launcher (sets CUDA paths)
 │
-├── scripts/                            # Analysis pipeline (13 scripts)
+├── scripts/                            # Analysis pipeline (17 scripts)
 │   ├── 01_environment_setup.py         # Verify environment
 │   ├── 02_data_loading.py              # Load & preprocess data
 │   ├── 03_exploratory_analysis.py      # Generate EDA figures
@@ -72,10 +72,14 @@ lambda_deepTCR_deployement/
 │   ├── 10_responder_comparison.py      # R vs NR statistics
 │   ├── 11_top_predictive_sequences.py  # Top 100 sequences
 │   ├── 12_sequence_characteristics.py  # Amino acid analysis
-│   └── 13_generate_presentation.py     # PowerPoint generation
+│   ├── 13_generate_presentation.py     # PowerPoint generation
+│   ├── 14_unsupervised_patient_stratification.py  # Patient clustering (no labels needed)
+│   ├── 15_unsupervised_sequence_space_umap.py     # Sequence-space UMAP (Sidhom-style adapted)
+│   ├── 16_generate_unsupervised_paper_figures.py  # Paper-ready unsupervised figures (S10-S11)
+│   └── 17_generate_featurization_schematics.py    # Sidhom-style featurization schematic (S12)
 │
 ├── data_raw/                           # Original dataset
-│   └── deeptcr_complete_dataset.csv
+│   └── deeptcr_complete_dataset (5).csv
 │
 ├── data_processed/                     # Preprocessed data
 │   ├── X_onehot.npy                   # Feature matrix (789 MB)
@@ -97,7 +101,17 @@ lambda_deepTCR_deployement/
 │   ├── vgene_enrichment.csv           # V-gene analysis
 │   ├── jgene_enrichment.csv           # J-gene analysis
 │   ├── responder_comparison_stats.csv # Statistical tests
-│   └── DeepTCR_Results_Presentation.pptx
+│   ├── DeepTCR_Results_Presentation.pptx
+│   └── unsupervised/                   # Unsupervised outputs (scripts 14-15)
+│       ├── patient_embeddings.csv
+│       ├── patient_clusters.csv
+│       ├── cluster_report.txt
+│       └── sequence_space_2d.csv
+│
+├── figures/unsupervised/               # Unsupervised plots (scripts 14-15)
+│   ├── patient_clusters_pca.png
+│   ├── sequence_space_all.png/.pdf
+│   └── sequence_space_top_bottom.png/.pdf
 │
 ├── figures/paper_final/               # Publication figures
 │   ├── figure1_pipeline.png           # Data pipeline
@@ -108,7 +122,8 @@ lambda_deepTCR_deployement/
 │   ├── figure6_attention_analysis.png # Attention weights
 │   ├── figure7_gene_usage.png         # V/J gene usage
 │   ├── figureS1-S4_*.png              # Supplementary (original)
-│   └── figureS5-S9_*.png              # Supplementary (new)
+│   ├── figureS5-S9_*.png              # Supplementary (supervised analysis)
+│   └── figureS10-S12_*.png            # Supplementary (unsupervised + schematics)
 │
 ├── paper/                             # Manuscript
 │   ├── main.tex                       # LaTeX source
@@ -148,6 +163,15 @@ lambda_deepTCR_deployement/
 | 11_top_predictive_sequences.py | Top 100 sequences | `top_100_sequences_detailed.csv` |
 | 12_sequence_characteristics.py | Amino acid analysis | `amino_acid_composition.csv` |
 | 13_generate_presentation.py | PowerPoint slides | `DeepTCR_Results_Presentation.pptx` |
+
+### Phase 3: Unsupervised Analysis (Scripts 14-17)
+
+| Script | Purpose | Output |
+|--------|---------|--------|
+| 14_unsupervised_patient_stratification.py | Patient embeddings + clustering | `results/unsupervised/patient_clusters.csv` |
+| 15_unsupervised_sequence_space_umap.py | Sequence embeddings + UMAP visualization | `results/unsupervised/sequence_space_2d.csv` |
+| 16_generate_unsupervised_paper_figures.py | Paper-ready unsupervised figures | `figures/paper_final/figureS10-S11_*.png/.pdf` |
+| 17_generate_featurization_schematics.py | Featurization schematic figure | `figures/paper_final/figureS12_*.png/.pdf` |
 
 ---
 
