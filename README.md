@@ -77,6 +77,7 @@ lambda_deepTCR_deployement/
 │   ├── 15_unsupervised_sequence_space_umap.py     # Sequence-space UMAP (Sidhom-style adapted)
 │   ├── 16_generate_unsupervised_paper_figures.py  # Paper-ready unsupervised figures (S10-S11)
 │   └── 17_generate_featurization_schematics.py    # Sidhom-style featurization schematic (S12)
+│   └── 18_unsupervised_validation.py              # Unsupervised validation + Figure S15
 │
 ├── data_raw/                           # Original dataset
 │   └── deeptcr_complete_dataset (5).csv
@@ -172,6 +173,7 @@ lambda_deepTCR_deployement/
 | 15_unsupervised_sequence_space_umap.py | Sequence embeddings + UMAP visualization | `results/unsupervised/sequence_space_2d.csv` |
 | 16_generate_unsupervised_paper_figures.py | Paper-ready unsupervised figures | `figures/paper_final/figureS10-S11_*.png/.pdf` |
 | 17_generate_featurization_schematics.py | Featurization schematic figure | `figures/paper_final/figureS12_*.png/.pdf` |
+| 18_unsupervised_validation.py | Cluster quality + stability validation | `figures/paper_final/figureS15_*.png/.pdf` |
 
 ---
 
@@ -361,6 +363,9 @@ python scripts/15_unsupervised_sequence_space_umap.py
 
 # Generate paper-ready supplementary figures for unsupervised analysis
 python scripts/16_generate_unsupervised_paper_figures.py
+
+# Validate unsupervised clustering (quality + stability) and generate Figure S15
+python scripts/18_unsupervised_validation.py
 
 # Run post-training analysis (after training)
 python scripts/07_post_training_analysis.py

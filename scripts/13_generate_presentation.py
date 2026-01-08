@@ -566,6 +566,15 @@ add_figure_slide(
 )
 print("  Slide 17: Patient embedding")
 
+# Slide 18: Unsupervised validation
+add_figure_slide(
+    prs,
+    "Figure S15: Unsupervised Validation (Quality + Stability)",
+    os.path.join(FIGURES_DIR, "figureS15_unsupervised_validation.png"),
+    bullets=["Shows internal clustering quality and stability across k values"]
+)
+print("  Slide 18: Unsupervised validation")
+
 # Slide 18: Key Findings
 add_two_column_slide(
     prs,
@@ -587,9 +596,9 @@ add_two_column_slide(
         "   High-attention sequences map to localized regions in sequence space"
     ]
 )
-print("  Slide 18: Key Findings")
+print("  Slide 19: Key Findings")
 
-# Slide 19: Limitations & Next Steps
+# Slide 20: Limitations & Next Steps
 add_content_slide(
     prs,
     "Limitations & Next Steps",
@@ -600,15 +609,15 @@ add_content_slide(
         "Biology: validate high-attention clonotypes and motifs experimentally"
     ]
 )
-print("  Slide 19: Limitations")
+print("  Slide 20: Limitations")
 
-# Slide 20: Thank You
+# Slide 21: Thank You
 add_title_slide(
     prs,
     "Thank You",
     "Questions?\n\nDeepTCR supervised MIL + unsupervised visualization"
 )
-print("  Slide 20: Thank You")
+print("  Slide 21: Thank You")
 
 # ==============================================================================
 # SAVE PRESENTATION

@@ -380,6 +380,8 @@ We next performed unsupervised representation learning and visualization to obta
 
 At the sequence level, a two-dimensional UMAP visualization of the unsupervised latent space revealed multimodal structure consistent with multiple sequence ``concepts'' across the cohort (Figure~\ref{fig:s11}). Overlaying high-attention sequences (proxy for supervised importance) highlighted enrichment of model-important clonotypes in localized regions of sequence space, providing an interpretable bridge between the supervised MIL model and unsupervised repertoire geometry.
 
+\textbf{Unsupervised validation:} We quantified internal cluster quality and stability across a range of cluster counts (k=2--6) using standard unsupervised validation metrics (silhouette, Davies--Bouldin, Calinski--Harabasz) and assessed stability under repeated runs and patient subsampling using adjusted Rand index (ARI) agreement. Validation results are summarized in Figure~\ref{fig:s15} and in \texttt{results/unsupervised/unsupervised\_validation\_report.txt}.
+
 %==============================================================================
 \section{Discussion}
 %==============================================================================
@@ -592,6 +594,14 @@ The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. 
 \includegraphics[width=\textwidth]{figureS14_unsupervised_pipeline_blocks.png}
 \caption{\textbf{Unsupervised Learning Pipeline (Block Diagram).} A simplified end-to-end view of the unsupervised workflow, analogous to the supervised pipeline figure: sequence inputs are filtered, featurized, embedded into a latent space, visualized with UMAP, and pooled to the patient level for clustering.}
 \label{fig:s14}
+\end{figure}
+
+\subsection*{Figure S15: Unsupervised Validation (Quality and Stability)}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS15_unsupervised_validation.png}
+\caption{\textbf{Unsupervised Validation (Quality and Stability).} Internal validity metrics (silhouette, Davies--Bouldin) and stability (ARI agreement across repeated runs and patient subsampling) for patient-level clustering across a range of cluster counts (k).}
+\label{fig:s15}
 \end{figure}
 
 \end{document}

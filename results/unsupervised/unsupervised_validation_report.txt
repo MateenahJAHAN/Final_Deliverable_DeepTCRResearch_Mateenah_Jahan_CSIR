@@ -1,0 +1,26 @@
+Unsupervised validation report
+================================================================================
+Patients: 34
+Embedding dims: 64
+Algorithm: kmeans
+
+Internal cluster quality by k (higher silhouette/CH better; lower DB better):
+ k  silhouette  davies_bouldin  calinski_harabasz  ARI_vs_response  NMI_vs_response
+ 2    0.597379        0.269622           8.907596        -0.006556         0.046356
+ 3    0.576655        0.264193          10.351407        -0.002578         0.085535
+ 4    0.387754        0.340399           8.780827        -0.008993         0.110239
+ 5    0.156806        1.000489           8.925666        -0.008761         0.088774
+ 6    0.147119        1.195501           7.976650        -0.017278         0.092046
+
+Cluster stability by k (ARI agreement; higher is better):
+ k  seed_ARI_mean  subsample_ARI_mean  subsample_ARI_std  n_subsamples  subsample_frac
+ 2       0.220994            0.162508           0.367242            50             0.8
+ 3       0.158671            0.461780           0.289232            50             0.8
+ 4       0.332807            0.343964           0.239381            50             0.8
+ 5       0.388912            0.428487           0.223404            50             0.8
+ 6       0.565771            0.369554           0.192451            50             0.8
+
+Post-hoc association with response labels (k=2; Fisher exact):
+Observed p-value: 1
+Permutation p-value (n=5000): 1
+Note: this does NOT train on labels; it only tests association after clustering.
