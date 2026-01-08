@@ -14,6 +14,7 @@ Outputs (PNG + PDF)
 -------------------
 - figures/paper_final/figureS12_featurization_schematics.png/.pdf
 - figures/paper_final/figureS13_unsupervised_pipeline.png/.pdf
+- figures/paper_final/figureS14_unsupervised_pipeline_blocks.png/.pdf
 """
 
 from __future__ import annotations
@@ -179,10 +180,96 @@ def main() -> None:
     _save(fig, out_png2)
     plt.close(fig)
 
+    # -------------------------------------------------------------------------
+    # Figure S14: pipeline blocks figure (similar style to supervised pipeline fig)
+    # -------------------------------------------------------------------------
+    import matplotlib.pyplot as plt
+    import matplotlib.patches as patches
+
+    fig, ax = plt.subplots(1, 1, figsize=(12.5, 3.2))
+    ax.set_axis_off()
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    ax.text(
+        0.5,
+        0.93,
+        "Figure S14: Unsupervised learning pipeline (CDR3 + V/J → embedding → UMAP)",
+        ha="center",
+        va="center",
+        fontsize=14,
+        fontweight="bold",
+        color="#2C3E50",
+    )
+
+    # Block palette inspired by the existing pipeline figure
+    colors = [
+        ("Input TCR", "#3498DB"),
+        ("Quality\nfilter", "#F39C12"),
+        ("Feature\nencoding", "#27AE60"),
+        ("Unsupervised\nembedding\n(128-D)", "#9B59B6"),
+        ("UMAP\n(2-D map)", "#E74C3C"),
+        ("Patient\npooling +\nclustering", "#16A085"),
+    ]
+
+    x0 = 0.04
+    y0 = 0.28
+    h = 0.44
+    gap = 0.012
+    w = (0.92 - (len(colors) - 1) * gap) / len(colors)
+
+    for i, (label, c) in enumerate(colors):
+        x = x0 + i * (w + gap)
+        rect = patches.FancyBboxPatch(
+            (x, y0),
+            w,
+            h,
+            boxstyle="round,pad=0.02,rounding_size=0.03",
+            linewidth=1.2,
+            edgecolor="white",
+            facecolor=c,
+            alpha=0.95,
+        )
+        ax.add_patch(rect)
+        ax.text(
+            x + w / 2,
+            y0 + h / 2,
+            label,
+            ha="center",
+            va="center",
+            fontsize=11,
+            fontweight="bold",
+            color="white",
+        )
+        if i < len(colors) - 1:
+            ax.annotate(
+                "",
+                xy=(x + w + gap * 0.8, y0 + h / 2),
+                xytext=(x + w, y0 + h / 2),
+                arrowprops=dict(arrowstyle="->", lw=2.0, color="#7F8C8D"),
+            )
+
+    # Small caption line
+    ax.text(
+        0.5,
+        0.10,
+        "Unsupervised embedding is learned without outcome labels; labels are used only for coloring/interpretation in plots.",
+        ha="center",
+        va="center",
+        fontsize=10,
+        color="#2C3E50",
+    )
+
+    fig.tight_layout()
+    out_png3 = os.path.join(out_dir, "figureS14_unsupervised_pipeline_blocks.png")
+    _save(fig, out_png3)
+    plt.close(fig)
+
     print("=" * 80)
     print("GENERATED FEATURIZATION SCHEMATIC FIGURE")
     print(f"Saved: {out_png} (+.pdf)")
     print(f"Saved: {out_png2} (+.pdf)")
+    print(f"Saved: {out_png3} (+.pdf)")
     print(f"Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
 
