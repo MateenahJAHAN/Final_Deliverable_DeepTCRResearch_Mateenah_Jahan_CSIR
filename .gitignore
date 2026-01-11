@@ -20,3 +20,7 @@ Thumbs.db
 # Temporary
 *.tmp
 *.bak
+
+# Reference PDFs (not part of project)
+A-single-cell-atlas-of-CD19-chimeric-antigen-recep.pdf
+DeepTCR_Paper.pdf
