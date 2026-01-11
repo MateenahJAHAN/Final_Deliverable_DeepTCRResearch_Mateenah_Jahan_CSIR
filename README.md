@@ -81,7 +81,8 @@ Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/
 │   ├── 11_top_predictive_sequences.py  # Top 100 sequences
 │   ├── 12_sequence_characteristics.py  # Amino acid analysis
 │   ├── 13_generate_presentation.py     # PowerPoint generation
-│   └── 14_unsupervised_analysis.py     # VAE-inspired clustering (UNSUPERVISED)
+│   ├── 14_unsupervised_analysis.py     # K-means clustering (UNSUPERVISED)
+│   └── 15_unsupervised_vae_analysis.py # VAE + UMAP (Sidhom methodology)
 │
 ├── data_raw/                           # Original dataset
 │   └── deeptcr_complete_dataset.csv
@@ -181,11 +182,18 @@ Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/
 | 12_sequence_characteristics.py | Amino acid analysis | `amino_acid_composition.csv` |
 | 13_generate_presentation.py | PowerPoint slides | `DeepTCR_Results_Presentation.pptx` |
 
-### Phase 3: Unsupervised Learning (Script 14)
+### Phase 3: Unsupervised Learning (Scripts 14-15)
 
 | Script | Purpose | Output |
 |--------|---------|--------|
-| 14_unsupervised_analysis.py | **VAE-inspired clustering (UNSUPERVISED)** | Cluster assignments, Figure S10 |
+| 14_unsupervised_analysis.py | K-means clustering analysis | Cluster assignments, Figure S10 |
+| 15_unsupervised_vae_analysis.py | **VAE analysis (Sidhom methodology)** | Figure 8, S11, S12 |
+
+**Note:** Script 15 follows the exact methodology from Sidhom et al. (Science Advances 2022):
+- 128-dimensional latent space (like Sidhom's VAE)
+- UMAP visualization (like Sidhom Figure 3)
+- Per-patient distribution analysis (like Sidhom Figure 3D)
+- Shared motif analysis across patients
 
 ---
 
@@ -294,10 +302,23 @@ Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/
 
 ### Unsupervised Learning Supplementary
 
-#### Figure S10: Unsupervised Clustering (VAE-inspired)
+#### Figure 8: VAE Repertoire Distribution (Sidhom Figure 3 Style)
+![VAE Distribution](figures/paper_final/figure8_vae_repertoire_distribution.png)
+
+*Following Sidhom et al. methodology: (A) All TCRs in UMAP space colored by response. (B) Responder density. (C) Non-responder density.*
+
+#### Figure S10: Unsupervised Clustering
 ![Unsupervised Clustering](figures/paper_final/figureS10_unsupervised_clustering.png)
 
-*Left: t-SNE colored by cluster assignment (k=5). Right: t-SNE colored by response status. Cluster 4 shows 1.82-fold responder enrichment.*
+#### Figure S11: Per-Patient Distribution (Sidhom Figure 3D Style)
+![Per-Patient Distribution](figures/paper_final/figureS11_per_patient_distribution.png)
+
+*Each subplot shows one patient's TCR distribution. Border color = response status (blue=responder, red=non-responder).*
+
+#### Figure S12: Shared TCR Motifs
+![Shared Motifs](figures/paper_final/figureS12_shared_motifs.png)
+
+*Shared motifs across patients. Motif 5 is responder-enriched; Motif 2 is non-responder-enriched.*
 
 ---
 
