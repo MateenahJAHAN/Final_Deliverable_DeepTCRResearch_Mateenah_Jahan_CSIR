@@ -1,6 +1,6 @@
-# DeepTCR Immunotherapy Response Prediction
+# DeepTCR-based Prediction of CD19 CAR-T Cell Response
 
-> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting Immunotherapy Response in Basal Cell Carcinoma**
+> **Deep Learning Analysis of T-Cell Receptor Repertoires for Predicting CD19 CAR-T Cell Response in Refractory/Relapsed B-cell Lymphoma Using Supervised and Unsupervised Learning**
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow 2.12](https://img.shields.io/badge/tensorflow-2.12.0-orange.svg)](https://tensorflow.org/)
@@ -10,14 +10,21 @@
 
 ## Project Overview
 
-**Goal:** Predict immunotherapy response from T-cell receptor (TCR) sequences using DeepTCR deep learning framework with 100-fold Monte Carlo cross-validation and comprehensive post-training analysis.
+**Goal:** Predict CD19 CAR-T therapy response from T-cell receptor (TCR) sequences using DeepTCR deep learning framework with both **supervised** (attention-based MIL) and **unsupervised** (VAE-inspired clustering) approaches.
 
-**Dataset:** 239,634 TCR-beta sequences from 34 patients (18 responders, 16 non-responders)
+**Dataset:** 239,637 TCR-beta sequences from 34 patients with refractory/relapsed B-cell lymphoma (18 responders, 16 non-responders)
 
 **Results:**
+
+### Supervised Learning (Attention-based Multiple Instance Learning)
 - **AUC:** 0.754 ± 0.035 (SD), 95% CI: 0.747-0.761
 - **Bootstrap validation:** 1,000 iterations
 - **Top predictive sequences:** 72% from responders
+
+### Unsupervised Learning (VAE-inspired Clustering)
+- **Clusters identified:** 5 distinct TCR populations
+- **Responder-enriched cluster:** Cluster 4 (1.82-fold enrichment, 99.3% responder-derived)
+- **Key finding:** TRBV3-1 identified in both supervised and unsupervised approaches
 
 **Hardware:** Lambda Cloud H100 80GB GPU (19x speedup achieved)
 
@@ -46,6 +53,7 @@ python scripts/10_responder_comparison.py
 python scripts/11_top_predictive_sequences.py
 python scripts/12_sequence_characteristics.py
 python scripts/13_generate_presentation.py
+python scripts/14_unsupervised_analysis.py     # Unsupervised clustering
 ```
 
 ---
@@ -53,26 +61,27 @@ python scripts/13_generate_presentation.py
 ## Directory Structure
 
 ```
-lambda_deepTCR_deployement/
+Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/
 ├── README.md                           # This file
 ├── SETUP.md                            # Environment setup guide
 ├── requirements.txt                    # Python dependencies
 ├── run_training.sh                     # Training launcher (sets CUDA paths)
 │
-├── scripts/                            # Analysis pipeline (13 scripts)
+├── scripts/                            # Analysis pipeline (14 scripts)
 │   ├── 01_environment_setup.py         # Verify environment
 │   ├── 02_data_loading.py              # Load & preprocess data
 │   ├── 03_exploratory_analysis.py      # Generate EDA figures
 │   ├── 04_feature_encoding.py          # One-hot encode sequences
 │   ├── 05_deeptcr_setup.py             # Install/test DeepTCR
-│   ├── 06_monte_carlo_training.py      # 100-fold CV training
+│   ├── 06_monte_carlo_training.py      # 100-fold CV training (SUPERVISED)
 │   ├── 07_post_training_analysis.py    # AUC extraction & bootstrapping
 │   ├── 08_attention_weight_extraction.py # Extract attention weights
 │   ├── 09_attention_visualization.py   # Visualize attention
 │   ├── 10_responder_comparison.py      # R vs NR statistics
 │   ├── 11_top_predictive_sequences.py  # Top 100 sequences
 │   ├── 12_sequence_characteristics.py  # Amino acid analysis
-│   └── 13_generate_presentation.py     # PowerPoint generation
+│   ├── 13_generate_presentation.py     # PowerPoint generation
+│   └── 14_unsupervised_analysis.py     # VAE-inspired clustering (UNSUPERVISED)
 │
 ├── data_raw/                           # Original dataset
 │   └── deeptcr_complete_dataset.csv
@@ -83,13 +92,15 @@ lambda_deepTCR_deployement/
 │   ├── patient_ids.npy                # Patient identifiers
 │   └── deeptcr_trb_ready.csv          # Cleaned TCR data
 │
-├── DeepTCR_MonteCarlo_100folds_*/     # Trained models
+├── DeepTCR_MonteCarlo_100folds_*/     # Trained models (SUPERVISED)
 │   ├── models/                        # 100 model checkpoints
 │   ├── alpha_features.pkl
 │   ├── beta_features.pkl
 │   └── kernel.pkl
 │
 ├── results/                            # Analysis outputs
+│   │
+│   │ # Supervised Learning Results
 │   ├── auc_values.npy                 # 100 AUC scores
 │   ├── bootstrap_results.csv          # Bootstrap CI
 │   ├── attention_weights_all.csv      # All sequence attention
@@ -97,36 +108,57 @@ lambda_deepTCR_deployement/
 │   ├── vgene_enrichment.csv           # V-gene analysis
 │   ├── jgene_enrichment.csv           # J-gene analysis
 │   ├── responder_comparison_stats.csv # Statistical tests
-│   └── DeepTCR_Results_Presentation.pptx
+│   ├── DeepTCR_Results_Presentation.pptx
+│   │
+│   │ # Unsupervised Learning Results
+│   ├── unsupervised_cluster_stats.csv         # Cluster statistics
+│   ├── unsupervised_cluster_assignments.csv   # Sequence-cluster mapping
+│   ├── unsupervised_cluster_motifs.csv        # Top genes per cluster
+│   ├── unsupervised_patient_cluster_dist.csv  # Patient-level distribution
+│   ├── unsupervised_analysis_summary.csv      # Summary statistics
+│   └── unsupervised_latent_space.npy          # PCA latent embeddings
 │
 ├── figures/paper_final/               # Publication figures
+│   │
+│   │ # Main Figures
 │   ├── figure1_pipeline.png           # Data pipeline
 │   ├── figure2_architecture.png       # DeepTCR architecture
 │   ├── figure3_cohort_overview.png    # Patient cohort
-│   ├── figure4_model_performance.png  # ROC curves
+│   ├── figure4_model_performance.png  # ROC curves (SUPERVISED)
 │   ├── figure5_training_dynamics.png  # Training curves
-│   ├── figure6_attention_analysis.png # Attention weights
+│   ├── figure6_attention_analysis.png # Attention weights (SUPERVISED)
 │   ├── figure7_gene_usage.png         # V/J gene usage
-│   ├── figureS1-S4_*.png              # Supplementary (original)
-│   └── figureS5-S9_*.png              # Supplementary (new)
+│   │
+│   │ # Supplementary Figures (Supervised)
+│   ├── figureS1_auc_details.png       # Detailed AUC analysis
+│   ├── figureS2_patient_analysis.png  # Per-patient analysis
+│   ├── figureS3_jgene_analysis.png    # J-gene usage
+│   ├── figureS4_computational.png     # GPU performance
+│   ├── figureS5_attention_distribution.png  # Attention distribution
+│   ├── figureS6_attention_heatmap.png # Patient attention heatmap
+│   ├── figureS7_top_sequences.png     # Top 100 sequences
+│   ├── figureS8_responder_comparison.png # R vs NR comparison
+│   ├── figureS9_sequence_characteristics.png # AA analysis
+│   │
+│   │ # Supplementary Figure (Unsupervised)
+│   └── figureS10_unsupervised_clustering.png  # t-SNE clustering (UNSUPERVISED)
 │
 ├── paper/                             # Manuscript
 │   ├── main.tex                       # LaTeX source
-│   ├── main.pdf                       # Compiled PDF
+│   ├── main.pdf                       # Compiled PDF (30 pages)
 │   └── references.bib                 # Bibliography
 │
-├── logs/                              # Execution logs
-│   ├── 01-06_*.log                    # Training logs
-│   └── 07-13_*.log                    # Analysis logs
-│
-└── DeepTCR_Paper_Updated.pdf          # Final paper
+└── logs/                              # Execution logs
+    ├── 01-06_*.log                    # Training logs
+    ├── 07-13_*.log                    # Analysis logs
+    └── 14_unsupervised_analysis.log   # Unsupervised analysis log
 ```
 
 ---
 
 ## Pipeline Overview
 
-### Phase 1: Training Pipeline (Scripts 01-06)
+### Phase 1: Training Pipeline - Supervised Learning (Scripts 01-06)
 
 | Script | Purpose | Output |
 |--------|---------|--------|
@@ -135,9 +167,9 @@ lambda_deepTCR_deployement/
 | 03_exploratory_analysis.py | Generate EDA visualizations | 5 figures |
 | 04_feature_encoding.py | One-hot encode sequences | `X_onehot.npy` (789 MB) |
 | 05_deeptcr_setup.py | Install and test DeepTCR | DeepTCR ready |
-| 06_monte_carlo_training.py | 100-fold Monte Carlo CV | 100 trained models |
+| 06_monte_carlo_training.py | **100-fold Monte Carlo CV (SUPERVISED)** | 100 trained models |
 
-### Phase 2: Post-Training Analysis (Scripts 07-13)
+### Phase 2: Post-Training Analysis - Supervised Learning (Scripts 07-13)
 
 | Script | Purpose | Output |
 |--------|---------|--------|
@@ -149,11 +181,17 @@ lambda_deepTCR_deployement/
 | 12_sequence_characteristics.py | Amino acid analysis | `amino_acid_composition.csv` |
 | 13_generate_presentation.py | PowerPoint slides | `DeepTCR_Results_Presentation.pptx` |
 
+### Phase 3: Unsupervised Learning (Script 14)
+
+| Script | Purpose | Output |
+|--------|---------|--------|
+| 14_unsupervised_analysis.py | **VAE-inspired clustering (UNSUPERVISED)** | Cluster assignments, Figure S10 |
+
 ---
 
 ## Key Results
 
-### Model Performance
+### Supervised Learning Results (Attention-based MIL)
 
 | Metric | Value |
 |--------|-------|
@@ -164,18 +202,39 @@ lambda_deepTCR_deployement/
 | Folds | 100 |
 | Bootstrap iterations | 1,000 |
 
-### Attention Analysis
+### Attention Analysis (Supervised)
 
 | Finding | Value |
 |---------|-------|
-| Total sequences | 239,634 |
+| Total sequences | 239,637 |
 | High-attention sequences | 2,379 (top 1%) |
 | Top 100 from responders | 72% |
 | Mann-Whitney p-value | < 10⁻¹⁷⁸ |
 | Top V-gene enrichment | TRBV5-8 (1.54x) |
 | Top J-gene enrichment | TRBJ2-2 (1.17x) |
 
-### Top 5 Predictive Sequences
+### Unsupervised Learning Results (VAE-inspired Clustering)
+
+| Metric | Value |
+|--------|-------|
+| Sequences analyzed | 50,000 (subsampled) |
+| Clusters identified | 5 |
+| Latent dimensions (PCA) | 50 |
+| Most responder-enriched cluster | Cluster 4 |
+| Cluster 4 responder enrichment | 1.82-fold (99.3% responder-derived) |
+| Cluster 4 top V-gene | TRBV3-1 |
+
+### Cluster Distribution by Response Status
+
+| Cluster | Responder % | Non-responder % | Enrichment |
+|---------|-------------|-----------------|------------|
+| 0 | 53.4% | 46.6% | 0.98x |
+| 1 | 53.6% | 46.4% | 0.98x |
+| 2 | 57.5% | 42.5% | 1.05x |
+| 3 | 53.8% | 46.2% | 0.98x |
+| **4** | **99.3%** | **0.7%** | **1.82x** |
+
+### Top 5 Predictive Sequences (Supervised)
 
 | Rank | CDR3 Sequence | V Gene | J Gene | Response |
 |------|---------------|--------|--------|----------|
@@ -189,45 +248,78 @@ lambda_deepTCR_deployement/
 
 ## Key Figures
 
-### Figure 1: Data Processing Pipeline
+### Supervised Learning Figures
+
+#### Figure 1: Data Processing Pipeline
 ![Data Pipeline](figures/paper_final/figure1_pipeline.png)
 
-### Figure 2: DeepTCR Model Architecture
+#### Figure 2: DeepTCR Model Architecture
 ![Model Architecture](figures/paper_final/figure2_architecture.png)
 
-### Figure 3: Patient Cohort Overview
+#### Figure 3: Patient Cohort Overview
 ![Cohort Overview](figures/paper_final/figure3_cohort_overview.png)
 
-### Figure 4: Model Performance (ROC Curves)
+#### Figure 4: Model Performance (ROC Curves)
 ![Model Performance](figures/paper_final/figure4_model_performance.png)
 
-### Figure 5: Training Dynamics
+#### Figure 5: Training Dynamics
 ![Training Dynamics](figures/paper_final/figure5_training_dynamics.png)
 
-### Figure 6: Attention Weight Analysis
+#### Figure 6: Attention Weight Analysis
 ![Attention Analysis](figures/paper_final/figure6_attention_analysis.png)
 
-### Figure 7: V/J Gene Usage Patterns
+#### Figure 7: V/J Gene Usage Patterns
 ![Gene Usage](figures/paper_final/figure7_gene_usage.png)
 
 ---
 
 ## Supplementary Figures
 
-### Figure S5: Attention Distribution
+### Supervised Learning Supplementary
+
+#### Figure S5: Attention Distribution
 ![Attention Distribution](figures/paper_final/figureS5_attention_distribution.png)
 
-### Figure S6: Patient-Level Attention Heatmap
+#### Figure S6: Patient-Level Attention Heatmap
 ![Attention Heatmap](figures/paper_final/figureS6_attention_heatmap.png)
 
-### Figure S7: Top 100 Predictive Sequences
+#### Figure S7: Top 100 Predictive Sequences
 ![Top Sequences](figures/paper_final/figureS7_top_sequences.png)
 
-### Figure S8: Responder vs Non-Responder Comparison
+#### Figure S8: Responder vs Non-Responder Comparison
 ![Responder Comparison](figures/paper_final/figureS8_responder_comparison.png)
 
-### Figure S9: Sequence Characteristics Analysis
+#### Figure S9: Sequence Characteristics Analysis
 ![Sequence Characteristics](figures/paper_final/figureS9_sequence_characteristics.png)
+
+### Unsupervised Learning Supplementary
+
+#### Figure S10: Unsupervised Clustering (VAE-inspired)
+![Unsupervised Clustering](figures/paper_final/figureS10_unsupervised_clustering.png)
+
+*Left: t-SNE colored by cluster assignment (k=5). Right: t-SNE colored by response status. Cluster 4 shows 1.82-fold responder enrichment.*
+
+---
+
+## Methods Summary
+
+### Supervised Learning: Attention-based Multiple Instance Learning
+
+DeepTCR uses attention-based MIL to identify predictive TCR sequences:
+1. **Sequence Encoding:** One-hot encoding of CDR3 amino acids
+2. **CNN Feature Extraction:** Convolutional layers capture sequence motifs
+3. **Attention Mechanism:** Learns importance weights for each sequence
+4. **Patient-level Aggregation:** Attention-weighted sum for classification
+5. **Monte Carlo CV:** 100-fold cross-validation for robust evaluation
+
+### Unsupervised Learning: VAE-inspired Clustering
+
+Inspired by Variational Autoencoders (Kingma & Welling, 2014):
+1. **Feature Extraction:** k-mer frequencies (k=3) + V/J gene one-hot encoding
+2. **Dimensionality Reduction:** PCA to 50-dimensional latent space
+3. **Clustering:** K-means clustering (k=5)
+4. **Response Analysis:** Compare cluster composition by response status
+5. **Visualization:** t-SNE for 2D representation
 
 ---
 
@@ -280,48 +372,13 @@ See [SETUP.md](SETUP.md) for detailed installation instructions.
 
 ---
 
-## Output Files
-
-### Results Directory
-
-| File | Description |
-|------|-------------|
-| `auc_values.npy` | Array of 100 AUC scores |
-| `bootstrap_results.csv` | Mean, SD, 95% CI, 99% CI |
-| `attention_weights_all.csv` | All 239,634 sequences with attention |
-| `top_100_sequences_detailed.csv` | Top predictive sequences |
-| `vgene_enrichment.csv` | V-gene fold enrichment |
-| `jgene_enrichment.csv` | J-gene fold enrichment |
-| `responder_comparison_stats.csv` | Mann-Whitney, KS test results |
-| `amino_acid_composition.csv` | AA enrichment analysis |
-| `DeepTCR_Results_Presentation.pptx` | 14-slide PowerPoint |
-
-### Figures Directory
-
-| Figure | Description |
-|--------|-------------|
-| figure1_pipeline.png | Data processing pipeline |
-| figure2_architecture.png | DeepTCR model architecture |
-| figure3_cohort_overview.png | Patient cohort statistics |
-| figure4_model_performance.png | ROC curves and AUC |
-| figure5_training_dynamics.png | Training convergence |
-| figure6_attention_analysis.png | Attention weight analysis |
-| figure7_gene_usage.png | V/J gene usage patterns |
-| figureS5_attention_distribution.png | Full attention distribution |
-| figureS6_attention_heatmap.png | Patient-level heatmap |
-| figureS7_top_sequences.png | Top 100 sequence analysis |
-| figureS8_responder_comparison.png | R vs NR statistical comparison |
-| figureS9_sequence_characteristics.png | Amino acid characteristics |
-
----
-
 ## Commands Reference
 
 ```bash
-# Run complete training pipeline
+# Run complete supervised training pipeline
 ./run_training.sh
 
-# Run post-training analysis (after training)
+# Run post-training analysis (supervised)
 python scripts/07_post_training_analysis.py
 python scripts/08_attention_weight_extraction.py
 python scripts/09_attention_visualization.py
@@ -330,6 +387,9 @@ python scripts/11_top_predictive_sequences.py
 python scripts/12_sequence_characteristics.py
 python scripts/13_generate_presentation.py
 
+# Run unsupervised analysis
+python scripts/14_unsupervised_analysis.py
+
 # Monitor training
 tail -f logs/training_optimized.log
 
@@ -337,7 +397,7 @@ tail -f logs/training_optimized.log
 nvidia-smi
 
 # Compile paper (requires LaTeX)
-cd paper && pdflatex main.tex && bibtex main && pdflatex main.tex
+cd paper && pdflatex main.tex && bibtex main && pdflatex main.tex && pdflatex main.tex
 ```
 
 ---
@@ -347,12 +407,13 @@ cd paper && pdflatex main.tex && bibtex main && pdflatex main.tex
 If you use this code, please cite:
 
 ```bibtex
-@article{jahan2025deeptcr,
-  title={Deep Learning Analysis of T-Cell Receptor Repertoires Predicts
-         Immunotherapy Response in Basal Cell Carcinoma},
+@article{jahan2026deeptcr,
+  title={DeepTCR-based Prediction of CD19 CAR-T Cell Response in 
+         Refractory/Relapsed B-cell Lymphoma: A Deep Learning Approach 
+         Using Supervised and Unsupervised Analysis},
   author={Jahan, Mateenah and Bhalla, Sherry},
   journal={CSIR-IGIB Research Report},
-  year={2025}
+  year={2026}
 }
 ```
 
@@ -373,4 +434,4 @@ MIT License - see LICENSE file for details.
 
 ---
 
-*Last updated: December 26, 2025*
+*Last updated: January 11, 2026*
