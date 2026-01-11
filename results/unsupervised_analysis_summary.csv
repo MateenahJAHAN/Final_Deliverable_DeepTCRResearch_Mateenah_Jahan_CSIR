@@ -1,0 +1,2 @@
+n_sequences_analyzed,n_patients,n_clusters,latent_dimensions,variance_explained_pct,most_responder_enriched_cluster,max_responder_enrichment,most_nonresponder_enriched_cluster,min_responder_enrichment
+50000,34,5,50,3.4391900729139473,4,1.8168971950945823,0,0.9774101073368167

@@ -1,4 +1,4 @@
-\begin{thebibliography}{27}
+\begin{thebibliography}{28}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -19,23 +19,25 @@ Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio.
 \newblock URL \url{https://arxiv.org/abs/1409.0473}.
 \newblock Published at ICLR 2015.
 
-\bibitem[Bonilla et~al.(2016)Bonilla, Parmentier, King, Bezrukov, Kber, Stuber,
-  Letourneau, Sima, Radi, Pereira, et~al.]{bonilla2016genomic}
-Ximena Bonilla, Laurent Parmentier, Bryan King, Fedor Bezrukov, Gaetan Kber,
-  Florian Stuber, Alexandre Letourneau, Alicia Sima, Osman Radi, Sara Pereira,
-  et~al.
-\newblock Genomic analysis identifies new drivers and progression pathways in
-  skin basal cell carcinoma.
-\newblock \emph{Nature Genetics}, 48\penalty0 (4):\penalty0 398--406, 2016.
-\newblock \doi{10.1038/ng.3525}.
+\bibitem[Chen et~al.(2021{\natexlab{a}})Chen, Chen, Das, Gao, Chen, Kuo,
+  Gibbons, Bernstein, Bhattacharya, Bhoje, et~al.]{chen2021singlecell}
+Grace~M Chen, Changya Chen, Rajan~K Das, Peng Gao, Chun-Hui Chen, Sze~Shun Kuo,
+  Danielle~L Gibbons, Brett~E Bernstein, Dhrubajyoti Bhattacharya, Vikram
+  Bhoje, et~al.
+\newblock Single-cell profiling of t-cell repertoire and phenotype during
+  {CAR}-t therapy for b-cell malignancies.
+\newblock \emph{Blood}, 137\penalty0 (8):\penalty0 1072--1083,
+  2021{\natexlab{a}}.
+\newblock \doi{10.1182/blood.2020006568}.
 
-\bibitem[Chen et~al.(2021)Chen, Tworek, Jun, Yuan, de~Oliveira~Pinto, Kaplan,
-  Edwards, Burda, Joseph, Brockman, et~al.]{chen2021codex}
+\bibitem[Chen et~al.(2021{\natexlab{b}})Chen, Tworek, Jun, Yuan,
+  de~Oliveira~Pinto, Kaplan, Edwards, Burda, Joseph, Brockman,
+  et~al.]{chen2021codex}
 Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique~Pond{\'e}
   de~Oliveira~Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph,
   Greg Brockman, et~al.
 \newblock Evaluating large language models trained on code.
-\newblock \emph{arXiv preprint arXiv:2107.03374}, 2021.
+\newblock \emph{arXiv preprint arXiv:2107.03374}, 2021{\natexlab{b}}.
 \newblock \doi{10.48550/arXiv.2107.03374}.
 \newblock URL \url{https://arxiv.org/abs/2107.03374}.
 
@@ -55,6 +57,17 @@ Mark~M Davis and Pamela~J Bjorkman.
 \newblock \emph{Nature}, 334\penalty0 (6181):\penalty0 395--402, 1988.
 \newblock \doi{10.1038/334395a0}.
 
+\bibitem[Deng et~al.(2020)Deng, Han, Puebla-Osorio, Ma, Strati, Chaber,
+  Saez-Ibarra, Santos, Orozco, Patel, et~al.]{deng2020characteristics}
+Qing Deng, Gang Han, Nadia Puebla-Osorio, Michelle~CJ Ma, Paolo Strati, Bagdon
+  Chaber, Veronica Saez-Ibarra, Diana Santos, Ashley Orozco, Sapna Patel,
+  et~al.
+\newblock Characteristics of anti-{CD19} {CAR} t cell infusion products
+  associated with efficacy and toxicity in patients with large b cell
+  lymphomas.
+\newblock \emph{Nature Medicine}, 26\penalty0 (12):\penalty0 1878--1887, 2020.
+\newblock \doi{10.1038/s41591-020-1061-7}.
+
 \bibitem[Dietterich et~al.(1997)Dietterich, Lathrop, and
   Lozano-P{\'e}rez]{dietterich1997solving}
 Thomas~G Dietterich, Richard~H Lathrop, and Tom{\'a}s Lozano-P{\'e}rez.
@@ -62,6 +75,17 @@ Thomas~G Dietterich, Richard~H Lathrop, and Tom{\'a}s Lozano-P{\'e}rez.
 \newblock \emph{Artificial Intelligence}, 89\penalty0 (1-2):\penalty0 31--71,
   1997.
 \newblock \doi{10.1016/S0004-3702(96)00034-3}.
+
+\bibitem[Fraietta et~al.(2018)Fraietta, Lacey, Orlando, Pruteanu-Malinici,
+  Gohil, Lundh, Boesteanu, Wang, O'Connor, Hwang,
+  et~al.]{fraietta2018determinants}
+Joseph~A Fraietta, Simon~F Lacey, Elena~J Orlando, Iulian Pruteanu-Malinici,
+  Mercy Gohil, Stefan Lundh, Alina~C Boesteanu, Yong Wang, Roddy~S O'Connor,
+  Wei-Ting Hwang, et~al.
+\newblock Determinants of response and resistance to {CD19} chimeric antigen
+  receptor ({CAR}) t cell therapy of chronic lymphocytic leukemia.
+\newblock \emph{Nature Medicine}, 24\penalty0 (5):\penalty0 563--571, 2018.
+\newblock \doi{10.1038/s41591-018-0010-1}.
 
 \bibitem[Glanville et~al.(2017)Glanville, Huang, Nau, Hatton, Wagar, Rubelt,
   Ji, Han, Krams, Pettus, et~al.]{glanville2017identifying}
@@ -88,11 +112,54 @@ Maximilian Ilse, Jakub Tomczak, and Max Welling.
   2018.
 \newblock URL \url{https://proceedings.mlr.press/v80/ilse18a.html}.
 
+\bibitem[June et~al.(2018)June, O'Connor, Kawalekar, Ghassemi, and
+  Milone]{june2018cart}
+Carl~H June, Roddy~S O'Connor, Omkar~U Kawalekar, Saba Ghassemi, and Michael~C
+  Milone.
+\newblock {CAR} t cell immunotherapy for human cancer.
+\newblock \emph{Science}, 359\penalty0 (6382):\penalty0 1361--1365, 2018.
+\newblock \doi{10.1126/science.aar6711}.
+
+\bibitem[Kingma and Welling(2014)]{kingma2014vae}
+Diederik~P Kingma and Max Welling.
+\newblock Auto-encoding variational {Bayes}.
+\newblock \emph{arXiv preprint arXiv:1312.6114}, 2014.
+\newblock URL \url{https://arxiv.org/abs/1312.6114}.
+\newblock Published at ICLR 2014.
+
 \bibitem[LeCun et~al.(2015)LeCun, Bengio, and Hinton]{lecun2015deep}
 Yann LeCun, Yoshua Bengio, and Geoffrey Hinton.
 \newblock Deep learning.
 \newblock \emph{Nature}, 521\penalty0 (7553):\penalty0 436--444, 2015.
 \newblock \doi{10.1038/nature14539}.
+
+\bibitem[Locke et~al.(2019)Locke, Ghobadi, Jacobson, Miklos, Lekakis, Oluwole,
+  Lin, Braunschweig, Hill, Timmerman, et~al.]{locke2019longterm}
+Frederick~L Locke, Armin Ghobadi, Caron~A Jacobson, David~B Miklos, Lazaros~J
+  Lekakis, Olalekan~O Oluwole, Yi~Lin, Ira Braunschweig, Brian~T Hill, John~M
+  Timmerman, et~al.
+\newblock Long-term safety and activity of axicabtagene ciloleucel in
+  refractory large b-cell lymphoma ({ZUMA}-1): a single-arm, multicentre, phase
+  1--2 trial.
+\newblock \emph{The Lancet Oncology}, 20\penalty0 (1):\penalty0 31--42, 2019.
+\newblock \doi{10.1016/S1470-2045(18)30864-7}.
+
+\bibitem[Locke et~al.(2020)Locke, Rossi, Neelapu, Jacobson, Miklos, Ghobadi,
+  Oluwole, Reagan, Lekakis, Lin, et~al.]{locke2020tumor}
+Frederick~L Locke, John~M Rossi, Sattva~S Neelapu, Caron~A Jacobson, David~B
+  Miklos, Armin Ghobadi, Olalekan~O Oluwole, Patrick~M Reagan, Lazaros~J
+  Lekakis, Yi~Lin, et~al.
+\newblock Tumor burden, inflammation, and product attributes determine outcomes
+  of axicabtagene ciloleucel in large b-cell lymphoma.
+\newblock \emph{Blood Advances}, 4\penalty0 (19):\penalty0 4898--4911, 2020.
+\newblock \doi{10.1182/bloodadvances.2020002394}.
+
+\bibitem[Lopez et~al.(2018)Lopez, Regier, Cole, Jordan, and
+  Yosef]{lopez2018deep}
+Romain Lopez, Jeffrey Regier, Michael~B Cole, Michael~I Jordan, and Nir Yosef.
+\newblock Deep generative modeling for single-cell transcriptomics.
+\newblock \emph{Nature Methods}, 15\penalty0 (12):\penalty0 1053--1058, 2018.
+\newblock \doi{10.1038/s41592-018-0229-2}.
 
 \bibitem[Mamedov et~al.(2013)Mamedov, Britanova, Zvyagin, Turchaninova,
   Bolotin, Putintseva, Lebedev, and Chudakov]{mamedov2013preparing}
@@ -104,23 +171,17 @@ Ilgar~Z Mamedov, Olga~V Britanova, Ivan~V Zvyagin, Maria~A Turchaninova,
 \newblock \emph{Frontiers in Immunology}, 4:\penalty0 456, 2013.
 \newblock \doi{10.3389/fimmu.2013.00456}.
 
-\bibitem[Migden et~al.(2018)Migden, Rischin, Schmults, Guminski, Hauschild,
-  Lewis, Chung, Hernandez-Aya, Lim, Chang, et~al.]{migden2018pd}
-Michael~R Migden, Danny Rischin, Chrysalyne~D Schmults, Alexander Guminski,
-  Axel Hauschild, Karl~D Lewis, Christine~H Chung, Leonel Hernandez-Aya,
-  Andrea~M Lim, Anne Lynn~S Chang, et~al.
-\newblock {PD}-1 blockade with cemiplimab in advanced cutaneous squamous-cell
-  carcinoma.
-\newblock \emph{New England Journal of Medicine}, 379\penalty0 (4):\penalty0
-  341--351, 2018.
-\newblock \doi{10.1056/NEJMoa1805131}.
-
-\bibitem[Patel and Kurzrock(2015)]{patel2015pd}
-Sandip~Pravin Patel and Razelle Kurzrock.
-\newblock {PD-L1} expression as a predictive biomarker in cancer immunotherapy.
-\newblock \emph{Molecular Cancer Therapeutics}, 14\penalty0 (4):\penalty0
-  847--856, 2015.
-\newblock \doi{10.1158/1535-7163.MCT-14-0983}.
+\bibitem[Neelapu et~al.(2017)Neelapu, Locke, Bartlett, Lekakis, Miklos,
+  Jacobson, Braunschweig, Oluwole, Siddiqi, Lin,
+  et~al.]{neelapu2017axicabtagene}
+Sattva~S Neelapu, Frederick~L Locke, Nancy~L Bartlett, Lazaros~J Lekakis,
+  David~B Miklos, Caron~A Jacobson, Ira Braunschweig, Olalekan~O Oluwole, Tanya
+  Siddiqi, Yi~Lin, et~al.
+\newblock Axicabtagene ciloleucel {CAR} t-cell therapy in refractory large
+  b-cell lymphoma.
+\newblock \emph{New England Journal of Medicine}, 377\penalty0 (26):\penalty0
+  2531--2544, 2017.
+\newblock \doi{10.1056/NEJMoa1707447}.
 
 \bibitem[Postow et~al.(2015)Postow, Manuel, Wong, Yuan, Dong, Liu, Perez,
   Tanneau, Noel, Courtier, et~al.]{postow2015peripheral}
@@ -132,12 +193,6 @@ Michael~A Postow, Mariana Manuel, Phillip Wong, Jianda Yuan, Zhiqiang Dong,
 \newblock \emph{Journal for ImmunoTherapy of Cancer}, 3\penalty0 (1):\penalty0
   23, 2015.
 \newblock \doi{10.1186/s40425-015-0070-4}.
-
-\bibitem[Ribas and Wolchok(2018)]{ribas2018cancer}
-Antoni Ribas and Jedd~D Wolchok.
-\newblock Cancer immunotherapy using checkpoint blockade.
-\newblock \emph{Science}, 359\penalty0 (6382):\penalty0 1350--1355, 2018.
-\newblock \doi{10.1126/science.aar4060}.
 
 \bibitem[Robins et~al.(2009)Robins, Campregher, Srivastava, Wacher, Turtle,
   Kahsai, Riddell, Warren, and Carlson]{robins2009comprehensive}
@@ -157,22 +212,17 @@ Jamie Rossjohn, Stephanie Gras, John~J Miles, Stephen~J Turner, Dale~I Godfrey,
 \newblock \emph{Annual Review of Immunology}, 33:\penalty0 169--200, 2015.
 \newblock \doi{10.1146/annurev-immunol-032414-112334}.
 
-\bibitem[Samstein et~al.(2019)Samstein, Lee, Shoushtari, Hellmann, Shen,
-  Janjigian, Barron, Zehir, Jordan, Omuro, et~al.]{samstein2019tumor}
-Robert~M Samstein, Chung-Han Lee, Alexander~N Shoushtari, Matthew~D Hellmann,
-  Ronglai Shen, Yelena~Y Janjigian, David~A Barron, Ahmet Zehir, Emmet~J
-  Jordan, Antonio Omuro, et~al.
-\newblock Tumor mutational load predicts survival after immunotherapy across
-  multiple cancer types.
-\newblock \emph{Nature Genetics}, 51\penalty0 (2):\penalty0 202--206, 2019.
-\newblock \doi{10.1038/s41588-018-0312-8}.
-
-\bibitem[Sharma et~al.(2017)Sharma, Hu-Lieskovan, Wargo, and
-  Ribas]{sharma2017primary}
-Padmanee Sharma, Siwen Hu-Lieskovan, Jennifer~A Wargo, and Antoni Ribas.
-\newblock Primary, adaptive, and acquired resistance to cancer immunotherapy.
-\newblock \emph{Cell}, 168\penalty0 (4):\penalty0 707--723, 2017.
-\newblock \doi{10.1016/j.cell.2017.01.017}.
+\bibitem[Schuster et~al.(2019)Schuster, Bishop, Tam, Waller, Borchmann,
+  McGuirk, J{\"a}ger, Jaglowski, Andreadis, Westin,
+  et~al.]{schuster2019tisagenlecleucel}
+Stephen~J Schuster, Michael~R Bishop, Constantine~S Tam, Edmund~K Waller, Peter
+  Borchmann, Joseph~P McGuirk, Ulrich J{\"a}ger, Samantha Jaglowski,
+  Charalambos Andreadis, Jason~R Westin, et~al.
+\newblock Tisagenlecleucel in adult relapsed or refractory diffuse large b-cell
+  lymphoma.
+\newblock \emph{New England Journal of Medicine}, 380\penalty0 (1):\penalty0
+  45--56, 2019.
+\newblock \doi{10.1056/NEJMoa1804980}.
 
 \bibitem[Sidhom et~al.(2021)Sidhom, Larman, Pardoll, and
   Baras]{sidhom2021deeptcr}
@@ -181,23 +231,6 @@ John-William Sidhom, H~Benjamin Larman, Drew~M Pardoll, and Alexander~S Baras.
   concepts within t-cell repertoires.
 \newblock \emph{Nature Communications}, 12\penalty0 (1):\penalty0 1605, 2021.
 \newblock \doi{10.1038/s41467-021-21879-w}.
-
-\bibitem[Stratigos et~al.(2020)Stratigos, Garbe, Dessinioti, Lebbe, Bataille,
-  Bastholt, Dreno, Fargnoli, Forsea, Frenard, et~al.]{stratigos2021european}
-Alexander~J Stratigos, Claus Garbe, Clio Dessinioti, Celeste Lebbe, Veronique
-  Bataille, Lars Bastholt, Brigitte Dreno, Maria~Concetta Fargnoli, Ana-Maria
-  Forsea, Camille Frenard, et~al.
-\newblock European interdisciplinary guideline on invasive squamous cell
-  carcinoma of the skin: Part 2. treatment.
-\newblock \emph{European Journal of Cancer}, 128:\penalty0 83--102, 2020.
-\newblock \doi{10.1016/j.ejca.2020.01.008}.
-
-\bibitem[Topalian et~al.(2015)Topalian, Drake, and Pardoll]{topalian2015immune}
-Suzanne~L Topalian, Charles~G Drake, and Drew~M Pardoll.
-\newblock Immune checkpoint blockade: a common denominator approach to cancer
-  therapy.
-\newblock \emph{Cancer Cell}, 27\penalty0 (4):\penalty0 450--461, 2015.
-\newblock \doi{10.1016/j.ccell.2015.03.001}.
 
 \bibitem[Tumeh et~al.(2014)Tumeh, Harview, Yearley, Shintaku, Taylor, Robert,
   Chmielowski, Spasic, Henry, Ciobanu, et~al.]{tumeh2014pd}
@@ -218,13 +251,6 @@ Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
   volume~30, pages 5998--6008, 2017.
 \newblock URL
   \url{https://papers.nips.cc/paper/7181-attention-is-all-you-need}.
-
-\bibitem[Yarchoan et~al.(2017)Yarchoan, Hopkins, and Jaffee]{yarchoan2017tumor}
-Mark Yarchoan, Alexander Hopkins, and Elizabeth~M Jaffee.
-\newblock Tumor mutational burden and response rate to {PD}-1 inhibition.
-\newblock \emph{New England Journal of Medicine}, 377\penalty0 (25):\penalty0
-  2500--2501, 2017.
-\newblock \doi{10.1056/NEJMc1713444}.
 
 \bibitem[Zhang et~al.(2020)Zhang, Ma, Schonnesen, Zhang, He, Sun, Williams,
   Jain, Bhattacharya, Fang-Landau, et~al.]{zhang2018investigation}

@@ -1,0 +1,18 @@
+================================================================================
+UNSUPERVISED DEEPTCR ANALYSIS LOG
+================================================================================
+Timestamp: 2026-01-11 17:57:00
+
+ANALYSIS SUMMARY
+----------------------------------------
+n_sequences_analyzed: 50000
+n_patients: 34
+n_clusters: 5
+latent_dimensions: 50
+variance_explained_pct: 3.4391900729139473
+most_responder_enriched_cluster: 4
+max_responder_enrichment: 1.8168971950945823
+most_nonresponder_enriched_cluster: 0
+min_responder_enrichment: 0.9774101073368167
+
+================================================================================
