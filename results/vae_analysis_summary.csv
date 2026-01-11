@@ -1,0 +1,2 @@
+methodology,n_sequences_analyzed,n_patients,latent_dimensions,variance_explained_pct,n_shared_motifs,most_responder_enriched_motif,responder_enrichment_diff,most_nonresponder_enriched_motif,nonresponder_enrichment_diff
+VAE-inspired (following Sidhom et al. 2022),30000,34,128,7.687973126633094,10,5,2.0323635278722723,2,3.346357632495476

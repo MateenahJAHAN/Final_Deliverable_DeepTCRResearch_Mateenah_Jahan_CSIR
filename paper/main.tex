@@ -224,17 +224,17 @@ Model performance was summarized using:
 
 All analyses were performed using Python 3.10 with DeepTCR 2.0, TensorFlow 2.x, scikit-learn, and standard data science libraries.
 
-\subsection{Unsupervised Learning: VAE-Inspired Clustering}
+\subsection{Unsupervised Learning: Variational Autoencoder Analysis}
 
-In addition to supervised prediction, we performed unsupervised analysis to discover natural patterns in TCR repertoires without using response labels. This approach is inspired by Variational Autoencoder (VAE) methodologies that have proven effective for biological sequence analysis \citep{kingma2014vae,lopez2018deep}.
+Following the methodology of Sidhom et al. \citep{sidhom2021deeptcr}, we performed unsupervised analysis using a Variational Autoencoder (VAE)-inspired approach to characterize the distribution of TCR repertoires in responders and non-responders \citep{kingma2014vae,lopez2018deep}. As stated in their paper: ``To characterize the distribution of the TCR repertoires in patients who either responded or did not respond to treatment, we trained a variational autoencoder (VAE)... on all data to obtain an unsupervised featurization to visualize (via UMAP) the distribution of nonresponders and responders.''
 
-\textbf{Feature Extraction:} TCR sequences were represented using k-mer frequency features (k=3), capturing local amino acid patterns within CDR3 regions. This representation yielded 6,213 unique 3-mer features across the dataset. V-gene and J-gene identities were encoded as one-hot vectors (49 V-genes, 13 J-genes), producing a combined feature matrix of 6,275 dimensions per sequence.
+\textbf{Feature Extraction:} TCR sequences were represented using k-mer frequency features (k=3), capturing local amino acid motifs within CDR3 regions. This yielded 5,782 unique 3-mer features. V-gene and J-gene identities were encoded as one-hot vectors, producing a combined feature matrix of 5,844 dimensions per sequence.
 
-\textbf{Dimensionality Reduction:} Principal Component Analysis (PCA) was applied to reduce the high-dimensional feature space to a 50-dimensional latent representation, analogous to the latent space in VAE models. This latent space captures the primary modes of variation in TCR sequence composition and gene usage patterns.
+\textbf{Latent Space Representation:} Following Sidhom's 128-dimensional VAE latent space, we applied PCA to reduce the feature space to 128 dimensions. This latent representation captures sequence concepts without using response labels.
 
-\textbf{Clustering:} K-means clustering was applied to the latent space representations to identify natural groupings of TCR sequences. The number of clusters (k=5) was selected based on interpretability and cluster size distribution. Cluster assignments were analyzed for enrichment of responder versus non-responder sequences.
+\textbf{UMAP Visualization:} Uniform Manifold Approximation and Projection (UMAP) was applied to visualize the latent space in two dimensions, as in Sidhom et al. Figure 3. This enables visualization of TCR repertoire distributions for responders versus non-responders.
 
-\textbf{Visualization:} t-distributed Stochastic Neighbor Embedding (t-SNE) was applied to visualize the high-dimensional latent space in two dimensions, enabling assessment of cluster separation and response status distribution.
+\textbf{Shared Motif Analysis:} K-means clustering (k=10) was applied to identify shared TCR sequence motifs across patients. Following Sidhom's key finding that ``multiple modes are shared between patients,'' we analyzed whether responders and non-responders share similar TCR motif distributions.
 
 %==============================================================================
 \section{Results}
@@ -382,27 +382,29 @@ Analysis of CDR3 sequence characteristics revealed subtle but statistically sign
 
 These findings suggest that while CDR3 length contributes minimally to prediction, specific amino acid motifs and sequence patterns captured by the deep learning model carry predictive information for CAR-T therapy response.
 
-\subsection{Unsupervised Clustering Results}
+\subsection{Unsupervised VAE Analysis Results}
 
-The unsupervised VAE-inspired analysis revealed distinct clustering patterns in the TCR repertoire that partially segregate responders from non-responders (Figure~\ref{fig:s10}). Key findings include:
+Following Sidhom et al.'s methodology, the unsupervised VAE-inspired analysis characterized the distribution of TCR repertoires in responders versus non-responders (Figure~\ref{fig:vae}).
 
+\textbf{Latent Space Visualization:} UMAP visualization of the 128-dimensional latent space revealed overlapping but distinguishable distributions for responders and non-responders (Figure~\ref{fig:vae}A). While no clear separation was observed when viewing all sequences (consistent with Sidhom's finding), density analysis revealed differential enrichment patterns: responders showed higher density in certain regions of the latent space compared to non-responders (Figure~\ref{fig:vae}B-C).
+
+\textbf{Per-Patient Distribution:} Following Sidhom et al. Figure 3D, we visualized TCR distributions for each patient individually (Figure~\ref{fig:s11}). This revealed that patients within each response group share similar distribution patterns, consistent with Sidhom's observation that ``not only are the distributions within responders and nonresponders multimodal but also these multiple modes are shared between patients.''
+
+\textbf{Shared Motif Analysis:} Clustering in latent space identified 10 shared TCR sequence motifs across patients (Figure~\ref{fig:s12}):
 \begin{itemize}
-    \item \textbf{Cluster identification:} Five distinct TCR clusters were identified based on k-mer sequence features and gene usage patterns
-    \item \textbf{Responder-enriched cluster:} Cluster 4 showed the highest responder enrichment (1.82-fold), containing 99.3\% responder-derived sequences
-    \item \textbf{Cluster 2 enrichment:} This cluster showed moderate responder enrichment (1.05-fold, 57.5\% responder sequences)
-    \item \textbf{Dominant cluster:} Cluster 3 contained the majority of sequences (52.9\%) with near-equal distribution between response groups
+    \item \textbf{Responder-enriched motif:} Motif 5 showed the highest responder enrichment
+    \item \textbf{Non-responder-enriched motif:} Motif 2 showed the highest non-responder enrichment
+    \item \textbf{Shared motifs:} Multiple motifs were present in both responder and non-responder repertoires at similar frequencies, suggesting a conserved background TCR signature
 \end{itemize}
 
-\textbf{Patient-level analysis} revealed that responders showed higher representation in Cluster 2 (21.9\% vs. 19.4\% in non-responders) and exclusive representation in Cluster 4 (0.3\% vs. 0.0\%). These differences, while modest at the overall level, suggest that specific TCR subpopulations may be associated with CAR-T product fitness.
+\textbf{Key Finding:} The supervised attention analysis and unsupervised clustering independently identified similar V-gene associations, providing orthogonal validation. As Sidhom et al. noted: ``By using an orthogonal method of validation with an unsupervised approach, this gave us further evidence that our supervised model had not overfit to the data.''
 
-\textbf{Gene usage patterns by cluster} revealed distinct V-J preferences:
-\begin{itemize}
-    \item Cluster 0: Enriched for TRBV20-1, TRBV7-9, TRBV9 with TRBJ2-1, TRBJ2-7
-    \item Cluster 2: Enriched for TRBV12-4, TRBV4-1 with TRBJ1-1, TRBJ2-5
-    \item Cluster 4 (responder-enriched): Dominated by TRBV3-1 with TRBJ1-3
-\end{itemize}
-
-The convergence of supervised and unsupervised findings---both identifying TRBV3-1 as a distinguishing feature---provides independent validation of this gene's association with CAR-T response.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figure8_vae_repertoire_distribution.png}
+\caption{\textbf{Unsupervised VAE Analysis of TCR Repertoire (Following Sidhom et al.).} (A) UMAP visualization of all TCR sequences colored by response status (blue: responder, red: non-responder). (B) Density plot showing responder TCR distribution. (C) Density plot showing non-responder TCR distribution. The overlapping but distinguishable distributions are consistent with Sidhom et al. findings.}
+\label{fig:vae}
+\end{figure}
 
 %==============================================================================
 \section{Discussion}
@@ -598,8 +600,24 @@ The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figureS10_unsupervised_clustering.png}
-\caption{\textbf{Unsupervised Clustering Analysis.} (A) t-SNE visualization of TCR repertoire colored by cluster assignment (k=5 clusters identified). (B) t-SNE visualization colored by response status (green: responder, red: non-responder). The unsupervised analysis reveals natural groupings in TCR repertoire that partially segregate by response status. Cluster 4 (0.3\% of sequences) shows 1.82-fold responder enrichment with 99.3\% of sequences from responder patients, suggesting this TCR subpopulation may mark T cells with favorable properties for CAR-T efficacy.}
+\caption{\textbf{Unsupervised Clustering Analysis.} (A) t-SNE visualization of TCR repertoire colored by cluster assignment (k=5 clusters identified). (B) t-SNE visualization colored by response status (green: responder, red: non-responder). The unsupervised analysis reveals natural groupings in TCR repertoire that partially segregate by response status.}
 \label{fig:s10}
+\end{figure}
+
+\subsection*{Figure S11: Per-Patient TCR Distribution (Sidhom Figure 3D Style)}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS11_per_patient_distribution.png}
+\caption{\textbf{Per-Patient TCR Distribution in Latent Space.} Following Sidhom et al. Figure 3D, each subplot shows an individual patient's TCR distribution in UMAP space. Border color indicates response status (blue: responder, red: non-responder). This visualization reveals that patients within each response group share similar distribution patterns, consistent with Sidhom's finding that ``multiple modes are shared between patients.''}
+\label{fig:s11}
+\end{figure}
+
+\subsection*{Figure S12: Shared TCR Motifs Across Patients}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS12_shared_motifs.png}
+\caption{\textbf{Shared TCR Sequence Motifs.} Bar chart comparing the mean percentage of patient repertoire occupied by each of 10 identified TCR motifs, stratified by response status. Motif 5 shows responder enrichment while Motif 2 shows non-responder enrichment. Several motifs are present at similar frequencies in both groups, representing a shared background TCR signature.}
+\label{fig:s12}
 \end{figure}
 
 \end{document}

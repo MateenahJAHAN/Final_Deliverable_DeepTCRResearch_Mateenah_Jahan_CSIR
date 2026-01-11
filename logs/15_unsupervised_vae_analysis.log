@@ -1,0 +1,20 @@
+================================================================================
+UNSUPERVISED VAE ANALYSIS LOG (SIDHOM METHODOLOGY)
+================================================================================
+Timestamp: 2026-01-11 18:17:01
+
+Reference: Sidhom et al., Science Advances 2022
+DOI: 10.1126/sciadv.abq5089
+
+ANALYSIS SUMMARY
+----------------------------------------
+methodology: VAE-inspired (following Sidhom et al. 2022)
+n_sequences_analyzed: 30000
+n_patients: 34
+latent_dimensions: 128
+variance_explained_pct: 7.687973126633094
+n_shared_motifs: 10
+most_responder_enriched_motif: 5
+responder_enrichment_diff: 2.0323635278722723
+most_nonresponder_enriched_motif: 2
+nonresponder_enrichment_diff: 3.346357632495476
