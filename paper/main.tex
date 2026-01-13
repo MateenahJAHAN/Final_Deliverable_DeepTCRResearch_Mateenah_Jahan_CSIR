@@ -384,6 +384,8 @@ These findings suggest that while CDR3 length contributes minimally to predictio
 
 \subsection{Unsupervised VAE Analysis Results}
 
+To complement the supervised attention-based analysis, we employed an unsupervised learning approach to characterize the global landscape of TCR repertoires. While the supervised model explicitly learns to discriminate between responders and non-responders, unsupervised analysis discovers inherent structures and clusters within the data without access to response labels. This serves as a critical orthogonal validation: if the natural data distribution segregates by clinical outcome, it strongly supports the biological relevance of the TCR repertoire in determining CAR-T response.
+
 Following Sidhom et al.'s methodology, the unsupervised VAE-inspired analysis characterized the distribution of TCR repertoires in responders versus non-responders (Figure~\ref{fig:vae}).
 
 \textbf{Latent Space Visualization:} UMAP visualization of the 128-dimensional latent space revealed overlapping but distinguishable distributions for responders and non-responders (Figure~\ref{fig:vae}A). While no clear separation was observed when viewing all sequences (consistent with Sidhom's finding), density analysis revealed differential enrichment patterns: responders showed higher density in certain regions of the latent space compared to non-responders (Figure~\ref{fig:vae}B-C).
@@ -402,7 +404,7 @@ Following Sidhom et al.'s methodology, the unsupervised VAE-inspired analysis ch
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figure8_vae_repertoire_distribution.png}
-\caption{\textbf{Unsupervised VAE Analysis of TCR Repertoire (Following Sidhom et al.).} (A) UMAP visualization of all TCR sequences colored by response status (blue: responder, red: non-responder). (B) Density plot showing responder TCR distribution. (C) Density plot showing non-responder TCR distribution. The overlapping but distinguishable distributions are consistent with Sidhom et al. findings.}
+\caption{\textbf{Unsupervised VAE Analysis of TCR Repertoire (Following Sidhom et al.).} (A) UMAP visualization of all TCR sequences colored by response status (blue: responder, red: non-responder). (B) Density plot showing responder TCR distribution. (C) Density plot showing non-responder TCR distribution. The overlapping but distinguishable distributions are consistent with Sidhom et al. findings, providing orthogonal validation that the repertoire structure itself correlates with therapeutic response.}
 \label{fig:vae}
 \end{figure}
 
