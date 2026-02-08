@@ -1,26 +1,30 @@
-# Credentials - DO NOT PUSH
-GITHUB_CREDENTIALS.md
-
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
+*.egg-info/
+dist/
+build/
+.eggs/
 
-# Jupyter
+# Jupyter Notebook
 .ipynb_checkpoints/
+
+# Virtual Environment
+venv/
+env/
+.env/
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Temporary
-*.tmp
-*.bak
-
-# Reference PDFs (not part of project)
-A-single-cell-atlas-of-CD19-chimeric-antigen-recep.pdf
-DeepTCR_Paper.pdf
+# Data (uncomment if you don't want to track data)
+# data/*.csv
