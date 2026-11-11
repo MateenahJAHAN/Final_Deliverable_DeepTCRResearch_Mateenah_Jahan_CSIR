@@ -456,3 +456,16 @@ MIT License - see LICENSE file for details.
 ---
 
 *Last updated: January 11, 2026*
+
+<!-- portfolio-navigation -->
+## Repository guide
+
+- **Code and notebooks** · [run_training.sh](run_training.sh), [scripts](scripts)
+- **Data** · [data_processed](data_processed), [deeptcr_complete_dataset (5).csv](data_raw/deeptcr_complete_dataset%20%285%29.csv), [figures](figures), [results](results)
+- **Results** · [results](results)
+- **Figures and images** · [figures](figures)
+- **Papers and reports** · [figures](figures), [paper](paper)
+- **Documentation and notes** · [SETUP.md](SETUP.md)
+
+<!-- /portfolio-navigation -->
+
