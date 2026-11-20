@@ -61,16 +61,19 @@ The evaluator verifies all 57 fits and writes aggregate JSON and CSV. It fits th
 
 ## Build the research report
 
-The [LaTeX source](paper/main.tex) uses the figures in `figures/correction/` and the bibliography in `paper/references.bib`. Run these commands from the repository root with Matplotlib and a LaTeX installation that includes `latexmk`.
+The [LaTeX source](paper/main.tex) uses the checked-in figures and the bibliography in `paper/references.bib`. Run these commands from the repository root with a LaTeX installation that includes `latexmk`.
 
 ```sh
-python validation/repeated-patient-cv/render_repeat_study.py --figure figures/correction/repeated-patient-auroc.png
 cd paper
 build="$(mktemp -d)"
 latexmk -pdf -halt-on-error -interaction=nonstopmode -outdir="$build" main.tex
 cp "$build/main.pdf" main.pdf
 ```
 
-The performance table uses the [57-fit aggregate results](validation/repeated-patient-cv/repeat_results.json). Cohort and clustering figures use the [descriptive summaries](validation/correction-rerun/checked_descriptives.json) and the training-loss figure shows the [earlier fixed-partition repeat](validation/correction-rerun/aggregate_results.json).
+The performance table and fold-level appendix use the [57-fit aggregate results](validation/repeated-patient-cv/repeat_results.json). To regenerate the updated training, runtime and repertoire panels, run the following from the repository root with Matplotlib and pandas, using the verified CSV from the authorized input directory.
+
+```sh
+python paper/render_manuscript_figures.py --cohort "$AUTHORIZED_DEEPTCR_INPUT_DIR/deeptcr_trb_ready.csv"
+```
 
 [Earlier protocol and results](validation/patient-grouped-deeptcr/README.md) · [Historical setup guide](https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/blob/ce1fa3a421edb9f4025a45cb79dc7b014867ad83/SETUP.md)

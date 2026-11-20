@@ -1,5 +1,6 @@
 \documentclass[11pt,a4paper]{article}
 
+% Packages
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -7,25 +8,36 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{longtable}
 \usepackage{float}
 \usepackage{caption}
+\usepackage{subcaption}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{natbib}
 \usepackage{setspace}
 \usepackage{fancyhdr}
-\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{xcolor}
+\usepackage{soul}
 
+% Page style
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{\thepage}
 \lhead{DeepTCR and CD19 CAR-T Response}
-\renewcommand{\headrulewidth}{0.4pt}
 \setlength{\headheight}{14pt}
-\onehalfspacing
-\graphicspath{{../figures/correction/}}
-\captionsetup{font=small}
+\renewcommand{\headrulewidth}{0.4pt}
 
-\title{\textbf{DeepTCR-based Prediction of CD19 CAR-T Cell Response in Refractory/Relapsed B-cell Lymphoma}}
+% Line spacing
+\onehalfspacing
+
+% Graphics path
+\graphicspath{{../figures/paper_final/}{../figures/correction/}{../figures/manuscript/}}
+
+% Title
+\title{\textbf{DeepTCR-based Prediction of CD19 CAR-T Cell Response in Refractory/Relapsed B-cell Lymphoma: A Deep Learning Approach Using Supervised and Unsupervised Analysis}}
+
 \author{
 Mateenah Jahan$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.5em]
 \small{$^1$CSIR-Institute of Genomics and Integrative Biology (CSIR-IGIB), New Delhi, India}\\[0.3em]
@@ -33,134 +45,225 @@ Mateenah Jahan$^{1}$, Sherry Bhalla$^{1,*,\dagger}$\\[0.5em]
 \small{$^\dagger$Research Supervisor}\\[0.5em]
 \small{\textit{Research Trainee Final Submission -- CSIR-IGIB}}
 }
-\date{11 January 2026\\Updated 20 November 2026}
+
+\date{11 January 2026\\Revised 20 November 2026}
 
 \begin{document}
+
 \maketitle
 
 \begin{abstract}
-\noindent\textbf{Background} Response to CD19-directed chimeric antigen receptor T-cell (CAR-T) therapy varies among patients with refractory or relapsed B-cell lymphoma. We evaluated whether the T-cell receptor (TCR) sequence repertoire could discriminate recorded responders from nonresponders when patients were held entirely out of model training.
+\noindent\textbf{Background:} Chimeric antigen receptor T-cell (CAR-T) therapy targeting CD19 has revolutionized the treatment of refractory/relapsed B-cell lymphoma, yet response rates remain variable with only 40--60\% of patients achieving durable remission. T-cell receptor (TCR) repertoires of infused CAR-T products encode information about T-cell fitness and therapeutic potential, but traditional repertoire metrics have shown limited predictive value. Deep learning approaches offer potential to extract complex patterns from high-dimensional TCR data for clinical prediction.
 
-\noindent\textbf{Methods} We used 239,634 eligible TCR beta-chain records from 34 patients, including 18 responders and 16 nonresponders. We crossed five stratified five-fold patient partitions with two training seeds for the DeepTCR sequence classifier. Separate three- and four-fold evaluations brought the total to 57 fits. A composition baseline used the same patient partitions.
+\noindent\textbf{Methods:} We analyzed 239,634 eligible TCR beta-chain records from 34 patients with refractory/relapsed B-cell lymphoma treated with CD19 CAR-T therapy (18 responders, 16 non-responders). The supervised analysis used the DeepTCR sequence classifier with CDR3 amino acid sequences and V/J gene annotations. Five patient-stratified five-fold partitions crossed with two training seeds. Three- and four-fold sensitivity checks brought the total to 57 fits. A sequence-composition baseline used the same patient partitions. The exploratory unsupervised analysis used PCA and K-means clustering.
 
-\noindent\textbf{Results} The median within-fold patient AUROC across ten five-fold DeepTCR evaluations was \textbf{0.456} (range 0.298--0.579). The matched composition baseline had median AUROC 0.386 across five partitions. DeepTCR exceeded the matched baseline in eight of ten evaluations. AUROC was 0.438 in the three-fold and 0.611 in the four-fold sensitivity check.
+\noindent\textbf{Results:} The median within-fold patient AUROC across the ten five-fold evaluations was 0.456 (range 0.298--0.579), compared with 0.386 for the composition baseline across five partitions. DeepTCR scored higher than the matched baseline in eight of ten evaluations. AUROC was 0.438 in the three-fold and 0.611 in the four-fold sensitivity check. The exploratory analyses described repertoire composition and cluster occupancy within the cohort.
 
-\noindent\textbf{Conclusions} The primary patient-held-out estimates do not establish consistent discrimination in this cohort. The observed variation across splits and training seeds limits interpretation of single-run performance.
+\noindent\textbf{Conclusions:} The patient-held-out results do not establish reliable response discrimination. The estimates varied across patient splits and training seeds. The repertoire summaries describe this cohort and provide hypotheses for independent validation.
 
 \vspace{0.5em}
-\noindent\textbf{Keywords} T-cell receptor, DeepTCR, CD19 CAR-T, B-cell lymphoma, patient-held-out validation
+\noindent\textbf{Keywords:} T-cell receptor, CAR-T, B-cell lymphoma, DeepTCR, cross-validation
+
 \end{abstract}
 
 \newpage
 \tableofcontents
 \newpage
 
+%==============================================================================
 \section{Introduction}
+%==============================================================================
 
 \subsection{CD19 CAR-T Cell Therapy and Clinical Challenge}
 
-CD19-directed CAR-T products redirect autologous T cells to recognize CD19-expressing malignant B cells. Clinical studies have documented responses in refractory or relapsed B-cell lymphoma \citep{june2018cart,neelapu2017axicabtagene,schuster2019tisagenlecleucel}. Response rates and durability vary across patients and products. Tumor burden, inflammatory markers and product characteristics have been studied as predictors of response \citep{locke2020tumor,deng2020characteristics}.
+Chimeric antigen receptor T-cell (CAR-T) therapy has revolutionized the treatment of hematological malignancies, particularly B-cell lymphomas \citep{june2018cart}. CD19-targeted CAR-T products (axicabtagene ciloleucel, tisagenlecleucel, lisocabtagene maraleucel) have demonstrated remarkable efficacy in refractory/relapsed diffuse large B-cell lymphoma (DLBCL), follicular lymphoma, and other B-cell neoplasms \citep{neelapu2017axicabtagene,schuster2019tisagenlecleucel}. These therapies redirect autologous T cells to recognize and eliminate CD19-expressing malignant B cells, achieving complete response rates of 40--60\% in heavily pretreated patients \citep{locke2019longterm}.
+
+Despite these impressive outcomes, a substantial proportion of patients either fail to respond initially or relapse after initial response. Understanding the biological determinants of CAR-T therapy response remains a critical unmet need. Current predictive biomarkers include tumor burden, inflammatory markers (ferritin, CRP, LDH), and CAR-T product characteristics such as CD4/CD8 ratio and exhaustion markers \citep{locke2020tumor,deng2020characteristics}. However, these markers show variable predictive performance and fail to capture the complexity of T-cell repertoire composition within the infused product.
 
 \subsection{CAR-T Product T-Cell Receptor Repertoires}
 
-CAR-T cells retain their endogenous T-cell receptors. The repertoire can reflect the clonal history of cells in the infused product, and studies have associated characteristics of infused T cells with treatment outcomes \citep{fraietta2018determinants,chen2021singlecell}. The present analysis uses beta-chain sequence records and archived patient response labels.
+While CAR-T cells are engineered to express a synthetic chimeric receptor, they retain their endogenous T-cell receptor (TCR) repertoires \citep{fraietta2018determinants}. These native TCRs reflect the clonal history, differentiation state, and functional potential of the underlying T cells. Single-cell studies have revealed that CAR-T products from responders show distinct TCR repertoire characteristics compared to non-responders, including differences in clonality, diversity, and specific TCR sequence features \citep{chen2021singlecell}. Importantly, TCR repertoire analysis provides a window into T-cell fitness that complements CAR expression-based metrics.
 
 \subsection{T-Cell Receptor Biology and Repertoire Analysis}
 
-The complementarity-determining region 3 (CDR3) is a variable part of the TCR that contributes to antigen recognition. The CDR3 sequence and the identities of its V and J genes provide complementary descriptions of receptor sequence diversity \citep{davis1988t,robins2009comprehensive,glanville2017identifying,dash2017quantifiable}. Repertoire summaries and sequence-based models offer different ways to represent these data.
+T-cell receptors serve as the primary molecular interface between the adaptive immune system and tumor cells. Each TCR is composed of an alpha and beta chain, with the complementarity-determining region 3 (CDR3) of each chain forming the primary contact surface with peptide-major histocompatibility complex (pMHC) molecules \citep{davis1988t,rossjohn2015t}. The CDR3 region arises through V(D)J recombination, which generates extensive potential receptor diversity \citep{robins2009comprehensive}.
 
-\subsection{Sequence-Based Models for TCR Repertoire Classification}
+The TCR beta chain (TRB) is particularly informative for repertoire analysis due to its higher diversity compared to the alpha chain and its dominant role in determining peptide specificity \citep{glanville2017identifying}. TRB CDR3 sequences directly contact the peptide antigen, with specific amino acid motifs conferring recognition of distinct epitopes \citep{dash2017quantifiable}. V-gene and J-gene usage patterns further constrain peptide recognition, with certain V-J combinations enriched in tumor-reactive T-cell populations \citep{zhang2018investigation}.
 
-DeepTCR provides sequence-level and repertoire-level models for TCR data \citep{sidhom2021deeptcr}. This study uses its sequence classifier and aggregates its output to the patient level. Each patient contributes thousands of records but only one recorded outcome. Keeping each repertoire intact in validation is necessary to assess performance on patients absent from model training.
+High-throughput sequencing has enabled comprehensive profiling of TCR repertoires from peripheral blood and tumor tissue \citep{robins2009comprehensive,mamedov2013preparing}. Early studies established that increased TCR clonality and decreased diversity correlate with anti-PD-1 response in melanoma \citep{tumeh2014pd}. Subsequent work demonstrated that clonal expansion of tumor-infiltrating T cells predicts ipilimumab response \citep{postow2015peripheral}.
+
+\subsection{Deep Learning for TCR Repertoire Classification}
+
+Traditional TCR repertoire analysis relies on aggregate statistics such as Shannon entropy, Simpson diversity, and clonality indices \citep{greiff2015bioinformatic}. While informative, these metrics collapse high-dimensional sequence data into scalar values, potentially discarding predictive information. Machine learning approaches, particularly deep learning, offer the capability to learn complex, non-linear patterns directly from raw sequence data \citep{lecun2015deep}.
+
+Multiple Instance Learning (MIL) provides an appropriate framework for repertoire classification \citep{dietterich1997solving}. In standard supervised learning, each sample has an associated label. However, TCR repertoires present a different challenge: each patient (label) is represented by thousands of sequences (instances), most of which are irrelevant to the classification task. MIL addresses this by treating the entire repertoire as a ``bag'' of sequences and learning to identify which sequences within each bag contribute to the patient-level prediction \citep{ilse2018attention}.
+
+Attention mechanisms, originally developed for natural language processing \citep{vaswani2017attention}, have been adapted to weight instances within a repertoire \citep{ilse2018attention}. Sequence weights can help prioritize candidates for follow-up, but a weight alone cannot establish antigen reactivity.
+
+DeepTCR, developed by Sidhom et al. \citep{sidhom2021deeptcr}, provides both sequence-level and repertoire-level classifiers. The supervised analysis reported here uses its sequence classifier and averages sequence scores within each patient.
 
 \subsection{Study Objectives}
 
-The primary objective was to estimate patient-held-out response discrimination for DeepTCR and measure its variability across patient partitions and training seeds. The secondary objectives were to compare a sequence-composition baseline on the same partitions and describe exploratory repertoire characteristics and cluster occupancy.
+The primary objective of this study was to evaluate whether DeepTCR can discriminate CD19 CAR-T therapy response from pre-treatment TCR repertoires in refractory/relapsed B-cell lymphoma. We examined both supervised prediction and exploratory repertoire structure.
 
+\textbf{Supervised Learning Objective:} Estimate discrimination on patients held out of model training, assess how much performance changes with different patient splits and training seeds, and compare with a sequence-composition baseline on the same splits.
+
+\textbf{Unsupervised Learning Objective:} We aimed to discover natural clustering patterns in TCR repertoires that might reveal underlying biological structure associated with CAR-T product fitness, independent of response labels.
+
+Secondary objectives were to compare the observed cluster distributions by response group and characterize CDR3 length, composition, and V/J gene usage in the cohort.
+
+%==============================================================================
+\clearpage
 \section{Methods}
+%==============================================================================
 
 \subsection{Study Design and Patient Cohort}
 
-The retrospective trainee study included 34 patients with refractory or relapsed B-cell lymphoma treated with CD19 CAR-T therapy. We used the archived binary response labels. The original submission describes responders as patients who achieved complete or partial response at the day-90 assessment, and nonresponders as those with stable or progressive disease. The archived labels contain 18 responders and 16 nonresponders.
+This retrospective cohort study analyzed TCR repertoire data from 34 patients with refractory/relapsed B-cell lymphoma treated with CD19-targeted CAR-T cell therapy. Patients were classified as responders (n=18) or non-responders (n=16) using the archived response labels, described in the original submission as clinical response at day 90 post-infusion, with responders defined as achieving complete response (CR) or partial response (PR), and non-responders defined as stable disease (SD) or progressive disease (PD).
 
-\subsection{TCR Sequence Data and Processing}
-
-The input consisted of 239,637 processed sequence records with a patient identifier, CDR3 beta-chain amino-acid sequence, V and J labels, and a binary outcome. The DeepTCR 40-residue input limit excluded three records, leaving 239,634 records across all 34 patients. The archived label array was verified against the processed input and each patient had one consistent label.
-
-\subsection{Feature Encoding and DeepTCR Architecture}
-
-The model was the official DeepTCR\_SS 2.1.29 large convolutional sequence classifier with a two-class head. Inputs were CDR3 beta-chain amino-acid sequences and the recorded V and J labels. Constant alpha-chain placeholders satisfy the package interface and were identical for all records. The V and J vocabularies were fit within each training fold. A gene value absent from a training vocabulary was encoded as unknown in that fold.
-
-\subsection{Training Configuration}
-
-The models used Adam with learning rate 0.001 and batches of 1,024 sequences. Each fit trained for ten fixed epochs on all eligible records from the training patients. The protocol held model settings and epoch count fixed across the experiment. It did not use held-out outcomes to select an epoch or tune settings. The repeated runs used Python 3.9.18, TensorFlow 2.12.0 and the Apple Silicon CPU backend.
-
-\subsection{Repeated Patient-Held-Out Cross-Validation}
-\label{sec:cv}
-
-The primary design crossed five stratified five-fold patient partitions with two training seeds, giving ten five-fold evaluations and 50 fits. The partition seeds were 20261121--20261125. The training seeds were 20261201 and 20261202. Partitioning operated on the 34 patient labels, so all records from a patient remained within one fold. Each evaluation scored every patient once. The three- and four-fold sensitivity evaluations reused the first partition seed and first training seed, yielding seven additional fits.
-
-For held-out inference, we averaged responder-class sequence scores within each patient. The primary AUROC combines responder--nonresponder comparisons within each test fold. It gives each eligible pair equal weight and awards half credit for ties. We report the median and observed range across the ten five-fold evaluations. These are descriptive summaries of repeated evaluations of the same cohort. Pooled out-of-fold AUROC and average precision are available in the results data.
-
-\subsection{Matched Sequence-Composition Baseline}
-
-We computed 422 features per patient from eligible sequence records. These were the mean and standard deviation of sequence length, 20 normalized amino-acid frequencies, and 400 normalized adjacent-pair frequencies. A scaler and L2-regularized logistic regression (\texttt{liblinear}, $C=0.1$) were fitted using the training patients on each of the same partitions. Baseline and DeepTCR scores were assessed using the same within-fold patient-level AUROC.
-
-\subsection{Earlier Fixed-Partition Evaluations}
-
-Two earlier full five-fold evaluations used a common patient partition. Their intervals used 2,000 patient bootstrap resamples stratified by response class and fold, conditional on the fitted scores. For the second run, the fold-1 shuffled-label diagnostic retrained the model after permuting labels among training patients, then evaluated the same seven held-out patients.
-
-\subsection{Exploratory Repertoire Clustering}
-
-The original descriptive clustering used up to 30,000 archived records. It standardized normalized CDR3 amino-acid 3-mer frequencies and one-hot V/J features, projected them onto 128 principal components, and fit ten K-means clusters. We recomputed the response-group mean of the archived within-patient cluster shares. Labels were used to summarize the results after clustering. This descriptive analysis shares the cohort used in the supervised evaluation.
-
-\section{Results}
-
-\subsection{Cohort Characteristics}
-
-Responders contributed a median of 7,691 eligible records per patient, compared with 6,634 in nonresponders (Table~\ref{tab:cohort}). The median of patient mean CDR3 lengths was 14.45 and 14.49 amino acids, respectively. Figure~\ref{fig:cohort} also shows the recorded response fraction by repertoire size.
+TCR sequencing was performed on the CAR-T cell products prior to infusion. The near-balanced cohort design (18 responders, 16 non-responders) helps prevent severe class imbalance from confounding model training. Patient and repertoire characteristics are summarized in Table~\ref{tab:patient_characteristics}.
 
 \begin{table}[H]
 \centering
+\caption{\textbf{Patient and Repertoire Characteristics.} Summary of the archived input before the model length filter. Length statistics summarize patient-level means.}
+\label{tab:patient_characteristics}
 \small
-\caption{\textbf{Patient and repertoire characteristics.} Medians and interquartile ranges (IQR) are based on patient-level summaries of the eligible records.}
-\label{tab:cohort}
-\begin{tabular}{lrrr}
+\begin{tabular}{lccc}
 \toprule
-Response & Patients & Records [IQR] & CDR3 length [IQR] \\
+\textbf{Characteristic} & \textbf{All (n=34)} & \textbf{Responders (n=18)} & \textbf{Nonresp. (n=16)} \\
 \midrule
-Responder & 18 & 7,691 [4,162--10,205] & 14.45 [14.39--14.60] \\
-Nonresponder & 16 & 6,634 [5,900--8,457] & 14.49 [14.38--14.57] \\
+\multicolumn{4}{l}{\textit{TCR Repertoire Metrics}} \\
+Total sequences & 239,637 & 130,924 & 108,713 \\
+Sequences/patient, mean & 7,048 & 7,274 & 6,795 \\
+Sequences/patient, range & 1,786--12,272 & 1,786--12,272 & 2,114--9,128 \\
+CDR3 length (AA), mean $\pm$ SD & 14.47 $\pm$ 0.22 & 14.49 $\pm$ 0.18 & 14.44 $\pm$ 0.26 \\
+Unique V genes/patient & 45.7 & 45.4 & 45.9 \\
+Unique J genes/patient & 13.0 & 13.0 & 13.0 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\subsection{TCR Sequencing and Data Processing}
+
+The inputs were processed TRB repertoire records from the CAR-T products. Each record contained a CDR3 amino acid sequence, V and J annotations, and a patient identifier. The archived outcome labels were checked for consistency within patients.
+
+The data processing pipeline is illustrated in Figure~\ref{fig:pipeline}.
+\begin{enumerate}
+    \item \textbf{Input checks:} The archived CDR3 sequences and V and J annotations were used as provided.
+    \item \textbf{Length filtering:} Three records exceeded the classifier's 40-residue input limit. All 34 patients remained represented in the 239,634 eligible records.
+    \item \textbf{Data standardization:} Column names were mapped to the fields used by DeepTCR.
+    \item \textbf{Patient partitions:} Each repertoire and its response label were assigned together. No test patient contributed training records to that fold.
+\end{enumerate}
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{s2-cohort-description.png}
-\caption{\textbf{Cohort characteristics.} Points and bars in panels A and B show medians and IQRs of repertoire size and per-patient mean CDR3 length. The fractions in panel C give responders divided by patients in each repertoire-size bin. These summaries are descriptive.}
+\includegraphics[width=\textwidth]{pipeline.png}
+\caption{\textbf{Data Processing Pipeline.} Processing starts from the archived annotated data. The length filter excludes three records and preserves all patients.}
+\label{fig:pipeline}
+\end{figure}
+
+\subsection{Feature Engineering and Encoding}
+
+DeepTCR employs a composite feature representation that integrates sequence and gene-level information.
+
+\textbf{Sequence Features:} The beta-chain CDR3 sequence was encoded with the package's amino acid mapping and padded to its 40-residue input width.
+
+\textbf{Gene Features:} The recorded V and J gene annotations were passed to the model's categorical encoders. The vocabulary for each feature was fit on the training patients for that fold. Values absent from that vocabulary were assigned to the unknown category. Constant alpha-chain placeholders satisfied the package interface and supplied no patient-specific information.
+
+\subsection{DeepTCR Architecture}
+
+We used the official DeepTCR\_SS 2.1.29 large convolutional sequence classifier (Figure~\ref{fig:architecture}).
+
+\textbf{Sequence encoder and gene features.} The model combines convolutional features from the CDR3 sequence with the V and J features and classifies each sequence with a two-class output.
+
+\textbf{Patient-level aggregation.} For held-out patient $i$ with $n_i$ eligible records, we averaged the responder-class score $s_{ij}$ across records:
+\begin{equation}
+\hat{s}_i = \frac{1}{n_i} \sum_{j=1}^{n_i} s_{ij}.
+\end{equation}
+This aggregation gives each stored sequence record the same weight. All models use the same patient scoring rule.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{architecture.png}
+\caption{\textbf{DeepTCR Model Architecture.} The sequence classifier combines CDR3 and V/J inputs. The patient score is the mean of the sequence-level responder scores.}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Training Configuration}
+
+The repeated study used the following fixed settings:
+\begin{itemize}
+    \item \textbf{Batch size:} 1,024 sequences.
+    \item \textbf{Network size:} Large; sequence and gene inputs enabled.
+    \item \textbf{Optimizer:} Adam with a learning rate of 0.001.
+    \item \textbf{Epochs:} Ten per fit with all eligible records from the training patients. There was no early stopping or tuning on held-out outcomes.
+    \item \textbf{Dropout rate:} 0.0.
+\end{itemize}
+Training used Python 3.9.18 and TensorFlow 2.12.0 on Apple Silicon CPU. The baseline used scikit-learn 1.2.2.
+
+\subsection{Patient-Held-Out Cross-Validation}
+
+We crossed five deterministic, stratified five-fold patient partitions (partition seeds 20261121--20261125) with two model and training-order seeds (20261201 and 20261202). The two seeds used identical patient assignments within each partition. The design produced ten complete five-fold evaluations and 50 fits.
+
+Each fold was fit on patients outside its test set. Every patient received one held-out score per complete evaluation. As a sensitivity check, three- and four-fold evaluations reused the first partition seed and first training seed. This added seven fits.
+
+\textbf{Matched composition baseline.} For each patient, 422 features summarized the mean and standard deviation of CDR3 length, the frequencies of 20 amino acids, and the frequencies of 400 adjacent amino acid pairs. Each scaler and L2-regularized logistic regression (\texttt{liblinear}, $C=0.1$) was fit on training patients from the same partition as DeepTCR.
+
+\subsection{Statistical Analysis}
+
+The primary AUROC gives equal weight to each responder--non-responder pair scored by the same fitted model. A pair receives full credit when the responder is ranked higher and half credit for a tie. We sum these credits over folds and divide by the total number of comparable pairs. Medians and ranges describe sensitivity across repeated evaluations of the same 34 patients. The shared cohort means these evaluations do not provide independent replicates for a confidence interval.
+
+Pooled out-of-fold AUROC and average precision are reported as secondary descriptions. Pooled AUROC can compare scores produced by different fitted models. The composition baseline uses the same held-out comparisons as DeepTCR.
+
+Two earlier complete five-fold runs used a common patient partition. Their 95\% intervals used 2,000 patient bootstrap draws stratified by test fold and outcome class, conditional on the fitted scores. The training-label control for fold 1 permuted the labels of its training patients and scored the same seven test patients. This control examines one fixed split.
+
+\subsection{Unsupervised Learning: PCA and K-Means}
+
+The original repertoire analysis was motivated by the unsupervised visualization in Sidhom et al. \citep{sidhom2021deeptcr}. It used PCA for feature reduction.
+
+\textbf{Feature Extraction:} In the 30,000-record analysis, normalized CDR3 3-mer counts and one-hot V and J annotations were standardized before PCA. The archived result uses 128 principal components and ten K-means clusters.
+
+\textbf{Two-dimensional Visualization:} The UMAP visualization used 10,000 records sampled from the PCA representation. The projection was fit without response labels. Recorded response was used to annotate the plots after fitting.
+
+\textbf{Cluster Occupancy:} For each of ten clusters we reaggregated the archived within-patient percentages, with equal weight per patient within each response group. The separate 50,000-record descriptive analysis used 50 principal components, five K-means clusters, and a t-SNE view. Both archived runs sampled from the 34-patient cohort for visualization and exploratory analysis. The supervised evaluation used the full set of eligible records.
+
+%==============================================================================
+\clearpage
+\section{Results}
+%==============================================================================
+
+\subsection{Cohort Characteristics}
+
+The study cohort comprised 34 patients with refractory/relapsed B-cell lymphoma treated with CD19 CAR-T cell therapy, with 18 responders and 16 non-responders. The archived input contained 239,637 TRB sequence records across all patients (Figure~\ref{fig:cohort}).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figure3_cohort_overview.png}
+\caption{\textbf{Cohort Overview.} (A) Patient counts by recorded response. (B) Repertoire size by response. (C) Pooled CDR3 length distributions. (D) The most frequent V genes in the archived input.}
 \label{fig:cohort}
 \end{figure}
 
-\subsection{Patient-Held-Out Model Performance}
+Repertoire sizes varied substantially across patients (range: 1,786--12,272 records per patient). Responders contributed a mean of 7,274 records per patient and non-responders contributed 6,795. The mean of patient-level average CDR3 lengths was 14.47 amino acids (SD 0.22). Patients used an average of 45.7 observed V gene annotations and 13.0 J gene annotations. Supplementary Figure~\ref{fig:s2} summarizes repertoire size and length by response group.
 
-Across ten five-fold evaluations, median within-fold DeepTCR AUROC was 0.456, with values from 0.298 to 0.579 (Figure~\ref{fig:repeat} and Table~\ref{tab:performance}). The composition baseline had median 0.386 across five partitions (range 0.368--0.456). The median matched DeepTCR-minus-baseline difference was 0.053 (range $-0.070$ to 0.175), and DeepTCR scored higher in eight of ten comparisons. The median absolute difference between the two DeepTCR fits on the same partition was 0.088 (range 0.070--0.140).
+\subsection{Model Performance}
+
+Across the ten five-fold evaluations, the median within-fold AUROC of DeepTCR was 0.456 (range 0.298--0.579). The median of the matched composition baseline across five partitions was 0.386 (range 0.368--0.456). DeepTCR scored higher in eight of ten comparable evaluations. Its median advantage was 0.053 (range $-0.070$ to 0.175). Changing the training seed on a fixed partition moved AUROC by a median of 0.088 (range 0.070--0.140).
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{repeated-patient-auroc.png}
-\caption{\textbf{Within-fold patient AUROC.} Left, both DeepTCR fits and the matched baseline on each of five patient partitions. Right, the three- and four-fold sensitivity evaluations. The dashed line marks 0.50.}
-\label{fig:repeat}
+\caption{\textbf{Model Performance.} Within-fold patient AUROC for both DeepTCR seeds and the matched composition baseline in each five-fold partition (left). Three- and four-fold sensitivity checks (right). The dashed line marks 0.50.}
+\label{fig:performance}
 \end{figure}
 
 \begin{table}[H]
 \centering
 \small
-\caption{\textbf{Performance across primary evaluations.} Each row represents a separate five-fold patient partition. Both DeepTCR fits on that row use the listed partition and differ in training seed.}
+\caption{\textbf{Model Performance Summary.} The two DeepTCR columns use training seeds 20261201 and 20261202 on the same patient partitions. All values are within-fold patient AUROC.}
 \label{tab:performance}
 \begin{tabular}{lrrr}
 \toprule
-Patient split seed & DeepTCR seed 20261201 & DeepTCR seed 20261202 & Composition \\
+Patient split seed & DeepTCR seed 1 & DeepTCR seed 2 & Composition \\
 \midrule
 20261121 & 0.456 & 0.544 & 0.368 \\
 20261122 & 0.439 & 0.298 & 0.368 \\
@@ -171,64 +274,277 @@ Patient split seed & DeepTCR seed 20261201 & DeepTCR seed 20261202 & Composition
 \end{tabular}
 \end{table}
 
-In the sensitivity checks, DeepTCR AUROC was 0.438 with three folds and 0.611 with four. The matched baselines were 0.396 and 0.389, respectively.
+For the three-fold sensitivity check, DeepTCR achieved 0.438 and the composition baseline 0.396. For the four-fold sensitivity check, the corresponding AUROCs were 0.611 and 0.389. Supplementary section S1 reports each observed fold AUROC. Differences between checks show the sensitivity of an estimate from a single patient partition.
 
-\subsection{Training Dynamics and Earlier Fixed-Partition Results}
+\clearpage
+\subsection{Training Dynamics}
 
-The earlier five-fold evaluations on one common partition yielded within-fold AUROCs of 0.316 and 0.439. Their conditional 95\% bootstrap intervals were 0.140--0.509 and 0.246--0.649. The figure shows the observed loss curves for the second run (Figure~\ref{fig:training}). On its first fold, the shuffled-training-label model scored 0.667 AUROC on the seven held-out patients for whom the recorded-label model scored 0.250.
+Figure~\ref{fig:training} shows the observed mean minibatch loss for each of the 57 training fits over ten epochs. Loss is measured on training records. Supplementary Figure~\ref{fig:s4} reports the logged training and held-out inference times.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{training-loss.png}
+\caption{\textbf{Training Dynamics.} (A) Logged minibatch training loss for all 57 fits, with the epoch median in bold. (B) Observed training loss for the recorded- and shuffled-label models from fold 1 of the earlier repeat.}
+\label{fig:training}
+\end{figure}
+
+\subsection{Earlier Patient-Held-Out Runs and Label-Shuffle Control}
+
+Two earlier full five-fold runs on the same split yielded within-fold AUROCs of 0.316 and 0.439 (conditional 95\% intervals 0.140--0.509 and 0.246--0.649). In the second run, the model trained with shuffled labels scored 0.667 AUROC on the seven patients in fold 1. The recorded-label model scored 0.250 on those same patients. The small test fold makes this comparison imprecise.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{held-out-performance.png}
-\caption{\textbf{Earlier fixed-partition evaluation.} Panel A shows the observed patient AUROCs for five folds, their pair-weighted aggregate and conditional interval, and the first-fold shuffled-training-label control. Panel B shows mean minibatch training loss over ten epochs.}
-\label{fig:training}
+\caption{\textbf{Earlier Fixed-Partition Repeat.} (A) Observed patient AUROCs for each of five folds, the pair-weighted aggregate and its conditional interval, and the first-fold shuffled-training-label control. (B) Observed loss for all five fits plus the shuffled-label fit.}
+\label{fig:control}
 \end{figure}
 
-\subsection{Exploratory Cluster Occupancy}
+\subsection{Gene Usage Patterns}
 
-The reaggregated PCA and K-means output gives the mean within-patient share of sampled TCR records for each of ten clusters (Figure~\ref{fig:clusters}). Cluster labels are arbitrary. Differences in mean occupancy describe these archived repertoires.
+We summarized the observed V and J gene usage by recorded response group (Figure~\ref{fig:gene_usage}). The group profiles describe pooled sequence frequencies, so patients with larger repertoires contribute more records. These plots do not provide patient-level tests of gene enrichment. Detailed J-gene usage analysis is provided in Figure~\ref{fig:s3}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{s12-cluster-occupancy.png}
-\caption{\textbf{Mean cluster occupancy by recorded response.} For each cluster, bars show response-group means of each patient's share of sampled records. Each patient has equal weight within a response group.}
-\label{fig:clusters}
+\includegraphics[width=\textwidth]{figure7_gene_usage.png}
+\caption{\textbf{Gene Usage Patterns.} (A) Pooled V-gene usage by recorded response. (B) V--J pairing counts across both groups, normalized within each displayed V gene over the displayed J genes.}
+\label{fig:gene_usage}
 \end{figure}
 
+\subsection{Sequence-Level Interpretation}
+
+The model assigns a responder-class score to each sequence record for patient-level averaging. The archived array previously used to rank sequences matches a seeded random fallback. This analysis therefore provides no validated ranking of individual sequences or evidence that any sequence is tumor-reactive.
+
+\subsection{Sequence Characteristics}
+
+Among eligible records, the median of individual patients' mean CDR3 lengths was 14.45 residues in responders and 14.49 in non-responders. Supplementary Figure~\ref{fig:s8} shows the CDR3 length distributions with equal patient weight. Supplementary Figure~\ref{fig:s9} compares amino acid composition after calculating residue frequencies separately in each patient. These differences are descriptive and the study did not test individual residues as predictors of response.
+
+\clearpage
+\subsection{Exploratory Repertoire Clustering}
+
+\textbf{Repertoire Visualization:} The two-dimensional view of the 128-component PCA representation shows substantial overlap between response groups (Figure~\ref{fig:vae}). Areas with more plotted records can reflect differences in repertoire size or sampling.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figure8_vae_repertoire_distribution.png}
+\caption{\textbf{Exploratory TCR Repertoire Distribution.} (A) UMAP projection of the 10,000-record visualization subset, colored by recorded response. (B) Density of displayed responder records. (C) Density of displayed non-responder records. The input is a PCA representation.}
+\label{fig:vae}
+\end{figure}
+
+\textbf{Per-Patient Distribution:} Supplementary Figure~\ref{fig:s11} shows the same projection separately for each patient. It documents variation within and between repertoires.
+
+\textbf{Cluster Occupancy:} We compared the mean within-patient share of records in each of ten K-means clusters between recorded response groups (Supplementary Figure~\ref{fig:s12}). The cluster identifiers are arbitrary. Occupancy describes the input repertoires and does not validate the supervised scores.
+
+%==============================================================================
+\clearpage
 \section{Discussion}
+%==============================================================================
 
 \subsection{Principal Findings}
 
-The primary median DeepTCR AUROC was below 0.50, and individual evaluations ranged from 0.298 to 0.579. Although DeepTCR outscored the composition baseline on most matched evaluations, both median estimates fell below 0.50. The changes observed across training seeds and fold counts show how one estimate can give a different impression of performance in a small cohort.
+\textbf{Supervised Learning:} Across patient-separated five-fold evaluations, DeepTCR had median AUROC 0.456 and varied from 0.298 to 0.579. The model exceeded the matched composition baseline in most paired evaluations, but both medians were below 0.50. The three- and four-fold checks differed substantially. The available results do not establish reliable discrimination in unseen patients.
 
-\subsection{Interpretation in the Context of CAR-T Biomarkers}
+\textbf{Unsupervised Learning:} The original PCA and K-means analyses describe how sampled repertoires are distributed across clusters. The two response groups occupy overlapping regions. Cluster occupancy differences do not provide an independent check of prediction performance because they were estimated within the same cohort.
 
-Published studies have examined tumor burden, inflammatory markers and product phenotypes as indicators of CAR-T outcomes \citep{locke2020tumor,deng2020characteristics,fraietta2018determinants}. This study evaluated repertoire features within one cohort. It did not measure improvement over those clinical markers. The descriptive cluster shares provide a way to summarize repertoire variation without establishing predictive motifs or a clinical biomarker.
+The earlier archived analysis reported 0.754 by summarizing the first 100 logged test-epoch scores. These were neither 100 independent fits nor patient-exclusive folds. Replaying the archived row split placed patients in both training and test. The present estimates use the patient as the unit of validation.
 
-\subsection{Relationship to the Initial Analysis}
+\subsection{Comparison with Existing CAR-T Biomarkers}
 
-The January 2026 submission reported 0.754 AUROC from the first 100 logged test-epoch scores. Replaying its row-based split placed patients in both training and test sets, and the saved attention score array matched a seeded random fallback. The patient-held-out results and observed loss curves in this version replace those performance and attention findings.
+Current predictive biomarkers for CAR-T response include tumor burden, inflammatory markers (LDH, ferritin, CRP), and product characteristics such as CD4/CD8 ratio and exhaustion phenotypes \citep{locke2020tumor,deng2020characteristics}. Fraietta et al. demonstrated that CAR-T products with memory phenotypes and lower exhaustion markers show improved persistence and efficacy \citep{fraietta2018determinants}.
 
-\subsection{Limitations and Future Directions}
+TCR repertoire analysis measures a different feature of the infused product. While existing biomarkers focus on surface phenotypes and metabolic states, TCR repertoire analysis captures the clonal composition and antigen-recognition potential of the T-cell pool. Whether these features add predictive value to existing biomarkers remains untested in this cohort.
 
-Only 34 patients were available. Repeated cross-validation changes the evaluation conditions while reusing the same people. Its range describes observed variation and does not estimate performance in a new clinical population. The training-label shuffle involved one small held-out fold and is a diagnostic. The exploratory clustering used a subset of the records and shares the supervised cohort. A separate cohort with compatible product sampling, sequencing and outcome definitions is needed to assess generalization.
+\subsection{Biological Implications}
 
+\textbf{T-cell fitness:} The endogenous TCR repertoire reflects the clonal history and differentiation state of T cells, which can influence CAR-T product quality \citep{fraietta2018determinants}. This study did not establish a relationship between specific sequences and cellular fitness.
+
+\textbf{Gene usage:} The observed gene usage summaries reflect the repertoire composition of this cohort. They do not establish convergent selection or shared antigen specificity.
+
+\textbf{Product heterogeneity:} The exploratory analyses show variation across the sequenced products. The biological meaning of particular clusters requires independent evidence.
+
+\subsection{Limitations}
+
+Several limitations of this study warrant consideration. First, the sample size of 34 patients, limits statistical precision and generalizability. There was no independent validation cohort.
+
+Second, the cohort design (18 responders, 16 non-responders) may not reflect real-world CAR-T response rates, which vary by disease subtype and patient characteristics. Model calibration should be evaluated in populations with varying class distributions.
+
+Third, clustering depends on the selected sequence representation, sampled records, and number of clusters. We did not measure the reproducibility of cluster occupancy on independent products.
+
+Fourth, the repeated evaluations share the same patients. Their spread describes sensitivity to splits and training seeds. The earlier bootstrap intervals condition on fixed model scores and do not include variability from retraining. Evaluating transport to a later cohort would require an independent test.
+
+\subsection{Future Directions}
+
+Several extensions of this work are warranted:
+
+\textbf{Multi-center validation:} Studies with larger sample sizes would establish generalizability across patient populations, CAR-T products, and sequencing platforms.
+
+\textbf{Biomarker integration:} Future studies could test if TCR features improve prediction over a model with tumor burden and established product markers.
+
+\textbf{Longitudinal analysis:} Tracking TCR repertoire evolution during CAR-T expansion and persistence could enable dynamic response prediction.
+
+\textbf{Functional validation:} Future candidate sequences would need independent evidence of association before functional testing could establish a role in CAR-T efficacy.
+
+\textbf{Manufacturing optimization:} If specific TCR subpopulations correlate with response, this could inform CAR-T manufacturing protocols to enrich for favorable T-cell populations.
+
+%==============================================================================
 \section{Conclusion}
+%==============================================================================
 
-Across 57 fits on patient-separated folds, the ten primary five-fold DeepTCR evaluations had median within-fold AUROC 0.456. The observed range and sensitivity checks show substantial variation. This study did not establish consistent patient-level discrimination of CD19 CAR-T response.
+This study evaluated DeepTCR response prediction from CD19 CAR-T product repertoires of 34 patients with refractory/relapsed B-cell lymphoma. Patient-held-out validation across 57 fits gave variable estimates across patient partitions and training seeds. The median five-fold AUROC was 0.456 and the matched composition baseline median was 0.386.
 
+The exploratory repertoire analysis summarizes V/J usage, CDR3 length and composition, and PCA-based cluster occupancy in the observed cohort. The study did not establish a predictive repertoire signature. Larger independent cohorts with a predefined endpoint would be needed to assess whether repertoire features add value to established clinical and product measurements.
+
+%==============================================================================
 \section*{Acknowledgments}
+%==============================================================================
 
-M.J. thanks Dr. Sherry Bhalla and the CSIR-IGIB laboratory for their guidance during the trainee project. The Lambda Labs GPU Grant Program provided resources for the original analyses. The repeated patient-held-out evaluation ran on a local CPU. The original project used Claude Code and OpenAI Codex to assist with code development and debugging. We thank the developers of DeepTCR \citep{sidhom2021deeptcr} and the patients who contributed samples.
+M.J. extends heartfelt gratitude to \textbf{Dr. Sherry Bhalla} for her invaluable guidance, mentorship, and continuous support throughout this research project. Her expertise in computational biology and dedication to training the next generation of researchers made this work possible. We also thank all members of the CSIR-IGIB laboratory for their assistance, insightful discussions, and collaborative spirit during this training period.
+
+We gratefully acknowledge the \textbf{Lambda Labs GPU Grant Program} for providing access to NVIDIA H100 80GB GPU infrastructure, used for the original training work. The repeated patient-held-out evaluation ran on CPU.
+
+This work was supported by the \textbf{Council of Scientific and Industrial Research (CSIR)} and the \textbf{Institute of Genomics and Integrative Biology (IGIB)}, New Delhi, India. M.J. acknowledges support as a Research Trainee in the Deep Learning/Machine Learning for Genomic Analysis program at CSIR-IGIB.
+
+We acknowledge the use of AI-assisted development tools during this research: \textbf{Claude Code} \citep{anthropic2025claudecode}, an agentic coding tool by Anthropic, and \textbf{OpenAI Codex} \citep{chen2021codex} were used to assist with code development, debugging, and optimization of the analysis pipeline.
+
+We thank the developers of the \textbf{DeepTCR} framework \citep{sidhom2021deeptcr} for making their software openly available. M.J. contributed to the DeepTCR project by assisting with the upgrade to Python 3.10 and TensorFlow 2.12 (version 2.1.28), as acknowledged in the official DeepTCR repository (\url{https://github.com/sidhomj/DeepTCR}).
+
+We thank the patients who contributed samples to this study, without whom this research would not have been possible.
 
 \section*{Conflict of Interest}
+The authors declare no competing interests.
 
-The January 2026 trainee submission declared no competing interests.
-
+%==============================================================================
 \section*{Code and Data Availability}
+%==============================================================================
 
-The \href{https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR}{project repository} provides the analysis plan, setup instructions, aggregate results and figure code. The \href{https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/tree/main/validation/repeated-patient-cv}{repeated evaluation files} include the metrics for every fit. Patient-level predictions and model intermediates are kept with the authorized inputs.
+The analysis code, protocols, and aggregate validation results are available on GitHub:
+
+\begin{center}
+\url{https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR}
+\end{center}
+
+The repository includes:
+\begin{itemize}
+    \item Complete analysis pipeline (Python scripts)
+    \item Aggregate results for the repeated patient-held-out evaluation
+    \item Figure generation scripts
+    \item LaTeX source files for this manuscript
+\end{itemize}
+
+The DeepTCR framework is available at \url{https://github.com/sidhomj/DeepTCR}. The repeated evaluation can be reproduced with the archived input described in the repository setup guide. The full per-fold data and protocols are linked from the report repository.
+
+%==============================================================================
+% References
+%==============================================================================
 
 \bibliographystyle{plainnat}
 \bibliography{references}
+
+%==============================================================================
+\newpage
+\appendix
+\section*{Supplementary Information}
+\addcontentsline{toc}{section}{Supplementary Information}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{1}
+
+\subsection*{S1: Detailed AUROC by Held-Out Fold}
+
+
+\begin{center}
+\small
+\begin{tabular}{rrrrrrrr}
+\toprule
+Folds & Split seed & Train seed & Fold 1 & Fold 2 & Fold 3 & Fold 4 & Fold 5 \\
+\midrule
+5 & 20261121 & 20261201 & 0.583 & 0.417 & 0.083 & 0.667 & 0.556 \\
+5 & 20261121 & 20261202 & 0.667 & 0.250 & 0.667 & 0.583 & 0.556 \\
+5 & 20261122 & 20261201 & 0.167 & 0.083 & 0.500 & 0.833 & 0.667 \\
+5 & 20261122 & 20261202 & 0.333 & 0.000 & 0.250 & 0.333 & 0.667 \\
+5 & 20261123 & 20261201 & 0.750 & 0.500 & 0.500 & 0.500 & 0.222 \\
+5 & 20261123 & 20261202 & 0.667 & 0.083 & 0.750 & 0.250 & 0.333 \\
+5 & 20261124 & 20261201 & 0.583 & 0.750 & 0.417 & 0.250 & 0.444 \\
+5 & 20261124 & 20261202 & 0.417 & 0.917 & 0.333 & 0.000 & 0.444 \\
+5 & 20261125 & 20261201 & 1.000 & 0.750 & 0.583 & 0.250 & 0.222 \\
+5 & 20261125 & 20261202 & 0.500 & 0.250 & 0.583 & 0.667 & 0.222 \\
+3 & 20261121 & 20261201 & 0.556 & 0.300 & 0.433 & -- & -- \\
+4 & 20261121 & 20261201 & 0.650 & 0.450 & 0.625 & 0.750 & -- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each fold contains a separate held-out group of patients. The primary summary weights folds by the number of comparable responder--non-responder pairs. It can therefore differ from the simple mean of the numbers above. Full precision, training sizes, and pooled metrics are available in the public aggregate results.
+
+\subsection*{Figure S2: Per-Patient Repertoire Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{s2-cohort-description.png}
+\caption{\textbf{Per-Patient Repertoire Analysis.} (A) Repertoire size by recorded response group (median and interquartile range). (B) Mean CDR3 length per patient, summarized by the group median and interquartile range. (C) Recorded responder counts divided by the number of patients in each repertoire-size bin.}
+\label{fig:s2}
+\end{figure}
+
+\clearpage
+\subsection*{Figure S3: J-Gene Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS3_jgene_analysis.png}
+\caption{\textbf{J-Gene Usage Analysis.} (A) J-gene counts in the archived input. (B) Pooled relative frequencies for the ten most frequent J genes by recorded response group.}
+\label{fig:s3}
+\end{figure}
+
+\subsection*{Figure S4: Computational Performance}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fit-runtime.png}
+\caption{\textbf{Observed CPU Runtime.} (A) Sum of the ten recorded training epoch durations. (B) Held-out inference time. Each point is one of the 57 fits.}
+\label{fig:s4}
+\end{figure}
+
+\clearpage
+\subsection*{S5--S7: Archived Attention-Based Panels}
+
+The original attention distribution, patient heatmap and top-sequence analysis were based on a seeded random fallback array. The rerun used a sequence classifier with patient-level score averaging. The original panels therefore cannot support conclusions about individual sequences.
+
+\setcounter{figure}{7}
+\subsection*{Figure S8: Responder vs. Non-Responder Comparison}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{response-length.png}
+\caption{\textbf{CDR3 Length by Recorded Response.} (A) Group mean of the fraction of sequences at each CDR3 length, first calculated within each patient. (B) Each patient's mean CDR3 length and the group medians (horizontal bars). The summaries use all 239,634 eligible records across 34 patients.}
+\label{fig:s8}
+\end{figure}
+
+\subsection*{Figure S9: Sequence Characteristics Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{sequence-composition.png}
+\caption{\textbf{Amino Acid Composition.} Markers and bars show the median and interquartile range of within-patient residue fractions by recorded response. Fractions are computed from the eligible CDR3 records.}
+\label{fig:s9}
+\end{figure}
+
+\clearpage
+\subsection*{Figure S10: Unsupervised Clustering Analysis}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figureS10_unsupervised_clustering.png}
+\caption{\textbf{Unsupervised Clustering Analysis.} (A) t-SNE view of a visualization subset from the archived 50,000-record analysis, colored by K-means assignment ($k=5$). (B) The same view colored by recorded response. The underlying feature representation was reduced to 50 principal components.}
+\label{fig:s10}
+\end{figure}
+
+\clearpage
+\subsection*{Figure S11: Per-Patient TCR Distribution}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.71\textheight,keepaspectratio]{figureS11_per_patient_distribution.png}
+\caption{\textbf{Per-Patient TCR Distribution.} Each panel shows the points from Figure~\ref{fig:vae} for one patient. Blue borders indicate recorded responders and red borders indicate non-responders.}
+\label{fig:s11}
+\end{figure}
+
+\subsection*{Figure S12: Shared Cluster Occupancy Across Patients}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{s12-cluster-occupancy.png}
+\caption{\textbf{Mean Cluster Occupancy by Recorded Response.} Groups are ten K-means clusters of standardized repertoire features reduced to 128 principal components. Bars show the mean within-patient share of sampled records in each group, averaged across patients by recorded response.}
+\label{fig:s12}
+\end{figure}
+
 \end{document}
