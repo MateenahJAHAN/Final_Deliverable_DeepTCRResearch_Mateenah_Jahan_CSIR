@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+Original sequence-split training script. See SETUP.md for patient-held-out validation.
+
 Script 06: DeepTCR Monte Carlo Cross-Validation Training
 =========================================================
 

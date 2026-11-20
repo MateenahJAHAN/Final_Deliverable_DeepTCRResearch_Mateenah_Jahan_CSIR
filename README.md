@@ -3,12 +3,12 @@
 CSIR-IGIB trainee research by Mateenah Jahan and Sherry Bhalla on evaluating the DeepTCR sequence classifier for CD19 CAR-T response.
 
 - [Research report](paper/main.pdf)
-- [Results presentation](results/DeepTCR_Results_Presentation.pptx)
+- [Results and presentation](results/README.md) · [Download slides](results/DeepTCR_Results_Presentation.pptx)
 - [Setup and reproduction](SETUP.md)
 
 ## Repeated patient-held-out evaluation
 
-The study completed **57 full ten-epoch fits**. Five stratified patient partitions crossed with two training seeds yielded ten five-fold evaluations of all 34 patients. Median within-fold DeepTCR AUROC was **0.456** (range 0.298–0.579). The matched composition baseline had median AUROC **0.386** (range 0.368–0.456 across five partitions). DeepTCR scored higher in 8 of ten paired evaluations. The report includes both fold-count sensitivity checks.
+The study completed **57 full ten-epoch fits**. Five stratified patient partitions crossed with two training seeds yielded ten five-fold evaluations of all 34 patients. Median within-fold DeepTCR AUROC was **0.456** (range 0.298–0.579). The matched composition baseline had median AUROC **0.386** (range 0.368–0.456 across five partitions). DeepTCR scored higher in eight of ten paired evaluations. Performance varied across splits and seeds and did not establish reliable discrimination on held-out patients.
 
 [All results and methods](validation/repeated-patient-cv/REPORT.md) · [Results CSV](validation/repeated-patient-cv/repeat_results.csv)
 

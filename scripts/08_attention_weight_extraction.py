@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+Original attention extraction. The released score array came from the random fallback.
+
 Script 08: Attention Weight Extraction
 =======================================
 

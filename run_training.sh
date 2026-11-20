@@ -1,9 +1,10 @@
 #!/bin/bash
-# Run DeepTCR training with proper CUDA library paths
+# Original GPU training wrapper for the Lambda workspace.
+# SETUP.md gives the patient-held-out evaluation commands.
 
 export LD_LIBRARY_PATH="/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cuda_cupti/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cublas/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cudnn/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/nvjitlink/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cuda_nvrtc/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/nccl/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cufft/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cusolver/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cuda_nvcc/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cuda_runtime/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/curand/lib:/home/ubuntu/.local/lib/python3.10/site-packages/nvidia/cusparse/lib:$LD_LIBRARY_PATH"
 
-cd /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement
+cd /lambda/nfs/datasetmedgemma/lambda_deepTCR_deployement || exit 1
 
 echo "Starting DeepTCR training at $(date)"
 echo "LD_LIBRARY_PATH is set for CUDA 11 libraries"

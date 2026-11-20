@@ -1,6 +1,6 @@
 # Reproduce the patient-held-out evaluation
 
-The completed repeat used Python 3.9.18, TensorFlow 2.12.0 and the official DeepTCR 2.1.29 source release on an Apple Silicon CPU. The same five stratified patient splits were used for both full runs.
+The patient-held-out evaluations used Python 3.9.18, TensorFlow 2.12.0 and DeepTCR 2.1.29 on Apple Silicon CPU. The [57-fit evaluation](#repeat-across-partitions-and-training-seeds) is the primary result. The fixed-partition protocol below reproduces the earlier evaluation.
 
 ## Inputs
 
@@ -8,22 +8,25 @@ The completed repeat used Python 3.9.18, TensorFlow 2.12.0 and the official Deep
 - The [DeepTCR 2.1.29 source archive](https://pypi.org/project/DeepTCR/2.1.29/#files). Its SHA-256 is in [the protocol](validation/patient-grouped-deeptcr/protocol.json).
 - The [pinned Python environment](validation/patient-grouped-deeptcr/requirements-lock.txt).
 
-Use a fresh copy of `validation/patient-grouped-deeptcr` for each complete run. This keeps earlier outputs and the resumable journal separate. Set `AUTHORIZED_DEEPTCR_INPUT_DIR` and `DEEPTCR_RELEASE_ARCHIVE` to absolute paths.
+Start from the repository root. Set `AUTHORIZED_DEEPTCR_INPUT_DIR` and `DEEPTCR_RELEASE_ARCHIVE` to absolute paths. The commands create a temporary run directory for the outputs and resumable journal.
 
 ```sh
-cd validation/patient-grouped-deeptcr
-uv venv --python 3.9 .venv
-uv pip sync --python .venv/bin/python requirements-lock.txt
-mkdir -p vendor
-tar -xzf "$DEEPTCR_RELEASE_ARCHIVE" -C vendor
-PYTHONUNBUFFERED=1 NUMBA_NUM_THREADS=2 .venv/bin/python run.py \
+fixed_run="$(mktemp -d)"
+base_source="$(pwd)/validation/patient-grouped-deeptcr"
+cp "$base_source/run.py" "$base_source/protocol.json" "$base_source/requirements-lock.txt" "$fixed_run/"
+uv venv --python 3.9.18 "$fixed_run/.venv"
+DEEPTCR_PYTHON="$fixed_run/.venv/bin/python"
+uv pip sync --python "$DEEPTCR_PYTHON" "$fixed_run/requirements-lock.txt"
+mkdir "$fixed_run/vendor"
+tar -xzf "$DEEPTCR_RELEASE_ARCHIVE" -C "$fixed_run/vendor"
+PYTHONUNBUFFERED=1 NUMBA_NUM_THREADS=2 "$DEEPTCR_PYTHON" -B "$fixed_run/run.py" \
   --device CPU --threads 10 \
   --data-dir "$AUTHORIZED_DEEPTCR_INPUT_DIR" \
   --release-archive "$DEEPTCR_RELEASE_ARCHIVE" \
   --expected-csv-sha256 80d39ff4d5eb95a47555d1d609825e6cedb366bd71b320bae6f3d619743296de
 ```
 
-A completed run writes `aggregate_results.json` after five ten-epoch patient folds and a separate ten-epoch shuffled-label fit. It verifies all 34 patients and 239,634 eligible records. Patient scores and model intermediates are kept in the private run directory.
+A completed run writes `aggregate_results.json` in the temporary directory after five ten-epoch patient folds and a separate ten-epoch shuffled-label fit. It verifies all 34 patients and 239,634 eligible records. Patient scores and model intermediates are kept in the private run directory.
 
 ## Repeat across partitions and training seeds
 

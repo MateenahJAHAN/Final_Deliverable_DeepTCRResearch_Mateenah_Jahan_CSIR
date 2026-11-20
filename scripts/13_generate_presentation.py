@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+Generate the original sequence-split slides under a separate historical filename.
+
 Script 13: Generate PowerPoint Presentation
 ============================================
 
@@ -74,7 +76,7 @@ RESULTS_DIR = os.path.join(PROJECT_ROOT, "results")
 FIGURES_DIR = os.path.join(PROJECT_ROOT, "figures", "paper_final")
 LOGS_DIR = os.path.join(PROJECT_ROOT, "logs")
 
-OUTPUT_FILE = os.path.join(RESULTS_DIR, "DeepTCR_Results_Presentation.pptx")
+OUTPUT_FILE = os.path.join(RESULTS_DIR, "DeepTCR_Historical_Results_Presentation.pptx")
 
 LOG_FILE = os.path.join(LOGS_DIR, "13_presentation.log")
 
@@ -299,7 +301,7 @@ print("\nCreating slides...")
 add_title_slide(
     prs,
     "DeepTCR for Immunotherapy Response Prediction",
-    "100-Fold Monte Carlo Cross-Validation Analysis\nDecember 2025"
+    "Historical sequence-split analysis\nDecember 2025"
 )
 print("  Slide 1: Title")
 

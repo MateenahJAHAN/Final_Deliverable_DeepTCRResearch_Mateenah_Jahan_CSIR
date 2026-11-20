@@ -1,5 +1,6 @@
-# DeepTCR Immunotherapy Response Prediction
-# Python 3.10+ required
+# Dependencies for the original analysis scripts (Python 3.10).
+# The patient-held-out evaluation uses validation/patient-grouped-deeptcr/requirements-lock.txt.
+# See SETUP.md for the reproduced environment.
 
 # Core Deep Learning
 tensorflow==2.12.0

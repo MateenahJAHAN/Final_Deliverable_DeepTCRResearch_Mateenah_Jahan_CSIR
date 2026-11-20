@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """
+Original figure generator. It includes a formula-generated ROC, simulated loss
+curves, and fallback attention weights. See paper/render_manuscript_figures.py
+and validation/repeated-patient-cv/render_repeat_study.py for the revised figures.
+
 Generate Modern, Publication-Quality Figures for Research Paper
 ===============================================================
 
