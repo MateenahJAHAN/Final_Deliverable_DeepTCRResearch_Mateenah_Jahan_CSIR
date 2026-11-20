@@ -25,8 +25,49 @@ PYTHONUNBUFFERED=1 NUMBA_NUM_THREADS=2 .venv/bin/python run.py \
 
 A completed run writes `aggregate_results.json` after five ten-epoch patient folds and a separate ten-epoch shuffled-label fit. It verifies all 34 patients and 239,634 eligible records. Patient scores and model intermediates are kept in the private run directory.
 
+## Repeat across partitions and training seeds
+
+[The repeated study plan](validation/repeated-patient-cv/repeat_plan.json) defines five stratified patient partitions, two training seeds, and separate three- and four-fold sensitivity runs. It sets the same 10 epochs and model settings for all 57 fits. Use the environment from the first section and set `DEEPTCR_PYTHON` to the absolute path of its Python executable. Start these commands from the repository root.
+
+```sh
+study="$(mktemp -d)"
+base_source="$(pwd)/validation/patient-grouped-deeptcr"
+repeat_source="$(pwd)/validation/repeated-patient-cv"
+cp "$base_source/run.py" "$base_source/protocol.json" "$study/"
+cp "$repeat_source/repeat_plan.json" "$repeat_source/run_repeats.py" "$repeat_source/evaluate_repeats.py" "$study/"
+mkdir -p "$study/vendor"
+tar -xzf "$DEEPTCR_RELEASE_ARCHIVE" -C "$study/vendor"
+digest=80d39ff4d5eb95a47555d1d609825e6cedb366bd71b320bae6f3d619743296de
+export PYTHONUNBUFFERED=1 NUMBA_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
+fit() {
+  "$DEEPTCR_PYTHON" -B "$study/run_repeats.py" \
+    --data-dir "$AUTHORIZED_DEEPTCR_INPUT_DIR" \
+    --release-archive "$DEEPTCR_RELEASE_ARCHIVE" \
+    --expected-csv-sha256 "$digest" --threads 5 --workers 2 --worker "$1"
+}
+fit 0 > "$study/worker-0.log" 2>&1 &
+first=$!
+fit 1 > "$study/worker-1.log" 2>&1 &
+second=$!
+failed=0
+wait "$first" || failed=1
+wait "$second" || failed=1
+test "$failed" -eq 0 || exit 1
+"$DEEPTCR_PYTHON" -B "$study/evaluate_repeats.py" \
+  --data-dir "$AUTHORIZED_DEEPTCR_INPUT_DIR" --expected-csv-sha256 "$digest"
+```
+
+The evaluator verifies all 57 fits and writes aggregate JSON and CSV. It fits the composition baseline on the same training folds and uses the private checkpoint scores to recalculate each held-out AUROC. Keep the study's `private/` directory on the authorized system.
+
 ## Rebuild the corrected documents
 
-Run `python paper/build_correction.py` in an environment with NumPy, Matplotlib and ReportLab. The renderer reads the [verified repeat aggregates](validation/correction-rerun/aggregate_results.json) and [descriptive summary](validation/correction-rerun/checked_descriptives.json). The latter summarizes all eligible records for S2 and reaggregates the original exploratory cluster shares for S12.
+Use an environment with NumPy, Matplotlib and ReportLab. From the repository root, run:
+
+```sh
+python validation/repeated-patient-cv/render_repeat_study.py --figure figures/correction/repeated-patient-auroc.png
+python paper/build_correction.py
+```
+
+The PDF builder reads the [57-fit study](validation/repeated-patient-cv/repeat_results.json), [earlier fixed-partition repeat](validation/correction-rerun/aggregate_results.json) and [descriptive summaries](validation/correction-rerun/checked_descriptives.json). The descriptive summaries cover all eligible records for S2 and the archived exploratory cluster shares for S12.
 
 [Earlier protocol and results](validation/patient-grouped-deeptcr/README.md) · [Historical setup guide](https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/blob/ce1fa3a421edb9f4025a45cb79dc7b014867ad83/SETUP.md)

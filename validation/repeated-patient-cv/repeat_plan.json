@@ -1,0 +1,11 @@
+{
+  "patient_partition_seeds": [20261121, 20261122, 20261123, 20261124, 20261125],
+  "training_seeds": [20261201, 20261202],
+  "primary_folds": 5,
+  "sensitivity_folds": [3, 4],
+  "sensitivity_partition_seed": 20261121,
+  "sensitivity_training_seed": 20261201,
+  "testing_unit": "patient",
+  "primary_metric": "within-fold patient AUROC weighted by responder–nonresponder pairs",
+  "baseline": "logistic regression (C=0.1, liblinear) on standardized length and amino-acid composition, fitted within the same training folds"
+}

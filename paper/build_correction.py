@@ -22,6 +22,11 @@ plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 9, 'axes.spines.
                      'text.color': '#162b40', 'savefig.facecolor': 'white'})
 results = json.loads((evidence / 'aggregate_results.json').read_text())
 descriptive = json.loads((evidence / 'checked_descriptives.json').read_text())
+repeated = json.loads((root / 'validation/repeated-patient-cv/repeat_results.json').read_text())
+assert repeated['completed_fits'] == 57
+repeat_stats = repeated['summary']
+models = repeat_stats['deeptcr_within_fold']
+baseline = repeat_stats['baseline_within_fold']
 folds = results['folds']
 control = results['shuffled_training_control']
 assert results['status'] == 'complete' and len(folds) == 5
@@ -164,7 +169,7 @@ def supplement():
         table(cohort, [143, 67, 147, 139]),
         graphic('s2-cohort-description', 494, 166.2),
         p('<b>Figure S2.</b> (A) Median and interquartile range of repertoire size. (B) Median and interquartile range of per-patient mean CDR3 length. (C) Responders divided by patients in each repertoire-size bin. These are cohort descriptions. Small bin counts limit interpretation.', 'small'),
-        heading('Fixed-score shuffle'),
+        heading('Fixed-score shuffle on the earlier partition'),
         p(f'With the fitted predictions held fixed, {results["fixed_score_shuffles_at_least_as_high"]:,} of {results["fixed_score_shuffle_draws"]:,} within-fold label shuffles met or exceeded the observed pair concordance. This checks the rank statistic against rearranged labels. Predictions from different folds share training data, which limits the inference from this diagnostic.'),
         PageBreak(),
         heading('Exploratory cluster occupancy'),
@@ -176,6 +181,32 @@ def supplement():
         p('Figures S2 and S12 retain their identifiers for comparison with the original submission. S2 has been rebuilt as an aggregate cohort figure. S12 has been relabeled and reaggregated from the archived clustering outputs.'),
     ]
 
+def repeat_section():
+    rows = [['Patient split', 'DeepTCR seed 1', 'DeepTCR seed 2', 'Composition']]
+    primary = [entry for entry in repeated['runs'] if entry['folds'] == 5]
+    for index, seed in enumerate(sorted({entry['partition_seed'] for entry in primary}), start=1):
+        pair = sorted((entry for entry in primary if entry['partition_seed'] == seed),
+                      key=lambda entry: entry['training_seed'])
+        rows.append([str(index), *[f"{entry['deeptcr']['within_fold_auroc']:.3f}" for entry in pair],
+                     f"{pair[0]['composition']['within_fold_auroc']:.3f}"])
+    sensitivity = [entry for entry in repeated['runs'] if entry['folds'] != 5]
+    detail = ' '.join(f"With {entry['folds']} folds, DeepTCR AUROC was {entry['deeptcr']['within_fold_auroc']:.3f} "
+                      f"and the matched baseline was {entry['composition']['within_fold_auroc']:.3f}."
+                      for entry in sensitivity)
+    return [
+        heading('Repeated patient-held-out results'),
+        graphic('repeated-patient-auroc', 494, 180.5),
+        p('<b>Figure 1.</b> Within-fold AUROC for both DeepTCR fits and the composition baseline on five patient partitions (left). The right panel shows the three- and four-fold sensitivity fits. The dashed line marks 0.50.', 'small'),
+        table(rows, [119, 127, 127, 123]),
+        p(f"DeepTCR ranked higher than the matched baseline in {repeat_stats['deeptcr_above_baseline']} of ten evaluations. "
+          f"The median within-partition absolute difference between the two training seeds was {repeat_stats['absolute_training_seed_gap']['median']:.3f}."),
+        p(detail),
+        p('The baseline used sequence-length summaries and normalized monomer and dimer frequencies, with standardization and logistic regression fitted on training patients. The spread across runs describes the same 34 people. An independent cohort is needed to evaluate generalization.'),
+        p(link(base_url + '/tree/main/validation/repeated-patient-cv', 'All repeat results, protocol, and code'), 'small'),
+        PageBreak(),
+    ]
+
+
 def report():
     rows = [['Fold', 'Train patients', 'Test patients', 'Responders', 'Test records', 'AUROC']]
     for fold in folds:
@@ -185,19 +216,21 @@ def report():
         p('Patient-held-out evaluation of DeepTCR for CD19 CAR-T response', 'title'),
         p('Corrected trainee report · 20 November 2026<br/>Original CSIR-IGIB trainee submission by Mateenah Jahan and Sherry Bhalla · 11 January 2026', 'small'),
         heading('Summary'),
-        p(f'The full repeat trained the DeepTCR sequence classifier across five patient-held-out folds in the archived CD19 CAR-T cohort. All {users} patients were scored once using {results["retained_rows"]:,} eligible TCRβ records. Within-fold patient AUROC was <b>{auroc:.3f}</b> ({wins:g}/{pairs} concordant-pair equivalents, conditional 95% bootstrap interval {lo:.3f}–{hi:.3f}). The test gave no clear evidence of patient-level discrimination in this cohort.'),
+        p(f"Repeated patient-held-out testing used all {users} patients and {results['retained_rows']:,} eligible TCRβ records. Across ten five-fold evaluations, median within-fold DeepTCR AUROC was <b>{models['median']:.3f}</b> (range {models['minimum']:.3f}–{models['maximum']:.3f}). Median matched composition AUROC was <b>{baseline['median']:.3f}</b> across five patient partitions."),
+        p('Five patient partitions crossed with two training seeds. Separate three- and four-fold sensitivity checks brought the study to 57 ten-epoch fits. Each evaluation scored all 34 patients once.'),
         heading('Why the original estimate was corrected'),
         p('The reported 0.754 AUROC summarized the first 100 logged test-epoch scores. The sequence-level split replay placed patients in both training and test sets. The archived code called the DeepTCR sequence model, and the saved attention values reproduce a seeded random fallback. The earlier score and attention-ranked findings therefore cannot support prediction or biomarker claims.'),
         heading('Patient-separated analysis'),
         p('The study used the archived binary response labels for 18 responders and 16 nonresponders. The package’s 40-residue input limit excluded three of 239,637 sequence records. Five stratified folds kept each patient’s repertoire together. The V/J vocabulary was fitted on the training patients within each fold.'),
         p('Each fold used the official DeepTCR_SS 2.1.29 large sequence CNN with a two-class head, Adam, a batch size of 1,024 and ten epochs. The score for each held-out patient was the mean responder-class score across that patient’s eligible records.'),
-        p('The primary AUROC weights each eligible responder–nonresponder pair within a fold equally, with half credit for ties. The interval uses 2,000 patient bootstrap resamples stratified by fold and response. It is conditional on this cohort, the fixed splits and the fitted predictions. It does not quantify variability from retraining.'),
+        p('The primary AUROC weights each eligible responder–nonresponder pair within a fold equally, with half credit for ties. The earlier fixed-partition interval uses 2,000 patient bootstrap resamples stratified by fold and response. It is conditional on this cohort, the fixed splits and the fitted predictions. It does not quantify variability from retraining.'),
         PageBreak(),
-        heading('Held-out results'),
+        *repeat_section(),
+        heading('Earlier results on one patient partition'),
         graphic('held-out-performance', 494, 202.1),
-        p(f'<b>Figure 1.</b> (A) Held-out patient AUROCs by fold, the within-fold aggregate with its conditional 95% interval, and the fold-1 shuffled-label control. The dashed vertical line marks AUROC 0.50. (B) Observed mean minibatch training loss over all ten epochs for each fit.', 'small'),
+        p(f'<b>Figure 2.</b> (A) Held-out patient AUROCs by fold, the within-fold aggregate with its conditional 95% interval, and the fold-1 shuffled-label control. The dashed vertical line marks AUROC 0.50. (B) Observed mean minibatch training loss over all ten epochs for each fit.', 'small'),
         table(rows, [48, 88, 87, 87, 94, 92]),
-        p(f'Pooled out-of-fold AUROC was {pooled:.3f} and average precision was {ap:.3f} (18/34 responders). At a threshold of 0.5, {results["correct_at_threshold_0_5"]}/34 patients were correctly classified. The pooled metrics compare predictions from different fitted models.'),
+        p(f'This repeat had within-fold AUROC {auroc:.3f} ({wins:g}/{pairs} concordant-pair equivalents, conditional interval {lo:.3f}–{hi:.3f}). Pooled out-of-fold AUROC was {pooled:.3f} and average precision was {ap:.3f} (18/34 responders). At a threshold of 0.5, {results["correct_at_threshold_0_5"]}/34 patients were correctly classified. The pooled metrics compare predictions from different fitted models.'),
         p(f'Retraining fold 1 with shuffled training-patient labels scored {control["patient_auroc"]:.3f} versus {folds[0]["patient_auroc"]:.3f} on the same seven held-out patients. The earlier full run yielded within-fold AUROC 0.316 (conditional interval 0.140–0.509). The two runs used the same cohort and split protocol. Their different estimates illustrate run-to-run variability.'),
         p(f'One retrospective cohort and small test folds limit generalization. {link(pin + "/REPORT.md", "Earlier full run and reproduction materials")} · {link(archive + "/paper/main.pdf", "Historical trainee submission")} · {link("https://pmc.ncbi.nlm.nih.gov/articles/PMC7952906/", "DeepTCR framework paper")}', 'small'),
     ]
