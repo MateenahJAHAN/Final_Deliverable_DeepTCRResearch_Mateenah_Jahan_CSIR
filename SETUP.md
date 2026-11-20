@@ -59,15 +59,18 @@ test "$failed" -eq 0 || exit 1
 
 The evaluator verifies all 57 fits and writes aggregate JSON and CSV. It fits the composition baseline on the same training folds and uses the private checkpoint scores to recalculate each held-out AUROC. Keep the study's `private/` directory on the authorized system.
 
-## Rebuild the corrected documents
+## Build the research report
 
-Use an environment with NumPy, Matplotlib and ReportLab. From the repository root, run:
+The [LaTeX source](paper/main.tex) uses the figures in `figures/correction/` and the bibliography in `paper/references.bib`. Run these commands from the repository root with Matplotlib and a LaTeX installation that includes `latexmk`.
 
 ```sh
 python validation/repeated-patient-cv/render_repeat_study.py --figure figures/correction/repeated-patient-auroc.png
-python paper/build_correction.py
+cd paper
+build="$(mktemp -d)"
+latexmk -pdf -halt-on-error -interaction=nonstopmode -outdir="$build" main.tex
+cp "$build/main.pdf" main.pdf
 ```
 
-The PDF builder reads the [57-fit study](validation/repeated-patient-cv/repeat_results.json), [earlier fixed-partition repeat](validation/correction-rerun/aggregate_results.json) and [descriptive summaries](validation/correction-rerun/checked_descriptives.json). The descriptive summaries cover all eligible records for S2 and the archived exploratory cluster shares for S12.
+The performance table uses the [57-fit aggregate results](validation/repeated-patient-cv/repeat_results.json). Cohort and clustering figures use the [descriptive summaries](validation/correction-rerun/checked_descriptives.json) and the training-loss figure shows the [earlier fixed-partition repeat](validation/correction-rerun/aggregate_results.json).
 
 [Earlier protocol and results](validation/patient-grouped-deeptcr/README.md) · [Historical setup guide](https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/blob/ce1fa3a421edb9f4025a45cb79dc7b014867ad83/SETUP.md)
