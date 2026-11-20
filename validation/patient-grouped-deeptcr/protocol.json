@@ -1,0 +1,23 @@
+{
+  "data_rows_before_max_length": 239637,
+  "data_rows_after_max_length": 239634,
+  "patients": 34,
+  "positive_patients": 18,
+  "deeptcr_sdist_sha256": "7c4e8c37b1749a0fae5a16a7d56586e74cc84d3deacd1b2caf9599bdb54b4d70",
+  "deeptcr_source_version": "2.1.29",
+  "random_seed": 20261120,
+  "folds": 5,
+  "epochs": 10,
+  "max_length": 40,
+  "batch_size": 1024,
+  "graph": {
+    "size_of_net": "large",
+    "use_only_seq": false,
+    "learning_rate": 0.001,
+    "drop_out_rate": 0.0
+  },
+  "accuracy_threshold": 0.5,
+  "bootstrap_replicates": 2000,
+  "prediction_permutations": 4999,
+  "shuffled_training_control_fold": 1
+}

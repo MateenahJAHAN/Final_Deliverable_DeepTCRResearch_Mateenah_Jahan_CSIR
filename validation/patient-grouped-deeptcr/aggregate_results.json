@@ -1,0 +1,508 @@
+{
+  "status": "complete",
+  "model": "Official DeepTCR_SS 2.1.29, large, classification",
+  "runtime": {
+    "tensorflow": "2.12.0",
+    "scikit_learn": "1.2.2",
+    "python": "3.9.18",
+    "numpy": "1.23.5",
+    "host": "Darwin arm64",
+    "device": "CPU",
+    "threads": 10,
+    "visible_devices": [
+      "CPU"
+    ]
+  },
+  "patients": 34,
+  "positive_patients": 18,
+  "retained_rows": 239634,
+  "within_fold_patient_auroc": 0.3157894736842105,
+  "patient_pairs_concordant_ties_half": 18.0,
+  "patient_pairs": 57,
+  "within_fold_patient_auroc_bootstrap_ci95": [
+    0.14035087719298245,
+    0.5087719298245614
+  ],
+  "pooled_oof_patient_auroc": 0.4166666666666667,
+  "pooled_oof_patient_average_precision": 0.4964986734931439,
+  "correct_at_threshold_0_5": 17,
+  "folds": [
+    {
+      "fold": 1,
+      "train_patients": 27,
+      "test_patients": 7,
+      "test_positive_patients": 4,
+      "train_rows": 197696,
+      "test_rows": 41938,
+      "trainable_parameters": 293442,
+      "held_out_rows_with_unseen_genes": {
+        "v_beta": 1,
+        "j_beta": 0,
+        "v_alpha": 0,
+        "j_alpha": 0
+      },
+      "patient_auroc": 0.25,
+      "inference_seconds": 0.451,
+      "epochs": [
+        {
+          "epoch": 1,
+          "seconds": 8.683,
+          "batch_mean_loss": 0.6348044872283936,
+          "batch_mean_accuracy": 0.605644941329956
+        },
+        {
+          "epoch": 2,
+          "seconds": 8.761,
+          "batch_mean_loss": 0.5904622673988342,
+          "batch_mean_accuracy": 0.6427492499351501
+        },
+        {
+          "epoch": 3,
+          "seconds": 9.165,
+          "batch_mean_loss": 0.5676594972610474,
+          "batch_mean_accuracy": 0.6655223369598389
+        },
+        {
+          "epoch": 4,
+          "seconds": 8.949,
+          "batch_mean_loss": 0.549513041973114,
+          "batch_mean_accuracy": 0.6826675534248352
+        },
+        {
+          "epoch": 5,
+          "seconds": 9.018,
+          "batch_mean_loss": 0.5314601063728333,
+          "batch_mean_accuracy": 0.6997724771499634
+        },
+        {
+          "epoch": 6,
+          "seconds": 8.628,
+          "batch_mean_loss": 0.514624297618866,
+          "batch_mean_accuracy": 0.71533203125
+        },
+        {
+          "epoch": 7,
+          "seconds": 8.755,
+          "batch_mean_loss": 0.49906885623931885,
+          "batch_mean_accuracy": 0.729170024394989
+        },
+        {
+          "epoch": 8,
+          "seconds": 8.246,
+          "batch_mean_loss": 0.4859485328197479,
+          "batch_mean_accuracy": 0.7402796745300293
+        },
+        {
+          "epoch": 9,
+          "seconds": 8.839,
+          "batch_mean_loss": 0.46891510486602783,
+          "batch_mean_accuracy": 0.7545858025550842
+        },
+        {
+          "epoch": 10,
+          "seconds": 8.522,
+          "batch_mean_loss": 0.4551762044429779,
+          "batch_mean_accuracy": 0.7654991745948792
+        }
+      ]
+    },
+    {
+      "fold": 2,
+      "train_patients": 27,
+      "test_patients": 7,
+      "test_positive_patients": 4,
+      "train_rows": 182334,
+      "test_rows": 57300,
+      "trainable_parameters": 293490,
+      "held_out_rows_with_unseen_genes": {
+        "v_beta": 0,
+        "j_beta": 0,
+        "v_alpha": 0,
+        "j_alpha": 0
+      },
+      "patient_auroc": 0.08333333333333334,
+      "inference_seconds": 0.593,
+      "epochs": [
+        {
+          "epoch": 1,
+          "seconds": 7.553,
+          "batch_mean_loss": 0.6429300308227539,
+          "batch_mean_accuracy": 0.5873105525970459
+        },
+        {
+          "epoch": 2,
+          "seconds": 7.42,
+          "batch_mean_loss": 0.5944045186042786,
+          "batch_mean_accuracy": 0.6350308060646057
+        },
+        {
+          "epoch": 3,
+          "seconds": 7.515,
+          "batch_mean_loss": 0.57118159532547,
+          "batch_mean_accuracy": 0.6586267352104187
+        },
+        {
+          "epoch": 4,
+          "seconds": 7.371,
+          "batch_mean_loss": 0.5521581172943115,
+          "batch_mean_accuracy": 0.6772931218147278
+        },
+        {
+          "epoch": 5,
+          "seconds": 7.798,
+          "batch_mean_loss": 0.5379095077514648,
+          "batch_mean_accuracy": 0.6929128766059875
+        },
+        {
+          "epoch": 6,
+          "seconds": 7.403,
+          "batch_mean_loss": 0.5197389721870422,
+          "batch_mean_accuracy": 0.7097824811935425
+        },
+        {
+          "epoch": 7,
+          "seconds": 7.185,
+          "batch_mean_loss": 0.5063517689704895,
+          "batch_mean_accuracy": 0.7224390506744385
+        },
+        {
+          "epoch": 8,
+          "seconds": 7.261,
+          "batch_mean_loss": 0.4900914132595062,
+          "batch_mean_accuracy": 0.7363511323928833
+        },
+        {
+          "epoch": 9,
+          "seconds": 7.271,
+          "batch_mean_loss": 0.47721701860427856,
+          "batch_mean_accuracy": 0.7464906573295593
+        },
+        {
+          "epoch": 10,
+          "seconds": 7.186,
+          "batch_mean_loss": 0.46306392550468445,
+          "batch_mean_accuracy": 0.7586537003517151
+        }
+      ]
+    },
+    {
+      "fold": 3,
+      "train_patients": 27,
+      "test_patients": 7,
+      "test_positive_patients": 4,
+      "train_rows": 188560,
+      "test_rows": 51074,
+      "trainable_parameters": 293490,
+      "held_out_rows_with_unseen_genes": {
+        "v_beta": 0,
+        "j_beta": 0,
+        "v_alpha": 0,
+        "j_alpha": 0
+      },
+      "patient_auroc": 0.33333333333333337,
+      "inference_seconds": 0.538,
+      "epochs": [
+        {
+          "epoch": 1,
+          "seconds": 8.512,
+          "batch_mean_loss": 0.6522603034973145,
+          "batch_mean_accuracy": 0.5784270167350769
+        },
+        {
+          "epoch": 2,
+          "seconds": 7.494,
+          "batch_mean_loss": 0.6147635579109192,
+          "batch_mean_accuracy": 0.6191957592964172
+        },
+        {
+          "epoch": 3,
+          "seconds": 7.416,
+          "batch_mean_loss": 0.5920135378837585,
+          "batch_mean_accuracy": 0.6440901756286621
+        },
+        {
+          "epoch": 4,
+          "seconds": 7.416,
+          "batch_mean_loss": 0.5725079774856567,
+          "batch_mean_accuracy": 0.6649487614631653
+        },
+        {
+          "epoch": 5,
+          "seconds": 7.472,
+          "batch_mean_loss": 0.5535611510276794,
+          "batch_mean_accuracy": 0.6839966773986816
+        },
+        {
+          "epoch": 6,
+          "seconds": 7.358,
+          "batch_mean_loss": 0.5365927219390869,
+          "batch_mean_accuracy": 0.7008200287818909
+        },
+        {
+          "epoch": 7,
+          "seconds": 7.361,
+          "batch_mean_loss": 0.5195435285568237,
+          "batch_mean_accuracy": 0.7169793248176575
+        },
+        {
+          "epoch": 8,
+          "seconds": 7.422,
+          "batch_mean_loss": 0.501977801322937,
+          "batch_mean_accuracy": 0.7312740683555603
+        },
+        {
+          "epoch": 9,
+          "seconds": 7.387,
+          "batch_mean_loss": 0.48528632521629333,
+          "batch_mean_accuracy": 0.746046245098114
+        },
+        {
+          "epoch": 10,
+          "seconds": 7.392,
+          "batch_mean_loss": 0.4696784019470215,
+          "batch_mean_accuracy": 0.7583474516868591
+        }
+      ]
+    },
+    {
+      "fold": 4,
+      "train_patients": 27,
+      "test_patients": 7,
+      "test_positive_patients": 3,
+      "train_rows": 191013,
+      "test_rows": 48621,
+      "trainable_parameters": 293490,
+      "held_out_rows_with_unseen_genes": {
+        "v_beta": 0,
+        "j_beta": 0,
+        "v_alpha": 0,
+        "j_alpha": 0
+      },
+      "patient_auroc": 0.6666666666666666,
+      "inference_seconds": 0.512,
+      "epochs": [
+        {
+          "epoch": 1,
+          "seconds": 7.515,
+          "batch_mean_loss": 0.6545348167419434,
+          "batch_mean_accuracy": 0.5859056711196899
+        },
+        {
+          "epoch": 2,
+          "seconds": 7.439,
+          "batch_mean_loss": 0.6155257225036621,
+          "batch_mean_accuracy": 0.6247324347496033
+        },
+        {
+          "epoch": 3,
+          "seconds": 7.506,
+          "batch_mean_loss": 0.589239776134491,
+          "batch_mean_accuracy": 0.6519713401794434
+        },
+        {
+          "epoch": 4,
+          "seconds": 7.433,
+          "batch_mean_loss": 0.5687719583511353,
+          "batch_mean_accuracy": 0.6728376746177673
+        },
+        {
+          "epoch": 5,
+          "seconds": 7.585,
+          "batch_mean_loss": 0.5503793954849243,
+          "batch_mean_accuracy": 0.6894533038139343
+        },
+        {
+          "epoch": 6,
+          "seconds": 7.646,
+          "batch_mean_loss": 0.5311858654022217,
+          "batch_mean_accuracy": 0.708242654800415
+        },
+        {
+          "epoch": 7,
+          "seconds": 7.497,
+          "batch_mean_loss": 0.5151048302650452,
+          "batch_mean_accuracy": 0.7228310108184814
+        },
+        {
+          "epoch": 8,
+          "seconds": 7.484,
+          "batch_mean_loss": 0.49677324295043945,
+          "batch_mean_accuracy": 0.7376606464385986
+        },
+        {
+          "epoch": 9,
+          "seconds": 7.451,
+          "batch_mean_loss": 0.4823690950870514,
+          "batch_mean_accuracy": 0.7493899464607239
+        },
+        {
+          "epoch": 10,
+          "seconds": 7.47,
+          "batch_mean_loss": 0.4654031991958618,
+          "batch_mean_accuracy": 0.763328492641449
+        }
+      ]
+    },
+    {
+      "fold": 5,
+      "train_patients": 28,
+      "test_patients": 6,
+      "test_positive_patients": 3,
+      "train_rows": 198933,
+      "test_rows": 40701,
+      "trainable_parameters": 293490,
+      "held_out_rows_with_unseen_genes": {
+        "v_beta": 0,
+        "j_beta": 0,
+        "v_alpha": 0,
+        "j_alpha": 0
+      },
+      "patient_auroc": 0.22222222222222224,
+      "inference_seconds": 0.433,
+      "epochs": [
+        {
+          "epoch": 1,
+          "seconds": 7.957,
+          "batch_mean_loss": 0.6410562992095947,
+          "batch_mean_accuracy": 0.591092050075531
+        },
+        {
+          "epoch": 2,
+          "seconds": 7.802,
+          "batch_mean_loss": 0.5995233654975891,
+          "batch_mean_accuracy": 0.630498468875885
+        },
+        {
+          "epoch": 3,
+          "seconds": 7.87,
+          "batch_mean_loss": 0.5779286623001099,
+          "batch_mean_accuracy": 0.6523138284683228
+        },
+        {
+          "epoch": 4,
+          "seconds": 7.853,
+          "batch_mean_loss": 0.5584998726844788,
+          "batch_mean_accuracy": 0.6723825335502625
+        },
+        {
+          "epoch": 5,
+          "seconds": 7.796,
+          "batch_mean_loss": 0.5413593053817749,
+          "batch_mean_accuracy": 0.6885426640510559
+        },
+        {
+          "epoch": 6,
+          "seconds": 7.794,
+          "batch_mean_loss": 0.5257067680358887,
+          "batch_mean_accuracy": 0.7043642997741699
+        },
+        {
+          "epoch": 7,
+          "seconds": 7.705,
+          "batch_mean_loss": 0.5096057653427124,
+          "batch_mean_accuracy": 0.719229519367218
+        },
+        {
+          "epoch": 8,
+          "seconds": 7.779,
+          "batch_mean_loss": 0.4937606155872345,
+          "batch_mean_accuracy": 0.7331495881080627
+        },
+        {
+          "epoch": 9,
+          "seconds": 7.821,
+          "batch_mean_loss": 0.4784892797470093,
+          "batch_mean_accuracy": 0.7461480498313904
+        },
+        {
+          "epoch": 10,
+          "seconds": 7.787,
+          "batch_mean_loss": 0.4652247428894043,
+          "batch_mean_accuracy": 0.758147656917572
+        }
+      ]
+    }
+  ],
+  "shuffled_training_control": {
+    "fold": 1,
+    "train_patients": 27,
+    "test_patients": 7,
+    "test_positive_patients": 4,
+    "train_rows": 197696,
+    "test_rows": 41938,
+    "trainable_parameters": 293442,
+    "held_out_rows_with_unseen_genes": {
+      "v_beta": 1,
+      "j_beta": 0,
+      "v_alpha": 0,
+      "j_alpha": 0
+    },
+    "patient_auroc": 0.8333333333333334,
+    "inference_seconds": 0.434,
+    "epochs": [
+      {
+        "epoch": 1,
+        "seconds": 7.84,
+        "batch_mean_loss": 0.6335155367851257,
+        "batch_mean_accuracy": 0.6083179116249084
+      },
+      {
+        "epoch": 2,
+        "seconds": 7.853,
+        "batch_mean_loss": 0.5868784189224243,
+        "batch_mean_accuracy": 0.6524041295051575
+      },
+      {
+        "epoch": 3,
+        "seconds": 8.007,
+        "batch_mean_loss": 0.563875675201416,
+        "batch_mean_accuracy": 0.673672080039978
+      },
+      {
+        "epoch": 4,
+        "seconds": 7.969,
+        "batch_mean_loss": 0.5470395684242249,
+        "batch_mean_accuracy": 0.6881241798400879
+      },
+      {
+        "epoch": 5,
+        "seconds": 7.783,
+        "batch_mean_loss": 0.5301632881164551,
+        "batch_mean_accuracy": 0.7038297653198242
+      },
+      {
+        "epoch": 6,
+        "seconds": 7.722,
+        "batch_mean_loss": 0.5158094763755798,
+        "batch_mean_accuracy": 0.7164948582649231
+      },
+      {
+        "epoch": 7,
+        "seconds": 7.715,
+        "batch_mean_loss": 0.4995296895503998,
+        "batch_mean_accuracy": 0.7305291295051575
+      },
+      {
+        "epoch": 8,
+        "seconds": 7.8,
+        "batch_mean_loss": 0.48638302087783813,
+        "batch_mean_accuracy": 0.7412763833999634
+      },
+      {
+        "epoch": 9,
+        "seconds": 7.768,
+        "batch_mean_loss": 0.47011101245880127,
+        "batch_mean_accuracy": 0.7549381852149963
+      },
+      {
+        "epoch": 10,
+        "seconds": 7.652,
+        "batch_mean_loss": 0.45855712890625,
+        "batch_mean_accuracy": 0.7638077735900879
+      }
+    ],
+    "train_patient_labels_changed": 14
+  },
+  "fixed_score_shuffles_at_least_as_high": 4815,
+  "fixed_score_shuffle_draws": 4999
+}

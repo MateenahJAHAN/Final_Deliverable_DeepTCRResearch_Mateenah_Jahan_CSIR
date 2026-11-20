@@ -1,0 +1,8 @@
+.private/
+.venv*/
+vendor/
+.mpl-cache/
+.numba-cache/
+__pycache__/
+progress.json
+completed_folds.json
