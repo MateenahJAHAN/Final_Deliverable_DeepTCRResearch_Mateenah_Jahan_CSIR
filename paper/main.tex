@@ -82,7 +82,7 @@ Despite these impressive outcomes, a substantial proportion of patients either f
 
 \subsection{CAR-T Product T-Cell Receptor Repertoires}
 
-While CAR-T cells are engineered to express a synthetic chimeric receptor, they retain their endogenous T-cell receptor (TCR) repertoires \citep{fraietta2018determinants}. These native TCRs reflect the clonal history, differentiation state, and functional potential of the underlying T cells. Single-cell studies have revealed that CAR-T products from responders show distinct TCR repertoire characteristics compared to non-responders, including differences in clonality, diversity, and specific TCR sequence features \citep{chen2021singlecell}. Importantly, TCR repertoire analysis provides a window into T-cell fitness that complements CAR expression-based metrics.
+While CAR-T cells are engineered to express a synthetic chimeric receptor, they retain their endogenous T-cell receptor (TCR) repertoires \citep{fraietta2018determinants}. These native TCRs reflect the clonal history, differentiation state, and functional potential of the underlying T cells. A single-cell RNA and TCR sequencing study of large B-cell lymphoma reported that infusion products from responders were enriched for clonally expanded, highly activated CD8$^{+}$ T cells \citep{maurer2024baseline}. Importantly, TCR repertoire analysis provides a window into T-cell fitness that complements CAR expression-based metrics.
 
 \subsection{T-Cell Receptor Biology and Repertoire Analysis}
 
@@ -119,7 +119,7 @@ Secondary objectives were to compare the observed cluster distributions by respo
 
 \subsection{Study Design and Patient Cohort}
 
-This retrospective cohort study analyzed TCR repertoire data from 34 patients with refractory/relapsed B-cell lymphoma treated with CD19-targeted CAR-T cell therapy. Patients were classified as responders (n=18) or non-responders (n=16) using the archived response labels, described in the original submission as clinical response at day 90 post-infusion, with responders defined as achieving complete response (CR) or partial response (PR), and non-responders defined as stable disease (SD) or progressive disease (PD).
+This retrospective analysis of a public dataset used TCR repertoire data from 34 patients with refractory/relapsed B-cell lymphoma treated with CD19-targeted CAR-T cell therapy. The data are the single-cell TCR sequencing records of CAR-T infusion products that Li et al. \citep{li2023atlas} deposited in the Gene Expression Omnibus under accession GSE241783, a series covering 59 patients treated with axicabtagene ciloleucel, of whom 34 are analyzed here. Patients were classified as responders (n=18) or non-responders (n=16) using the archived response labels, described in the original submission as clinical response at day 90 post-infusion, with responders defined as achieving complete response (CR) or partial response (PR), and non-responders defined as stable disease (SD) or progressive disease (PD).
 
 TCR sequencing was performed on the CAR-T cell products prior to infusion. The near-balanced cohort design (18 responders, 16 non-responders) helps prevent severe class imbalance from confounding model training. Patient and repertoire characteristics are summarized in Table~\ref{tab:patient_characteristics}.
 
@@ -403,11 +403,11 @@ We gratefully acknowledge the \textbf{Lambda Labs GPU Grant Program} for providi
 
 This work was supported by the \textbf{Council of Scientific and Industrial Research (CSIR)} and the \textbf{Institute of Genomics and Integrative Biology (IGIB)}, New Delhi, India. M.J. acknowledges support as a Research Trainee in the Deep Learning/Machine Learning for Genomic Analysis program at CSIR-IGIB.
 
-We acknowledge the use of AI-assisted development tools during this research: \textbf{Claude Code} \citep{anthropic2025claudecode}, an agentic coding tool by Anthropic, and \textbf{OpenAI Codex} \citep{chen2021codex} were used to assist with code development, debugging, and optimization of the analysis pipeline.
+We acknowledge the use of AI-assisted development tools during this research: \textbf{Claude Code} \citep{anthropic2025claudecode}, an agentic coding tool by Anthropic, \textbf{OpenAI Codex}, and the \textbf{Cursor} coding agent were used to assist with code development, debugging, and optimization of the analysis pipeline and with edits to this manuscript. In November 2026, an OpenAI Codex coding agent carried out the patient-held-out re-evaluation and revised the manuscript; these contributions are recorded in the commit history of the repository.
 
 We thank the developers of the \textbf{DeepTCR} framework \citep{sidhom2021deeptcr} for making their software openly available. M.J. contributed to the DeepTCR project by assisting with the upgrade to Python 3.10 and TensorFlow 2.12 (version 2.1.28), as acknowledged in the official DeepTCR repository (\url{https://github.com/sidhomj/DeepTCR}).
 
-We thank the patients who contributed samples to this study, without whom this research would not have been possible.
+We thank Li and colleagues \citep{li2023atlas} for making the dataset analyzed here publicly available, and the patients who contributed samples to their study.
 
 \section*{Conflict of Interest}
 The authors declare no competing interests.
