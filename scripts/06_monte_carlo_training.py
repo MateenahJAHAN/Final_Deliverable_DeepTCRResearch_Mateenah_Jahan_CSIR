@@ -192,7 +192,7 @@ try:
     PID_FILE = os.path.join(DATA_PROCESSED, "patient_ids.npy")
 
     y_labels = np.load(Y_FILE)
-    patient_ids = np.load(PID_FILE, allow_pickle=True)
+    patient_ids = df['patient_id'].to_numpy(dtype=str)
 
     print(f"✅ Labels loaded: {y_labels.shape}")
     print(f"✅ Patient IDs loaded: {patient_ids.shape}")

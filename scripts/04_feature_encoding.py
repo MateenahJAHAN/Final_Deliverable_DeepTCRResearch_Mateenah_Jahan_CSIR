@@ -352,7 +352,7 @@ print(f"Expected memory usage: ~{(num_sequences * TOTAL_FEATURES * 4) / (1024**3
 print("Initializing numpy arrays...")
 X_onehot = np.zeros((num_sequences, TOTAL_FEATURES), dtype=np.float32)
 y_labels = df['response_binary'].values.astype(np.int32)
-patient_ids = df['patient_id'].values
+patient_ids = df['patient_id'].to_numpy(dtype=str)
 
 print(f"✅ Arrays initialized")
 print(f"   X_onehot shape: {X_onehot.shape}")
@@ -462,7 +462,7 @@ print(f"   Size: {file_size_mb:.2f} MB")
 
 # Save patient_ids
 print(f"\n3. Saving patient IDs (patient_ids.npy)...")
-np.save(OUTPUT_PIDS, patient_ids)
+np.save(OUTPUT_PIDS, patient_ids, allow_pickle=False)
 file_size_mb = os.path.getsize(OUTPUT_PIDS) / (1024 * 1024)
 print(f"   ✅ Saved: {OUTPUT_PIDS}")
 print(f"   Size: {file_size_mb:.2f} MB")

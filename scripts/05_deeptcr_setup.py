@@ -57,6 +57,7 @@ Date: December 24, 2025
 import os
 import sys
 import subprocess
+from multiprocessing.dummy import Pool as ThreadPool
 from datetime import datetime
 import numpy as np
 import pandas as pd
@@ -227,11 +228,15 @@ print(f"✅ Loaded CSV: {len(df):,} sequences")
 # Load numpy arrays
 X_FILE = os.path.join(DATA_PROCESSED, "X_onehot.npy")
 Y_FILE = os.path.join(DATA_PROCESSED, "y_labels.npy")
-PID_FILE = os.path.join(DATA_PROCESSED, "patient_ids.npy")
 
-X_onehot = np.load(X_FILE)
+X_onehot = np.load(X_FILE, mmap_mode="r", allow_pickle=False)
 y_labels = np.load(Y_FILE)
-patient_ids = np.load(PID_FILE, allow_pickle=True)
+if not np.array_equal(y_labels, df['response_binary'].to_numpy()) or len(X_onehot) != len(df):
+    raise ValueError("Encoded rows or outcomes differ from the CSV")
+eligible = df['aminoAcid'].str.len().le(40).to_numpy()
+df = df.loc[eligible]
+y_labels = y_labels[eligible]
+patient_ids = df['patient_id'].to_numpy(dtype=str)
 
 print(f"✅ Loaded numpy arrays:")
 print(f"   X_onehot: {X_onehot.shape}")
@@ -266,8 +271,8 @@ print(f"   J genes: {len(j_beta):,}")
 print(f"   Dummy alpha data created (required by DeepTCR)")
 
 # Convert labels to proper format
-# DeepTCR expects labels as integers (not one-hot)
-Y_binary = y_labels.reshape(-1, 1)  # Shape: (N, 1)
+# The class_labels interface selects the two-class model.
+Y_binary = y_labels.astype(str)
 
 print(f"\n   Labels: {Y_binary.shape}")
 print(f"   Unique labels: {np.unique(Y_binary)}")
@@ -297,16 +302,14 @@ try:
     # Test data loading
     print("\nTesting data loading into DeepTCR...")
 
-    test_model.Load_Data(
-        beta_sequences=beta_sequences,
-        v_beta=v_beta,
-        j_beta=j_beta,
-        alpha_sequences=dummy_alpha_seqs,
-        v_alpha=dummy_v_alpha,
-        j_alpha=dummy_j_alpha,
-        Y=Y_binary,
-        sample_labels=pids_arr
-    )
+    with ThreadPool(1) as pool:
+        test_model.Load_Data(
+            beta_sequences=beta_sequences, v_beta=v_beta, j_beta=j_beta,
+            alpha_sequences=dummy_alpha_seqs, v_alpha=dummy_v_alpha, j_alpha=dummy_j_alpha,
+            class_labels=Y_binary, sample_labels=pids_arr, p=pool,
+        )
+    if test_model.regression or list(test_model.lb.classes_) != ['0', '1']:
+        raise ValueError("Expected the binary sequence classifier")
 
     print("✅ Data loaded successfully into DeepTCR!")
     print(f"   Sequences loaded: {len(beta_sequences):,}")
@@ -317,7 +320,7 @@ except Exception as e:
     print("\n📝 TROUBLESHOOTING:")
     print("   This may be due to TensorFlow compatibility issues")
     print("   DeepTCR may require TensorFlow 1.x or specific 2.x versions")
-    print(f"\n   Error details: {str(e)}")
+    raise
 
 # ==============================================================================
 # SECTION 8: DISPLAY DEEPTCR INFORMATION

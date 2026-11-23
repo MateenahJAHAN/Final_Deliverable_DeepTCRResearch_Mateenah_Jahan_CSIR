@@ -1,0 +1,46 @@
+{
+  "published": {
+    "tensors": 19,
+    "different_with_same_seed": [
+      "alpha_conv/conv2d/kernel:0",
+      "alpha_conv/conv2d_1/kernel:0",
+      "alpha_conv/conv2d_2/kernel:0",
+      "beta_conv/conv2d/kernel:0",
+      "beta_conv/conv2d_1/kernel:0",
+      "beta_conv/conv2d_2/kernel:0",
+      "dense/kernel:0"
+    ],
+    "different_with_different_seed": [
+      "Embedding_V_beta:0",
+      "Embedding_J_Beta:0",
+      "Embedding_V_Alpha:0",
+      "Embedding_J_Alpha:0",
+      "AA_Embedding/Embedding_Layer_Seq:0",
+      "alpha_conv/conv2d/kernel:0",
+      "alpha_conv/conv2d_1/kernel:0",
+      "alpha_conv/conv2d_2/kernel:0",
+      "beta_conv/conv2d/kernel:0",
+      "beta_conv/conv2d_1/kernel:0",
+      "beta_conv/conv2d_2/kernel:0",
+      "dense/kernel:0"
+    ]
+  },
+  "all_generators": {
+    "tensors": 19,
+    "different_with_same_seed": [],
+    "different_with_different_seed": [
+      "Embedding_V_beta:0",
+      "Embedding_J_Beta:0",
+      "Embedding_V_Alpha:0",
+      "Embedding_J_Alpha:0",
+      "AA_Embedding/Embedding_Layer_Seq:0",
+      "alpha_conv/conv2d/kernel:0",
+      "alpha_conv/conv2d_1/kernel:0",
+      "alpha_conv/conv2d_2/kernel:0",
+      "beta_conv/conv2d/kernel:0",
+      "beta_conv/conv2d_1/kernel:0",
+      "beta_conv/conv2d_2/kernel:0",
+      "dense/kernel:0"
+    ]
+  }
+}

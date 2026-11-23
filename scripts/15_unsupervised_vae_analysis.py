@@ -1,40 +1,5 @@
 #!/usr/bin/env python3
-"""
-Script 15: Unsupervised VAE Analysis (Following Sidhom et al. Methodology)
-==========================================================================
-
-This script implements unsupervised TCR repertoire analysis using Variational 
-Autoencoder (VAE) as described in:
-
-Sidhom et al., "Deep learning reveals predictive sequence concepts within 
-immune repertoires to immunotherapy" Science Advances, 2022
-
-METHODOLOGY (From Sidhom's Paper):
-----------------------------------
-1. Train a VAE on all TCR data in a sample and class agnostic fashion
-2. Use VAE to obtain unsupervised featurization (128-dimensional latent vector)
-3. Visualize distributions via UMAP of the VAE latent space
-4. Filter to top/bottom 10% predictive sequences to visualize differences
-5. Show that predictive concepts are shared between patients
-
-KEY QUOTE FROM PAPER:
-"To characterize the distribution of the TCR repertoires in patients who either 
-responded or did not respond to treatment, we trained a variational autoencoder 
-(VAE), another type of model part of the DeepTCR framework, on all data to obtain 
-an unsupervised featurization to visualize (via UMAP) the distribution of 
-nonresponders and responders."
-
-OUTPUTS:
---------
-1. VAE latent space embeddings
-2. UMAP visualization of entire repertoire
-3. UMAP visualization filtered by predictive sequences
-4. Per-patient distribution analysis
-5. Shared motif analysis between patients
-
-Author: Mateenah Jahan (following Sidhom et al. methodology)
-Date: January 2026
-"""
+"""Describe repertoire structure by PCA (128 components) and K-means; visualize a subset with UMAP. Historical output filenames are retained."""
 
 import os
 import sys
@@ -45,7 +10,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 print("="*80)
-print("UNSUPERVISED VAE ANALYSIS (SIDHOM METHODOLOGY)")
+print("TCR REPERTOIRE PCA AND K-MEANS")
 print("="*80)
 print(f"Execution started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
 
@@ -90,41 +55,24 @@ print(f"   Responders: {df[df[response_col] == 1][sample_col].nunique()} patient
 print(f"   Non-responders: {df[df[response_col] == 0][sample_col].nunique()} patients")
 
 # ==============================================================================
-# SECTION 2: ATTEMPT TO USE DEEPTCR VAE
-# ==============================================================================
-
-print("\n" + "-" * 80)
-print("SECTION 2: DEEPTCR VAE ANALYSIS")
-print("-" * 80)
-
-# Try to use DeepTCR's VAE
-try:
-    from DeepTCR.DeepTCR import DeepTCR_U
-    print("\n✅ DeepTCR_U (Unsupervised/VAE) imported successfully")
-    DEEPTCR_VAE_AVAILABLE = True
-except ImportError:
-    print("\n⚠️  DeepTCR_U not available")
-    DEEPTCR_VAE_AVAILABLE = False
-
-# ==============================================================================
 # SECTION 3: IMPLEMENT VAE-STYLE ANALYSIS
 # ==============================================================================
 
 print("\n" + "-" * 80)
-print("SECTION 3: VAE-INSPIRED LATENT SPACE ANALYSIS")
+print("SECTION 3: REPERTOIRE FEATURES")
 print("-" * 80)
 
-print("\nFollowing Sidhom et al. methodology:")
+print("\nAnalysis steps:")
 print("1. Create unsupervised featurization of all TCRs")
 print("2. Reduce to latent space representation")
 print("3. Visualize via UMAP")
-print("4. Filter by predictive sequences to show differences")
+print("4. Describe cluster occupancy by patient")
 
 # Subsample for memory efficiency
 MAX_SEQUENCES = 30000
 if len(df) > MAX_SEQUENCES:
     print(f"\n⚠️  Subsampling to {MAX_SEQUENCES} sequences...")
-    df_sampled = df.groupby(sample_col, group_keys=False).apply(
+    df_sampled = df.groupby(sample_col, group_keys=False)[df.columns.tolist()].apply(
         lambda x: x.sample(min(len(x), int(MAX_SEQUENCES * len(x) / len(df)) + 1), random_state=42)
     ).reset_index(drop=True).head(MAX_SEQUENCES)
     df = df_sampled
@@ -197,10 +145,11 @@ for i, (v, j) in enumerate(zip(v_encoded, j_encoded)):
 
 # 3. Combine features
 combined_features = np.hstack([kmer_features, v_onehot, j_onehot])
+del kmer_features, v_onehot, j_onehot
 print(f"\n   Combined feature matrix: {combined_features.shape}")
 
 # ==============================================================================
-# SECTION 5: VAE-STYLE LATENT SPACE (PCA as approximation)
+# SECTION 5: PCA
 # ==============================================================================
 
 print("\n" + "-" * 80)
@@ -210,12 +159,12 @@ print("-" * 80)
 print("\nCreating 128-dimensional latent space (as in Sidhom et al.)...")
 
 # Standardize features
-scaler = StandardScaler()
+scaler = StandardScaler(copy=False)
 features_scaled = scaler.fit_transform(combined_features)
 
 # PCA to 128 dimensions (Sidhom used 128-dim VAE latent space)
 n_latent = min(128, features_scaled.shape[1], features_scaled.shape[0] - 1)
-pca = PCA(n_components=n_latent)
+pca = PCA(n_components=n_latent, random_state=42)
 latent_space = pca.fit_transform(features_scaled)
 
 explained_var = np.sum(pca.explained_variance_ratio_) * 100
@@ -246,7 +195,7 @@ except ImportError:
 
 # Subsample for visualization
 n_viz = min(10000, len(latent_space))
-viz_indices = np.random.choice(len(latent_space), n_viz, replace=False)
+viz_indices = np.random.default_rng(42).choice(len(latent_space), n_viz, replace=False)
 
 print(f"\nComputing 2D embedding for {n_viz} sequences...")
 
@@ -320,7 +269,7 @@ plt.savefig(os.path.join(FIGURES, 'figure8_vae_repertoire_distribution.png'), dp
 plt.savefig(os.path.join(FIGURES, 'figure8_vae_repertoire_distribution.pdf'), bbox_inches='tight')
 plt.close()
 
-print("✅ Figure 8: VAE Repertoire Distribution saved")
+print("✅ Figure 8: Repertoire projection saved")
 
 # ==============================================================================
 # SECTION 8: PER-SAMPLE DISTRIBUTION (Sidhom Figure 3D style)
@@ -393,7 +342,7 @@ n_clusters = 10
 kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
 cluster_labels = kmeans.fit_predict(latent_space)
 
-print(f"\nIdentified {n_clusters} TCR sequence clusters (shared motifs)")
+print(f"\nIdentified {n_clusters} TCR sequence clusters")
 
 # Analyze cluster sharing between patients
 cluster_sharing = pd.DataFrame()
@@ -425,12 +374,12 @@ width = 0.35
 bars1 = ax.bar(x - width/2, responder_sharing, width, label='Responders', color='#3498DB', alpha=0.8)
 bars2 = ax.bar(x + width/2, nonresponder_sharing, width, label='Non-responders', color='#E74C3C', alpha=0.8)
 
-ax.set_xlabel('TCR Cluster (Shared Motif)', fontsize=12)
+ax.set_xlabel('K-means cluster', fontsize=12)
 ax.set_ylabel('Mean % of Patient Repertoire', fontsize=12)
-ax.set_title('Shared TCR Sequence Motifs Across Patients\n(Sidhom et al. Key Finding: Multimodal Distributions Shared Between Patients)', 
+ax.set_title('Cluster occupancy by three-month response',
              fontsize=14, fontweight='bold')
 ax.set_xticks(x)
-ax.set_xticklabels([f'Motif {i}' for i in range(n_clusters)], rotation=45, ha='right')
+ax.set_xticklabels([f'Cluster {i}' for i in range(n_clusters)], rotation=45, ha='right')
 ax.legend()
 
 plt.tight_layout()
@@ -438,7 +387,7 @@ plt.savefig(os.path.join(FIGURES, 'figureS12_shared_motifs.png'), dpi=300, bbox_
 plt.savefig(os.path.join(FIGURES, 'figureS12_shared_motifs.pdf'), bbox_inches='tight')
 plt.close()
 
-print("✅ Figure S12: Shared Motifs saved")
+print("✅ Figure S12: Cluster occupancy saved")
 
 # Save cluster sharing data
 cluster_sharing.to_csv(os.path.join(RESULTS, 'vae_cluster_sharing.csv'), index=False)
@@ -457,7 +406,8 @@ most_responder_cluster = cluster_diff.idxmax()
 most_nonresponder_cluster = cluster_diff.idxmin()
 
 summary = {
-    'methodology': 'VAE-inspired (following Sidhom et al. 2022)',
+    'projection': 'UMAP' if UMAP_AVAILABLE else 't-SNE',
+    'methodology': 'Standardized 3-mer and V/J features, PCA and K-means',
     'n_sequences_analyzed': len(df),
     'n_patients': len(np.unique(patient_ids)),
     'latent_dimensions': n_latent,
@@ -475,10 +425,10 @@ print(f"   Sequences analyzed: {summary['n_sequences_analyzed']:,}")
 print(f"   Patients: {summary['n_patients']}")
 print(f"   Latent dimensions: {summary['latent_dimensions']}")
 print(f"   Variance explained: {summary['variance_explained_pct']:.1f}%")
-print(f"   Shared motifs identified: {summary['n_shared_motifs']}")
-print(f"\n   KEY FINDING (like Sidhom):")
-print(f"   - Most responder-enriched motif: Motif {summary['most_responder_enriched_motif']}")
-print(f"   - Most non-responder-enriched motif: Motif {summary['most_nonresponder_enriched_motif']}")
+print(f"   Clusters: {summary['n_shared_motifs']}")
+print(f"\n   Observed occupancy contrasts:")
+print(f"   - Most responder-enriched cluster: Cluster {summary['most_responder_enriched_motif']}")
+print(f"   - Most non-responder-enriched cluster: Cluster {summary['most_nonresponder_enriched_motif']}")
 
 # Save summary
 summary_df = pd.DataFrame([summary])
@@ -490,7 +440,7 @@ summary_df.to_csv(os.path.join(RESULTS, 'vae_analysis_summary.csv'), index=False
 
 with open(LOG_FILE, 'w') as f:
     f.write("="*80 + "\n")
-    f.write("UNSUPERVISED VAE ANALYSIS LOG (SIDHOM METHODOLOGY)\n")
+    f.write("PCA AND K-MEANS ANALYSIS LOG\n")
     f.write("="*80 + "\n")
     f.write(f"Timestamp: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
     f.write("Reference: Sidhom et al., Science Advances 2022\n")
@@ -503,10 +453,10 @@ with open(LOG_FILE, 'w') as f:
 print(f"\n✅ Log saved to: {LOG_FILE}")
 
 print("\n" + "="*80)
-print("UNSUPERVISED VAE ANALYSIS COMPLETE")
+print("PCA AND K-MEANS ANALYSIS COMPLETE")
 print("="*80)
 print("\nFigures created (following Sidhom et al. style):")
-print("   - Figure 8: VAE Repertoire Distribution (like Sidhom Fig 3A)")
+print("   - Figure 8: Repertoire projection (like Sidhom Fig 3A)")
 print("   - Figure S11: Per-Patient Distribution (like Sidhom Fig 3D)")
 print("   - Figure S12: Shared Motifs Analysis")
 print(f"\nCompleted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")

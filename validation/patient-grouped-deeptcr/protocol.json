@@ -19,5 +19,6 @@
   "accuracy_threshold": 0.5,
   "bootstrap_replicates": 2000,
   "prediction_permutations": 4999,
-  "shuffled_training_control_fold": 1
+  "shuffled_training_control_fold": 1,
+  "cohort_sha256": "80d39ff4d5eb95a47555d1d609825e6cedb366bd71b320bae6f3d619743296de"
 }

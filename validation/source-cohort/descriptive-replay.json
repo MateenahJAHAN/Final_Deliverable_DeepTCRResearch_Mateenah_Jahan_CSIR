@@ -1,0 +1,40 @@
+{
+  "lagged_legacy_replay": {
+    "50000": {
+      "same_50000_input_records_in_order": true,
+      "records": 50000,
+      "patients": 34,
+      "adjusted_rand_index_vs_archive": 0.22833230355788886,
+      "pca_components": 50,
+      "variance_explained_pct": 3.4392419593632977
+    },
+    "30000": {
+      "patients": 34,
+      "records": 30000,
+      "clusters": 10,
+      "variance_explained_pct": 7.690674449908005,
+      "projection": "t-SNE (logged fallback)",
+      "mean_absolute_occupancy_difference_vs_archive_percentage_points_after_matching": 8.91475994448406,
+      "largest_absolute_occupancy_difference_vs_archive_percentage_points_after_matching": 53.518123667377395
+    }
+  },
+  "seeded_descriptive_replay": {
+    "50000": {
+      "same_50000_input_records_in_order": true,
+      "records": 50000,
+      "patients": 34,
+      "adjusted_rand_index_vs_archive": 0.4438348032837447,
+      "pca_components": 50,
+      "variance_explained_pct": 3.436391582655539
+    },
+    "30000": {
+      "patients": 34,
+      "records": 30000,
+      "clusters": 10,
+      "variance_explained_pct": 7.688720555342559,
+      "projection": "UMAP",
+      "mean_absolute_occupancy_difference_vs_archive_percentage_points_after_matching": 5.5075979824904975,
+      "largest_absolute_occupancy_difference_vs_archive_percentage_points_after_matching": 42.98401420959147
+    }
+  }
+}

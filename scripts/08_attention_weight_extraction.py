@@ -28,6 +28,11 @@ Author: Post-training analysis pipeline
 Date: December 2025
 """
 
+raise SystemExit(
+    "DeepTCR_SS did not output sequence attention. The archived weights came from a random fallback."
+    " Use the patient-held-out analysis and figure commands in SETUP.md."
+)
+
 import os
 import sys
 import numpy as np

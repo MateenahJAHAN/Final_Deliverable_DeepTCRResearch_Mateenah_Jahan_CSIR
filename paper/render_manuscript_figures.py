@@ -40,7 +40,7 @@ def diagram(directory, name, steps):
     save(fig, directory, name)
 
 
-def model_panels(directory, repeated, earlier):
+def model_panels(directory, repeated, fixed):
     folds = [(run["folds"], fold) for run in repeated["runs"] for fold in run["fold_metrics"]]
     assert len(folds) == repeated["completed_fits"] == 57
     logged_epochs = np.array([[epoch["batch_mean_loss"] for epoch in fold["epochs"]]
@@ -53,11 +53,11 @@ def model_panels(directory, repeated, earlier):
     a.plot(x, np.median(logged_epochs, axis=0), color=BLUE, lw=2, label="Median")
     a.set(xlabel="Epoch", ylabel="Mean minibatch loss", title="A  All 57 training fits")
     a.legend(frameon=False)
-    for control, label, color in [(earlier["folds"][0], "Recorded labels", BLUE),
-                                  (earlier["shuffled_training_control"], "Shuffled labels", RED)]:
+    for control, label, color in [(fixed["folds"][0], "Recorded labels", BLUE),
+                                  (fixed["shuffled_training_control"], "Shuffled labels", RED)]:
         b.plot(x, [epoch["batch_mean_loss"] for epoch in control["epochs"]],
                marker="o", ms=3, color=color, label=label)
-    b.set(xlabel="Epoch", ylabel="Mean minibatch loss", title="B  Earlier fold-1 control")
+    b.set(xlabel="Epoch", ylabel="Mean minibatch loss", title="B  Fixed partition, fold 1")
     b.legend(frameon=False)
     save(fig, directory, "training-loss")
 
@@ -134,11 +134,11 @@ def main():
     directory = args.output or root / "figures/manuscript"
     directory.mkdir(parents=True, exist_ok=True)
     repeated = json.loads((root / "validation/repeated-patient-cv/repeat_results.json").read_text())
-    earlier = json.loads((root / "validation/correction-rerun/aggregate_results.json").read_text())
+    fixed = json.loads((root / "validation/patient-grouped-deeptcr/aggregate_results.json").read_text())
     plt.rcParams.update({"font.size": 11, "axes.spines.top": False,
                          "axes.spines.right": False, "text.color": "#162d44"})
     diagram(directory, "pipeline", [
-        ("Archived repertoire", "239,637 records\n34 patient labels"),
+        ("Paired repertoire", "239,637 records\n34 patients"),
         ("Length filter", "239,634 eligible records\nAll 34 patients retained"),
         ("Partition by patient", "Stratify the response labels\nKeep each repertoire intact"),
         ("Train and evaluate", "Fit on training patients\nScore held-out patients"),
@@ -149,7 +149,7 @@ def main():
         ("Sequence classifier", "Two-class output\nResponder-class score per record"),
         ("Patient score", "Mean of sequence scores\nOne result per held-out patient"),
     ])
-    model_panels(directory, repeated, earlier)
+    model_panels(directory, repeated, fixed)
     sequence_panels(directory, args.cohort)
 
 

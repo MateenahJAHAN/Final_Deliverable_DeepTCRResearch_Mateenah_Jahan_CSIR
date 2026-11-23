@@ -19,6 +19,8 @@ VENDOR = HERE / "vendor/deeptcr-2.1.29"
 os.environ.setdefault("MPLCONFIGDIR", str(HERE / ".mpl-cache"))
 os.environ.setdefault("NUMBA_CACHE_DIR", str(HERE / ".numba-cache"))
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+if not (VENDOR / "DeepTCR/DeepTCR.py").is_file():
+    raise ImportError("Extract the pinned DeepTCR archive into vendor/ as described in SETUP.md")
 sys.path.insert(0, str(VENDOR))
 
 import numpy as np
@@ -54,17 +56,24 @@ def sha256(path):
 
 def verify_inputs(config, args):
     csv = args.data_dir / "deeptcr_trb_ready.csv"
-    if args.expected_csv_sha256 and sha256(csv) != args.expected_csv_sha256:
-        raise ValueError("Archived processed input does not match the committed digest")
+    expected_csv = config["cohort_sha256"]
+    if args.expected_csv_sha256 and args.expected_csv_sha256 != expected_csv:
+        raise ValueError("Supplied cohort digest differs from the study protocol")
+    if sha256(csv) != expected_csv:
+        raise ValueError("Processed input does not match the study protocol")
     sdist = args.release_archive
     if sha256(sdist) != config["deeptcr_sdist_sha256"]:
         raise ValueError("DeepTCR source archive failed digest verification")
+    prefix = f"deeptcr-{config['deeptcr_source_version']}/"
     with tarfile.open(sdist) as archive:
-        for path in (VENDOR / "DeepTCR").rglob("*.py"):
-            relative = str(path.relative_to(VENDOR))
-            upstream = archive.extractfile(f"deeptcr-2.1.29/{relative}").read()
-            if path.read_bytes() != upstream:
-                raise ValueError(f"Modified upstream Python module: {relative}")
+        expected = {m.name[len(prefix):]: m for m in archive.getmembers()
+                    if m.isfile() and m.name.startswith(prefix + "DeepTCR/") and m.name.endswith(".py")}
+        actual = {p.relative_to(VENDOR).as_posix(): p for p in (VENDOR / "DeepTCR").rglob("*.py")}
+        if not expected or actual.keys() != expected.keys():
+            raise ValueError("Extracted DeepTCR Python module set differs from the verified archive")
+        for name, member in expected.items():
+            if actual[name].read_bytes() != archive.extractfile(member).read():
+                raise ValueError(f"Modified upstream Python module: {name}")
     return csv
 
 
@@ -156,6 +165,8 @@ def fit_fold(model, encoders, codes, groups, labels, train, test, fold, config, 
 
     model.device = "/device:" + args.device + ":0"
     graph_seed = config["random_seed"] + fold
+    # The legacy Keras conv/dense initializers also draw seeds outside the TF graph.
+    tf.keras.utils.set_random_seed(graph_seed)
     model._build(
         **config["graph"],
         batch_size=config["batch_size"],

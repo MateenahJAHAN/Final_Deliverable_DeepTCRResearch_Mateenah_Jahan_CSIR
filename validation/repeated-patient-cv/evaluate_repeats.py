@@ -27,6 +27,8 @@ def arguments():
 
 def verified_cohort(args, config):
     source = args.data_dir / "deeptcr_trb_ready.csv"
+    if args.expected_csv_sha256 != config["cohort_sha256"]:
+        raise ValueError("Supplied cohort digest differs from the study protocol")
     if sha256(source.read_bytes()).hexdigest() != args.expected_csv_sha256:
         raise ValueError("Unexpected cohort digest")
     source_labels = np.load(args.data_dir / "y_labels.npy", allow_pickle=False)

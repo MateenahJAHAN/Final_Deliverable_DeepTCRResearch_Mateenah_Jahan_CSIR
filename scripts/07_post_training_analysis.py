@@ -18,6 +18,11 @@ Author: Post-training analysis pipeline
 Date: December 2025
 """
 
+raise SystemExit(
+    "The historical AUROC script can substitute random scores or mistake epochs for folds."
+    " Use the patient-held-out analysis and figure commands in SETUP.md."
+)
+
 import os
 import sys
 import numpy as np

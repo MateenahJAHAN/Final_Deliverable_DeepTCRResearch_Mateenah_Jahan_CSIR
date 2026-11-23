@@ -10,6 +10,11 @@ Generate Modern, Publication-Quality Figures for Research Paper
 Uses refined styling with modern aesthetics for Nature/Cell-quality figures.
 """
 
+raise SystemExit(
+    "The historical generator simulates ROC curves, training loss and attention."
+    " Use the patient-held-out analysis and figure commands in SETUP.md."
+)
+
 import os
 import sys
 import numpy as np

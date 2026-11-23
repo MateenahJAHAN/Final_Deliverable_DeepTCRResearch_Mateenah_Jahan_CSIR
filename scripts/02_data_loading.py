@@ -36,14 +36,9 @@ The beta chain (TRB) is often more informative because:
 
 IMMUNOTHERAPY CONTEXT:
 ----------------------
-We're analyzing TCR sequences from Basal Cell Carcinoma (BCC) patients who
-received checkpoint blockade immunotherapy (likely anti-PD-1 or anti-CTLA-4).
-
-Responders: Patients whose tumors shrank (response_binary = 1)
-Non-responders: Patients whose tumors didn't shrink (response_binary = 0)
-
-Hypothesis: The TCR repertoire contains clonotypes (specific TCR sequences)
-that recognize tumor antigens. These tumor-reactive TCRs may predict response.
+These TCR sequences come from axicabtagene ciloleucel infusion products in
+large B-cell lymphoma (GSE241783). Response is the three-month PET/CT result
+in Li et al., Table S1A. Separate patients when testing response prediction.
 
 DEEPTCR FORMAT REQUIREMENTS:
 ----------------------------

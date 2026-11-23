@@ -1,44 +1,5 @@
 #!/usr/bin/env python3
-"""
-Script 14: Unsupervised DeepTCR Analysis (VAE-based Clustering)
-================================================================
-
-This script performs unsupervised analysis of TCR repertoires using DeepTCR's
-Variational Autoencoder (VAE) based approach.
-
-PURPOSE:
---------
-1. Apply DeepTCR_U (Unsupervised) for VAE-based TCR sequence embedding
-2. Perform clustering analysis to discover TCR sequence patterns
-3. Analyze repertoire structure without using response labels
-4. Compare cluster distributions between responders and non-responders
-5. Identify shared sequence motifs associated with CAR-T product fitness
-
-UNSUPERVISED LEARNING IN DEEPTCR:
----------------------------------
-DeepTCR_U uses a Variational Autoencoder (VAE) architecture:
-- Encoder: Maps TCR sequences to latent space representation
-- Latent Space: Low-dimensional embedding capturing sequence features
-- Decoder: Reconstructs sequences from latent representation
-- Clustering: K-means or hierarchical clustering on latent embeddings
-
-Key Advantages:
-- No labels required during training (unsupervised)
-- Discovers natural groupings in TCR repertoire
-- Identifies shared sequence motifs
-- Enables visualization of repertoire structure (t-SNE, UMAP)
-
-OUTPUTS:
---------
-1. Latent space embeddings for all sequences
-2. Cluster assignments
-3. Cluster distribution by response status
-4. Visualization of repertoire structure
-5. Enriched sequence motifs per cluster
-
-Author: Mateenah Jahan
-Date: January 2026
-"""
+"""Describe repertoire structure by PCA (50 components) and K-means; visualize a subset with t-SNE. Historical output filenames are retained."""
 
 import os
 import sys
@@ -53,7 +14,7 @@ warnings.filterwarnings('ignore')
 # ==============================================================================
 
 print("="*80)
-print("UNSUPERVISED DEEPTCR ANALYSIS - VAE-BASED CLUSTERING")
+print("TCR REPERTOIRE PCA AND K-MEANS")
 print("="*80)
 print(f"Execution started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
 
@@ -114,7 +75,7 @@ MAX_SEQUENCES = 50000
 if len(df) > MAX_SEQUENCES:
     print(f"\n⚠️  Subsampling to {MAX_SEQUENCES} sequences for memory efficiency...")
     # Stratified sampling by patient
-    df_sampled = df.groupby(sample_col, group_keys=False).apply(
+    df_sampled = df.groupby(sample_col, group_keys=False)[df.columns.tolist()].apply(
         lambda x: x.sample(min(len(x), int(MAX_SEQUENCES * len(x) / len(df)) + 1), random_state=42)
     ).reset_index(drop=True)
     df = df_sampled.head(MAX_SEQUENCES)
@@ -126,28 +87,6 @@ if len(df) > MAX_SEQUENCES:
     j_beta = df['jGeneName'].values
     patient_ids = df[sample_col].values
     response_labels = df[response_col].values
-
-# ==============================================================================
-# SECTION 2: ATTEMPT DEEPTCR UNSUPERVISED ANALYSIS
-# ==============================================================================
-
-print("\n" + "-" * 80)
-print("SECTION 2: UNSUPERVISED VAE ANALYSIS")
-print("-" * 80)
-
-# Try to import DeepTCR_U
-try:
-    from DeepTCR.DeepTCR import DeepTCR_U
-    print("\n✅ DeepTCR_U (Unsupervised) imported successfully")
-    DEEPTCR_U_AVAILABLE = True
-except ImportError:
-    print("\n⚠️  DeepTCR_U not available - using alternative clustering approach")
-    DEEPTCR_U_AVAILABLE = False
-
-# Since DeepTCR_U may not be fully functional, we'll implement VAE-style analysis
-# using the sequence features we already have
-
-print("\n📊 Performing VAE-inspired unsupervised analysis...")
 
 # ==============================================================================
 # SECTION 3: FEATURE EXTRACTION FOR CLUSTERING
@@ -218,10 +157,11 @@ print(f"   J-gene features: {j_onehot.shape[1]} dimensions")
 
 # Combine all features
 combined_features = np.hstack([kmer_features, v_onehot, j_onehot])
+del kmer_features, v_onehot, j_onehot
 print(f"\n   Combined feature matrix: {combined_features.shape}")
 
 # ==============================================================================
-# SECTION 4: DIMENSIONALITY REDUCTION (VAE-LIKE LATENT SPACE)
+# SECTION 4: DIMENSIONALITY REDUCTION (PCA)
 # ==============================================================================
 
 print("\n" + "-" * 80)
@@ -229,13 +169,13 @@ print("SECTION 4: DIMENSIONALITY REDUCTION (LATENT SPACE)")
 print("-" * 80)
 
 # Standardize features
-scaler = StandardScaler()
+scaler = StandardScaler(copy=False)
 features_scaled = scaler.fit_transform(combined_features)
 
 # PCA for initial dimensionality reduction
 print("\nApplying PCA for dimensionality reduction...")
 n_components = min(50, features_scaled.shape[1], features_scaled.shape[0] - 1)
-pca = PCA(n_components=n_components)
+pca = PCA(n_components=n_components, random_state=42)
 latent_space = pca.fit_transform(features_scaled)
 
 explained_var = np.sum(pca.explained_variance_ratio_) * 100
@@ -430,7 +370,7 @@ import matplotlib.pyplot as plt
 
 # Subsample for t-SNE (faster computation)
 n_subsample = min(10000, len(latent_space))
-indices = np.random.choice(len(latent_space), n_subsample, replace=False)
+indices = np.random.default_rng(42).choice(len(latent_space), n_subsample, replace=False)
 
 print(f"\nApplying t-SNE on {n_subsample} sequences...")
 try:

@@ -1,0 +1,7 @@
+{
+  "url": "https://ftp.ncbi.nlm.nih.gov/geo/series/GSE241nnn/GSE241783/suppl/GSE241783_RAW.tar",
+  "series": "GSE241783",
+  "remote_libraries_examined": 59,
+  "contig_csvs_identical_to_local_zip": 58,
+  "libraries_without_a_filtered_contig_file": 1
+}

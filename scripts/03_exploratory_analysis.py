@@ -355,7 +355,7 @@ for autotext in autotexts:
     autotext.set_fontweight('bold')
     autotext.set_fontsize(14)
 
-ax.set_title('Patient Response to Immunotherapy\nBasal Cell Carcinoma Checkpoint Blockade Treatment',
+ax.set_title('Three-month response to CD19 CAR-T therapy\nLarge B-cell lymphoma',
              fontsize=14, fontweight='bold', pad=20)
 
 # Add legend with statistics
@@ -443,9 +443,10 @@ for patch, color in zip(bp['boxes'], ['#2ecc71', '#e74c3c']):
     patch.set_alpha(0.6)
 
 # Overlay individual data points
+jitter = np.random.default_rng(42)
 for i, (data, label) in enumerate(zip(plot_data, plot_labels), 1):
     y = data
-    x = np.random.normal(i, 0.04, size=len(y))
+    x = jitter.normal(i, 0.04, size=len(y))
     ax.scatter(x, y, alpha=0.4, s=100, edgecolors='black', linewidths=0.5)
 
 ax.set_ylabel('Repertoire Size (Unique TCR Sequences)', fontsize=12, fontweight='bold')

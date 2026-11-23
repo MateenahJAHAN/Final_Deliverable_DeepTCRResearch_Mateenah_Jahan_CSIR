@@ -1,0 +1,47 @@
+{
+  "clinical_table_sha256": "e3776b15787ba7058e21150064eaf1166bbf18d1c2c5b20ca94c9af78a7496a2",
+  "three_month_imaging": {
+    "missing": 19,
+    "PD": 16,
+    "CR": 15,
+    "NE": 5,
+    "PR": 4
+  },
+  "counts": {
+    "contigs_identical_between_tar_and_zip": 58,
+    "incorrect_binary_labels": 0,
+    "incorrect_text_labels": 0,
+    "eligible_patients_with_beta": 34,
+    "processed_rows": 239637,
+    "productive_beta_contigs_in_evaluable_libraries": 230384,
+    "processed_unique_cells": 198267,
+    "processed_cells_with_multiple_rows": 32844,
+    "length_exclusions_over_40": 3,
+    "paired_cells_beta_contigs": 208928,
+    "paired_cells_cells": 198267,
+    "paired_cells_eligible_beta_contigs": 208926,
+    "all_beta_beta_contigs": 230384,
+    "all_beta_cells": 219723,
+    "all_beta_eligible_beta_contigs": 230382,
+    "geo_ids_missing_clinical": 0,
+    "clinical_ids_missing_geo": 0,
+    "processed_ids_without_evaluable_sequenced_source": 0,
+    "geo_libraries": 59,
+    "clinical_records": 59,
+    "evaluable_clinical_records": 35,
+    "geo_libraries_with_contigs": 58,
+    "zip_contig_files": 58,
+    "evaluable_without_contigs": 1,
+    "processed_patients": 34,
+    "paired_rows": 239637
+  },
+  "multiset_differences": {
+    "paired_csv_to_processed_beta": 0,
+    "paired_alpha_beta_join_missing_from_processed": 0,
+    "paired_alpha_beta_join_extra_in_processed": 0,
+    "all_productive_beta_missing_from_processed": 21456,
+    "all_productive_beta_extra_in_processed": 30709,
+    "source_alpha_beta_tuples_absent_from_paired_csv": 0,
+    "paired_alpha_beta_tuples_absent_from_source_join": 0
+  }
+}

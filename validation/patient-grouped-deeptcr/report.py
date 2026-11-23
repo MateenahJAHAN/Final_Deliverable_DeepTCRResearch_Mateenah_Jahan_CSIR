@@ -22,7 +22,7 @@ def main():
         if real < 0.5 else "The within-fold estimate was at or above 0.50 in this fitted evaluation."
     )
     lines = [
-        "# Patient-separated DeepTCR rerun",
+        "# Fixed-partition patient evaluation",
         "",
         (
             f"The official DeepTCR_SS 2.1.29 CNN completed five patient-exclusive folds using "
@@ -68,7 +68,7 @@ def main():
             f"changed the assigned classes of {control['train_patient_labels_changed']}/{control['train_patients']} "
             f"training patients. This model scored AUROC {control['patient_auroc']:.3f} on the same "
             f"{control['test_patients']} held-out patients. The original-label fit for that fold scored "
-            f"{same_fold['patient_auroc']:.3f}. Both fits reached similar mean minibatch loss "
+            f"{same_fold['patient_auroc']:.3f}. Final mean minibatch loss was "
             f"(original labels {same_fold['epochs'][-1]['batch_mean_loss']:.3f}, shuffled labels "
             f"{control['epochs'][-1]['batch_mean_loss']:.3f}). The seven test patients give this "
             "single-fold control limited precision."
@@ -88,8 +88,8 @@ def main():
         (
             f"TensorFlow {result['runtime']['tensorflow']} ran on the local "
             f"{result['runtime']['host']} {result['runtime']['device']} backend. "
-            "This run used the two-class head and patient-exclusive folds. The archived script's "
-            "numeric-Y API selects regression. The study includes one 34-patient cohort and "
+            "The classifier used a two-class head and patient-exclusive folds. "
+            "The study includes one 34-patient cohort and "
             "evaluates patient aggregates of DeepTCR_SS sequence scores."
         ),
         "",

@@ -1,0 +1,15 @@
+{
+  "results/unsupervised_latent_space.npy": true,
+  "results/unsupervised_analysis_summary.csv": true,
+  "results/vae_cluster_sharing.csv": true,
+  "results/vae_latent_space.npy": true,
+  "results/unsupervised_cluster_stats.csv": true,
+  "results/vae_analysis_summary.csv": true,
+  "results/unsupervised_patient_cluster_dist.csv": true,
+  "results/unsupervised_cluster_assignments.csv": true,
+  "results/unsupervised_cluster_motifs.csv": true,
+  "figures/paper_final/figureS11_per_patient_distribution.png": true,
+  "figures/paper_final/figureS12_shared_motifs.png": true,
+  "figures/paper_final/figureS10_unsupervised_clustering.png": true,
+  "figures/paper_final/figure8_vae_repertoire_distribution.png": true
+}

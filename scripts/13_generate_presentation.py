@@ -28,6 +28,11 @@ Author: Post-training analysis pipeline
 Date: December 2025
 """
 
+raise SystemExit(
+    "The historical slide generator reports sequence-split performance and random attention."
+    " Use the patient-held-out analysis and figure commands in SETUP.md."
+)
+
 import os
 import sys
 import numpy as np

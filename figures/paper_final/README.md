@@ -1,5 +1,5 @@
-# Figures from the January 2026 submission
+# Historical trainee figures
 
-These figures accompany the historical trainee report. Figures 4A and 5 used a formula-generated ROC and simulated training curves. The historical attention-ranked analyses used fallback scores.
+Figures 4 and 5 include a formula-generated ROC curve and simulated training trajectories. The archived attention panels and sequence rankings derive from random fallback scores. The [archive notes](../../archive/trainee-analysis/README.md) give their provenance.
 
-The [performance figure](../correction/repeated-patient-auroc.png) summarizes the 57-fit patient-held-out evaluation. The [training curves](../manuscript/training-loss.png) use logged loss for all 57 fits. The [research report](../../paper/main.pdf) gives captions and methods for the repertoire figures reused from this directory.
+[Study figures](../manuscript) · [Patient-held-out comparisons](../correction/repeated-patient-auroc.png)

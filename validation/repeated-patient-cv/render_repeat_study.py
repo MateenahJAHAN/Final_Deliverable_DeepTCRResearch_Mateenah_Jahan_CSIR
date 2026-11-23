@@ -72,7 +72,6 @@ def main():
         f"DeepTCR scored higher than the matched baseline in {stats['deeptcr_above_baseline']} of "
         f"{stats['primary_evaluations']} evaluations. The baseline scored higher in "
         f"{stats['baseline_above_deeptcr']}, with {stats['ties']} ties.", "",
-        "The DeepTCR median was below 0.50 and the range extended on both sides of 0.50. This cohort did not establish consistent patient-level discrimination.", "",
         "![DeepTCR and matched composition AUROC by split and fold count](../../figures/correction/repeated-patient-auroc.png)", "",
         "## All evaluations", "",
         "| Folds | Patient split seed | Training seed | DeepTCR AUROC | Composition AUROC | Comparable pairs |",

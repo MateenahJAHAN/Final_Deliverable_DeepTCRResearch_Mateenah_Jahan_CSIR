@@ -1,0 +1,13 @@
+{
+  "reference_checkpoint_sha256": "14a47cbad190c74cf78a0bbe2179d414f7378bc2536eaf8992287ddad90f1660",
+  "partition_seed": 20261121,
+  "training_seed": 20261201,
+  "fold": 1,
+  "independent_fits_compared": 2,
+  "epochs_per_fit": 10,
+  "patients_scored": 7,
+  "max_abs_patient_score_difference": 0.0,
+  "identical_patient_scores": true,
+  "reference_auroc": 0.6666666666666667,
+  "repeat_auroc": 0.6666666666666667
+}

@@ -1,0 +1,212 @@
+{
+  "archived_pair_rows": {
+    "patients": 34,
+    "rows": 239634,
+    "runs": [
+      {
+        "folds": 5,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.3684210526315789,
+        "concordant_pair_equivalents": 21.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.4270833333333333,
+        "pooled_average_precision": 0.5388645857066909
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261122,
+        "within_fold_auroc": 0.3684210526315789,
+        "concordant_pair_equivalents": 21.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.3784722222222222,
+        "pooled_average_precision": 0.488831546543796
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261123,
+        "within_fold_auroc": 0.38596491228070173,
+        "concordant_pair_equivalents": 22.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.40625,
+        "pooled_average_precision": 0.4969229930624117
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261124,
+        "within_fold_auroc": 0.45614035087719296,
+        "concordant_pair_equivalents": 26.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.48611111111111105,
+        "pooled_average_precision": 0.5483232872148115
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261125,
+        "within_fold_auroc": 0.43859649122807015,
+        "concordant_pair_equivalents": 25.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.3784722222222222,
+        "pooled_average_precision": 0.49830837558591723
+      },
+      {
+        "folds": 3,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.3958333333333333,
+        "concordant_pair_equivalents": 38.0,
+        "pairs": 96,
+        "pooled_oof_auroc": 0.4097222222222222,
+        "pooled_average_precision": 0.5087907126467421
+      },
+      {
+        "folds": 4,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.3888888888888889,
+        "concordant_pair_equivalents": 28.0,
+        "pairs": 72,
+        "pooled_oof_auroc": 0.4270833333333333,
+        "pooled_average_precision": 0.5233837473368333
+      }
+    ],
+    "primary_median_within_fold_auroc": 0.38596491228070173
+  },
+  "paired_cells": {
+    "patients": 34,
+    "rows": 208926,
+    "runs": [
+      {
+        "folds": 5,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.42105263157894735,
+        "concordant_pair_equivalents": 24.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.4548611111111111,
+        "pooled_average_precision": 0.5256054547159974
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261122,
+        "within_fold_auroc": 0.3684210526315789,
+        "concordant_pair_equivalents": 21.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.38541666666666663,
+        "pooled_average_precision": 0.4948975016614753
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261123,
+        "within_fold_auroc": 0.42105263157894735,
+        "concordant_pair_equivalents": 24.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.45833333333333337,
+        "pooled_average_precision": 0.5247434547200699
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261124,
+        "within_fold_auroc": 0.543859649122807,
+        "concordant_pair_equivalents": 31.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.5555555555555556,
+        "pooled_average_precision": 0.6035569822334528
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261125,
+        "within_fold_auroc": 0.47368421052631576,
+        "concordant_pair_equivalents": 27.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.4444444444444444,
+        "pooled_average_precision": 0.5238526803467128
+      },
+      {
+        "folds": 3,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.4479166666666667,
+        "concordant_pair_equivalents": 43.0,
+        "pairs": 96,
+        "pooled_oof_auroc": 0.4722222222222222,
+        "pooled_average_precision": 0.5473293278735759
+      },
+      {
+        "folds": 4,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.4027777777777778,
+        "concordant_pair_equivalents": 29.0,
+        "pairs": 72,
+        "pooled_oof_auroc": 0.4409722222222222,
+        "pooled_average_precision": 0.5353777870416494
+      }
+    ],
+    "primary_median_within_fold_auroc": 0.42105263157894735
+  },
+  "all_beta": {
+    "patients": 34,
+    "rows": 230382,
+    "runs": [
+      {
+        "folds": 5,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.38596491228070173,
+        "concordant_pair_equivalents": 22.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.42708333333333337,
+        "pooled_average_precision": 0.5089319894778053
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261122,
+        "within_fold_auroc": 0.38596491228070173,
+        "concordant_pair_equivalents": 22.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.4097222222222222,
+        "pooled_average_precision": 0.5086053002691626
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261123,
+        "within_fold_auroc": 0.38596491228070173,
+        "concordant_pair_equivalents": 22.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.3923611111111111,
+        "pooled_average_precision": 0.4961088306155784
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261124,
+        "within_fold_auroc": 0.47368421052631576,
+        "concordant_pair_equivalents": 27.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.5243055555555556,
+        "pooled_average_precision": 0.5870421840796948
+      },
+      {
+        "folds": 5,
+        "partition_seed": 20261125,
+        "within_fold_auroc": 0.43859649122807015,
+        "concordant_pair_equivalents": 25.0,
+        "pairs": 57,
+        "pooled_oof_auroc": 0.40625,
+        "pooled_average_precision": 0.5122432550307725
+      },
+      {
+        "folds": 3,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.4895833333333333,
+        "concordant_pair_equivalents": 47.0,
+        "pairs": 96,
+        "pooled_oof_auroc": 0.48958333333333337,
+        "pooled_average_precision": 0.568701804614202
+      },
+      {
+        "folds": 4,
+        "partition_seed": 20261121,
+        "within_fold_auroc": 0.3611111111111111,
+        "concordant_pair_equivalents": 26.0,
+        "pairs": 72,
+        "pooled_oof_auroc": 0.3680555555555555,
+        "pooled_average_precision": 0.49167370162731755
+      }
+    ],
+    "primary_median_within_fold_auroc": 0.38596491228070173
+  }
+}

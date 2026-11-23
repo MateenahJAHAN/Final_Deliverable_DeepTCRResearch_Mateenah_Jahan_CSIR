@@ -1,5 +1,5 @@
-# DeepTCR research report
+# Research paper
 
-[Read the report](main.pdf) · [LaTeX source](main.tex) · [Build instructions](../SETUP.md#build-the-research-report)
+The paper reports three-month response in the 34 evaluable patients, the patient-held-out comparison of DeepTCR with a composition model, and sensitivity to the way receptor chains are counted. Supplementary methods, fold denominators and figures are included in the same PDF.
 
-The report integrates the 57-fit patient-held-out evaluation and the repertoire summaries in its Methods and Results sections. The [January 2026 submission](https://github.com/MateenahJAHAN/Final_Deliverable_DeepTCRResearch_Mateenah_Jahan_CSIR/blob/ce1fa3a421edb9f4025a45cb79dc7b014867ad83/paper/main.pdf) is available at its original revision.
+[Read the paper](main.pdf) · [LaTeX source](main.tex) · [Build the report](../SETUP.md#build-the-research-report)
